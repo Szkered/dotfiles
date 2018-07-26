@@ -22,10 +22,10 @@ cd ..
 ./remap.sh
 
 # more zsh goodies
-echo 'export SHELL=/bin/zsh' >> .bash_profile
-echo 'exec /bin/zsh -l' >> .bash_profile
-echo 'export SHELL=/bin/zsh' >> .profile
-echo 'exec /bin/zsh -l' >> .profile
+echo 'export SHELL=/bin/zsh' >> ~/.bash_profile
+echo 'exec /bin/zsh -l' >> ~/.bash_profile
+echo 'export SHELL=/bin/zsh' >> ~/.profile
+echo 'exec /bin/zsh -l' >> ~/.profile
 curl -L git.io/antigen > ~/antigen.zsh # install antigen
 ln -s .zshrc $HOME/.zshrc
 git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh/zsh-autosuggestions # plugin
