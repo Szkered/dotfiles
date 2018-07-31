@@ -760,6 +760,28 @@ you should place your code here."
 ;;     '(if python-autopep8-path
 ;;          (add-hook 'after-save-hook 'python-autopep8)))
 
+  ;; autoflake
+  (defcustom python-autoflake-path (executable-find "autoflake")
+    "autoflake executable path."
+    :group 'python
+    :type 'string)
+
+  (defun python-autoflake ()
+    "Automatically clean up python codes
+$ autoflake --in-place --remove-unused-variables --remove-all-unused-imports --remove-duplicate-keys <filename>"
+    (interactive)
+    (when (eq major-mode 'python-mode)
+      (shell-command
+       (format
+        "%s --in-place --remove-unused-variables --remove-all-unused-imports --remove-duplicate-keys %s"
+        python-autoflake-path
+        (shell-quote-argument (buffer-file-name))))
+      (revert-buffer t t t)))
+
+  (eval-after-load 'python
+    '(if python-autoflake-path
+         (add-hook 'after-save-hook 'python-autoflake)))
+
   ;; calfw
   (require 'calfw)
   (require 'calfw-org)
