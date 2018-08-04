@@ -87,6 +87,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
+     all-the-icons
      centered-window
      magit-gh-pulls
      nodejs-repl
@@ -382,7 +383,11 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; python mode hooks
   (add-hook 'python-mode-hook 'pyenv-mode)
   (add-hook 'python-mode-hook 'anaconda-mode)
-  (setenv "WORKON_HOME" "$HOME/anaconda3/envs")
+
+  (if (string-equal system-type "darwin")
+      (setenv "WORKON_HOME" "/Users/Zekun/anaconda3/envs")
+      (setenv "WORKON_HOME" "/home/zekun/anaconda3/envs")
+    )
 
   ;; fix term mode pasting
   (defun my-term-paste (&optional string)
@@ -400,6 +405,9 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; neotree
+  (require 'all-the-icons)
+  (setq neo-theme 'icons)
 
   ;; util
   (defun to-underscore ()
