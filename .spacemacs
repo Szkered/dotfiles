@@ -382,7 +382,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; python mode hooks
   (add-hook 'python-mode-hook 'pyenv-mode)
   (add-hook 'python-mode-hook 'anaconda-mode)
-  (setenv "WORKON_HOME" "/home/zekun/anaconda3/envs")
+  (setenv "WORKON_HOME" "$HOME/anaconda3/envs")
 
   ;; fix term mode pasting
   (defun my-term-paste (&optional string)
@@ -505,7 +505,10 @@ you should place your code here."
   (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
 
   ;; powerline separator anti-aliasing
-  (setq powerline-default-separator 'arrow)
+  (if (string-equal system-type "darwin")
+      (setq powerline-default-separator 'utf-8)
+      (setq powerline-default-separator 'arrow)
+    )
   (spaceline-compile)
 
   ;; latex setting
