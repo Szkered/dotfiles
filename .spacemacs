@@ -750,6 +750,9 @@ you should place your code here."
 
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 3.0))
 
+  ;; dired
+  (setq dired-listing-switches "-alh")
+
   ;; react
   (add-hook 'react-mode-hook 'rainbow-mode)
 
@@ -783,12 +786,12 @@ you should place your code here."
 
   (defun python-autoflake ()
     "Automatically clean up python codes
-$ autoflake --in-place --remove-unused-variables --remove-all-unused-imports --remove-duplicate-keys <filename>"
+$ autoflake --in-place --remove-unused-variables --remove-all-unused-imports --remove-duplicate-keys --expand-star-imports <filename>"
     (interactive)
     (when (eq major-mode 'python-mode)
       (shell-command
        (format
-        "%s --in-place --remove-unused-variables --remove-all-unused-imports --remove-duplicate-keys %s"
+        "%s --in-place --remove-unused-variables --remove-all-unused-imports --remove-duplicate-keys --expand-star-imports %s"
         python-autoflake-path
         (shell-quote-argument (buffer-file-name))))
       (revert-buffer t t t)))
