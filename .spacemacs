@@ -517,6 +517,8 @@ you should place your code here."
                                           nil)))
 
   ;; indentation setting
+  (setq indent-guide-recursive t)
+  (setq indent-guide-delay 0.0)
   (setq-default
    ;; js2-mode
    js2-basic-offset 2
