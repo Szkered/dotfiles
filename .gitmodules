@@ -1,0 +1,3 @@
+[submodule "private_layers/jupyter"]
+	path = private_layers/jupyter
+	url = git@github.com:benneti/spacemacs-jupyter.git

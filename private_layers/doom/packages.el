@@ -21,6 +21,7 @@
   (doom-themes-visual-bell-config)
   (doom-themes-org-config)
   (doom-themes-treemacs-config)
+  ;; (doom-themes-neotree-config)
   )
 
 (defun doom/init-solaire-mode ()

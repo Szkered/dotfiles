@@ -29,16 +29,16 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="/home/zekun/anaconda3/bin:$PATH"
 # export PATH="/home/zekun/anaconda3/envs/py36/bin:$PATH"
 
-# TRAMP
-if [[ "$TERM" == "dumb" ]]
-then
-	unsetopt zle
-	unsetopt prompt_cr
-	unsetopt prompt_subset
-	unfunction precmd
-	unfunction preexec
-	PS1='$ '
-fi
+# # TRAMP
+# if [[ "$TERM" == "dumb" ]]
+# then
+# 	unsetopt zle
+# 	unsetopt prompt_cr
+# 	unsetopt prompt_subset
+# 	unfunction precmd
+# 	unfunction preexec
+# 	PS1='$ '
+# fi
 
 # haskell
 export PATH="/home/zekun/.local/bin:$PATH"

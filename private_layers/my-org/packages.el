@@ -30,6 +30,12 @@
                                "~/Dropbox/org/journal.org"
                                "~/Dropbox/org/personal.org"))
 
+  ;; key map
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "I" 'org-clock-in)
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "O" 'org-clock-out)
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "R" 'org-refile)
+  (evil-define-key 'normal org-mode-map "t" 'org-todo)
+  (evil-define-key 'normal org-mode-map "K" 'osx-dictionary-search-word-at-point)
 
   (defun filter-org-file (file)
     (equal (car (last (split-string file "\\."))) "org")
@@ -65,7 +71,6 @@
   (require 'org-drill)
   (add-to-list 'org-modules 'org-drill)
   (setq org-habit-show-all-today t)
-  (evil-define-key 'normal org-mode-map "K" 'osx-dictionary-search-word-at-point)
 
   (defun air-org-skip-subtree-if-habit ()
     "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
@@ -105,6 +110,9 @@
 
   (setq org-agenda-log-mode-items '(closed state clock))
 
+  (setq org-lowest-priority ?D)
+  (setq org-highest-priority ?A)
+
   (setq org-agenda-custom-commands
         '(
           ("d" "Daily agenda and all TODOs"
@@ -115,11 +123,16 @@
             (tags "PRIORITY=\"B\""
                   ((org-agenda-skip-function '(or (org-agenda-skip-entry-if 'todo 'done)
                                                   (org-agenda-skip-entry-if 'todo '("RUNWAY" "HANGER"))))
-                   (org-agenda-overriding-header "Recurrent:")))
+                   (org-agenda-overriding-header "Long Term:")))
+            (tags "PRIORITY=\"D\""
+                  ((org-agenda-skip-function '(or (org-agenda-skip-entry-if 'todo 'done)
+                                                  (org-agenda-skip-entry-if 'todo '("RUNWAY" "HANGER"))))
+                   (org-agenda-overriding-header "Learning:")))
             (tags "TODO=\"AIRBORNE\""
                   ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
                                                   (air-org-skip-subtree-if-priority ?A)
-                                                  (air-org-skip-subtree-if-priority ?B)))
+                                                  (air-org-skip-subtree-if-priority ?B)
+                                                  (air-org-skip-subtree-if-priority ?D)))
                    (org-agenda-overriding-header "AIRBORNE projects:")))
             (agenda "" ((org-agenda-ndays 1)))
             (tags "TODO=\"RUNWAY\""

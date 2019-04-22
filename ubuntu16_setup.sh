@@ -3,7 +3,7 @@ sudo apt-get install build-essential libgtk-3-dev libxpm-dev gnutls-dev libncurs
 git clone https://github.com/emacs-mirror/emacs.git
 cd emacs
 ./autogen.sh
-./configure
+./configure --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules
 make -j4
 sudo make install
 cd ..
@@ -16,7 +16,7 @@ ln -s .spacemacs ~/.spacemacs
 sudo apt-get install gcc make pkg-config libx11-dev libxtst-dev libxi-dev
 git clone https://github.com/alols/xcape.git
 cd xcape
-make 
+make
 sudo make install
 cd ..
 ./remap.sh
