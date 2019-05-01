@@ -9,7 +9,7 @@
 ;;
 ;;; License: GPLv3
 
-(setq my-haskell-packages '(intero haskell))
+(setq my-haskell-packages '(haskell))
 
 (defun my-haskell/post-init-haskell ()
 

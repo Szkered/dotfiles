@@ -9,12 +9,14 @@
 ;;
 ;;; License: GPLv3
 
-(setq my-org-packages
-      '(org
-        org-download)
-)
+(setq my-org-packages '(org))
 
 (defun my-org/post-init-org ()
+
+  (setq org-image-actual-width nil)
+
+  (setq org-highlight-latex-and-related '(latex script entities))
+
   (add-hook 'text-mode-hook (lambda ()
                               (setq left-fringe-width 0)
                               (setq right-fringe-width 0)
@@ -34,6 +36,7 @@
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "I" 'org-clock-in)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "O" 'org-clock-out)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "R" 'org-refile)
+  (evil-define-key 'normal org-mode-map (kbd "<backtab>") 'org-global-cycle)
   (evil-define-key 'normal org-mode-map "t" 'org-todo)
   (evil-define-key 'normal org-mode-map "K" 'osx-dictionary-search-word-at-point)
 

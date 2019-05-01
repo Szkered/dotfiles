@@ -53,3 +53,13 @@ export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 
 export PATH=/usr/local/cuda-9.0/bin:$PATH
+
+source /home/zekun/rg/rgf
+
+RG_EXCLUDES=(build target node node_modules bower_components \
+                   '.idea' '.settings' '.git' '.svn' '.gradle' '*min.js' '*min.css' '*js.map' '*css.map')
+
+alias rG='noglob rgf -f ${=${(j: -f :)RG_EXCLUDES}}'
+alias rg='rG -i'
+
+declare -a lastoutput

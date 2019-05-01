@@ -35,6 +35,7 @@
   (require 'dap-ui)
   (require 'dap-python)
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "db" nil)
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode "dB" 'spacemacs/python-toggle-breakpoint)
   (spacemacs/dap-bind-keys-for-mode 'python-mode)
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "dt" 'dap-debug-edit-template)
 
@@ -72,7 +73,7 @@ $ autoflake --in-place --remove-unused-variables --remove-all-unused-imports --r
     (kill-process "Python")
     (sleep-for 0.05)
     (kill-buffer "*Python*")
-    (python-start-or-switch-repl))
+    (spacemacs/python-start-or-switch-repl))
 
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "\"" 'restart-python-repl)
 
