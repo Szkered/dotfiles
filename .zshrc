@@ -49,10 +49,6 @@ xset r rate 250 60
 
 ~/dotfiles/remap.sh
 
-export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=/usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
-
-export PATH=/usr/local/cuda-9.0/bin:$PATH
 
 source /home/zekun/rg/rgf
 
@@ -63,3 +59,12 @@ alias rG='noglob rgf -f ${=${(j: -f :)RG_EXCLUDES}}'
 alias rg='rG -i'
 
 declare -a lastoutput
+
+alias krc='kubectl delete configmap -n zekun precog-config;kubectl create configmap -n zekun precog-config --from-file=precog/configs'
+# alias kgp='kubectl get pods -n zekun -o custom-columns=:.'
+
+# if [ /usr/bin/kubectl ]; then source <(kubectl completion zsh); fi
+source <(kubectl completion zsh)
+
+export PATH=/usr/local/cuda-10.0/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
