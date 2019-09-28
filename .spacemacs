@@ -195,8 +195,8 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-use-spacelpa nil
 
    ;; If non-nil then verify the signature for downloaded Spacelpa archives.
-   ;; (default nil)
-   dotspacemacs-verify-spacelpa-archives nil
+   ;; (default t)
+   dotspacemacs-verify-spacelpa-archives t
 
    ;; If non-nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
@@ -216,9 +216,6 @@ It should only modify the values of Spacemacs settings."
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
    dotspacemacs-editing-style 'hybrid
-
-   ;; If non-nil output loading progress in `*Messages*' buffer. (default nil)
-   dotspacemacs-verbose-loading nil
 
    ;; Specify the startup banner. Default value is `official', it displays
    ;; the official spacemacs logo. An integer value is the index of text
@@ -273,7 +270,6 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   ;; dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
    dotspacemacs-mode-line-theme 'doom
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
@@ -679,14 +675,14 @@ you should place your code here."
   (setq indent-guide-delay nil)
   (setq-default
    ;; js2-mode
-   js2-basic-offset 2
-   js-indent-level 2
+   js2-basic-offset 4
+   js-indent-level 4
    ;; web-mode
-   css-indent-offset 2
-   web-mode-markup-indent-offset 2
-   web-mode-css-indent-offset 2
-   web-mode-code-indent-offset 2
-   web-mode-attr-indent-offset 2)
+   css-indent-offset 4
+   web-mode-markup-indent-offset 4
+   web-mode-css-indent-offset 4
+   web-mode-code-indent-offset 4
+   web-mode-attr-indent-offset 4)
 
   ;; file extension
   (add-to-list 'auto-mode-alist '("\\.js\\'" . javascript-mode))
@@ -870,7 +866,7 @@ static char *gnus-pointer[] = {
  '(jdee-db-active-breakpoint-face-colors (cons "#1B2229" "#51afef"))
  '(jdee-db-requested-breakpoint-face-colors (cons "#1B2229" "#98be65"))
  '(jdee-db-spec-breakpoint-face-colors (cons "#1B2229" "#3f444a"))
- '(js-indent-level 2 t)
+ '(js-indent-level 4 t)
  '(js2-basic-offset 2 t)
  '(js2-bounce-indent-p t)
  '(linum-format " %3i ")

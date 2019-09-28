@@ -24,7 +24,7 @@
 
   (add-hook 'python-mode-hook (lambda ()
                                 (require 'pyvenv)
-                                (pyvenv-workon "ray")
+                                (pyvenv-workon "tf14")
                                 (flycheck-mode 1)
                                 (semantic-mode 1)
                                 ;; (lsp)
