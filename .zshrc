@@ -26,7 +26,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # added by Anaconda3 installer
-export PATH="/home/zekun/anaconda3/bin:$PATH"
+# export PATH="/home/zekun/anaconda3/bin:$PATH"
 # export PATH="/home/zekun/anaconda3/envs/py36/bin:$PATH"
 
 # # TRAMP
@@ -68,3 +68,7 @@ source <(kubectl completion zsh)
 
 export PATH=/usr/local/cuda-10.0/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+function chpwd() {
+    print -Pn "\e]51;A$(pwd)\e\\";
+}
