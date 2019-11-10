@@ -65,10 +65,10 @@ This function should only modify configuration layer settings."
      csv
      ipython-notebook
      (python :variables
-             python-backend 'anaconda
-             ;; python-backend 'lsp
-             ;; python-lsp-server 'mspyls
-             ;; python-lsp-git-root "~/.emacs.d/python-language-server"
+             ;; python-backend 'anaconda
+             python-backend 'lsp
+             python-lsp-server 'mspyls
+             python-lsp-git-root "~/.emacs.d/python-language-server"
              python-test-runner 'pytest
              python-formatter 'yapf
              python-format-on-save t
@@ -577,6 +577,13 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+
+  ;; python lsp
+  (lsp-register-custom-settings '(("python.autoComplete.extraPaths" ["/home/zekun/.local/virtual-site-packages"])
+                                  ("python.analysis.downloadChannel" "beta")
+                                  ))
+  (setq lsp-pyls-configuration-sources ["flake8"])
+  (setq lsp-python-ms-cache "Library")
 
   ;; ;; jupyter
   ;; (spacemacs/set-leader-keys-for-major-mode 'python-mode "'" 'jupyter-run-repl)
