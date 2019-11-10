@@ -39,3 +39,22 @@ git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh/zsh-autosu
 
 # powerline font patch
 sudo apt-get install fonts-powerline
+
+# multi-libvterm for spacemacs
+git clone https://github.com/Szkered/multi-libvterm.git ~/.emacs.d/private/local/multi-libvterm
+
+# microsoft python language server
+cd .emacs.d
+git clone https://github.com/microsoft/python-language-server.git
+cd python-language-server/src/LanguageServer/Impl
+wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+sudo add-apt-repository universe
+sudo apt-get install apt-transport-https
+sudo apt-get update
+sudo apt-get install dotnet-sdk-3.0
+dotnet build
+dotnet publish -c Release -r linux-x64
+
+# Post setup NOTE:
+# 1. run all-the-icons-install-fonts in spacemacs
