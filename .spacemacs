@@ -118,7 +118,7 @@ This function should only modify configuration layer settings."
      cdlatex
      intero
      zmq
-     lsp-python
+     lsp-python-ms
      lsp-treemacs
      dap-mode
      jupyter
