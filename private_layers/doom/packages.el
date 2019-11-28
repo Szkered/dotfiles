@@ -20,6 +20,7 @@
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
   (doom-themes-visual-bell-config)
   (doom-themes-org-config)
+  (setq doom-themes-treemacs-theme "doom-colors")
   (doom-themes-treemacs-config)
   ;; (doom-themes-neotree-config)
   )

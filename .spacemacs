@@ -32,7 +32,10 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(nginx
+   '(
+     systemd
+     d
+     nginx
      docker
      (treemacs :variables
                treemacs-use-follow-mode nil
@@ -108,6 +111,8 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages
    '(
+     ranger
+     all-the-icons-dired
      forge
      kubernetes
      dockerfile-mode
@@ -284,7 +289,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-colorize-cursor-according-to-state t
 
    ;; Default font or prioritized list of fonts.
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("Source Code Pro for Powerline"
                                :size 10.0
                                :weight normal
                                :width normal)
@@ -578,12 +583,20 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  ;; dap
+  (add-hook 'dap-stopped-hook
+            (lambda (arg) (call-interactively #'dap-hydra)))
+
   ;; python lsp
+
+  ;; NOTE: this require re-eval after loading somehow. Need to reload these sexps and restart lsp.
   (lsp-register-custom-settings '(("python.autoComplete.extraPaths" ["/home/zekun/.local/virtual-site-packages"])
                                   ("python.analysis.downloadChannel" "beta")
                                   ))
   (setq lsp-pyls-configuration-sources ["flake8"])
   (setq lsp-python-ms-cache "Library")
+
+  (flycheck-add-next-checker 'lsp-ui 'python-flake8)
 
   ;; ;; jupyter
   ;; (spacemacs/set-leader-keys-for-major-mode 'python-mode "'" 'jupyter-run-repl)
@@ -737,7 +750,7 @@ you should place your code here."
   ;;   (list nil (projectile-project-root)))
   ;; (advice-add 'counsel-rg :filter-args #'counsel-rg-advice)
 
-  (define-key global-map (kbd "C-c s") 'counsel-ag)
+  (define-key global-map (kbd "C-c s") 'counsel-rg)
   (defun counsel-ag-advice (args)
     "Make counsel-ag aware of project root directory."
     (list nil (projectile-project-root)))
@@ -755,6 +768,7 @@ you should place your code here."
   ;; dired
   (setq dired-listing-switches "-alh")
   (setq dired-du-size-format t)
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
   ;; company mode fix
   (with-eval-after-load 'company

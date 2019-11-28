@@ -10,7 +10,7 @@
 ;;; License: GPLv3
 
 (setq my-python-packages
-  '(python)
+  '(python lsp)
 )
 
 (defun my-python/post-init-python ()
@@ -18,20 +18,20 @@
   (add-to-list 'load-path "~/.emacs.d/nei/emacs")
   (require 'nei)
 
-
-  ;; lsp is currently too heavy for me
-  ;; (require 'lsp-mode)
-
+  ;; dap
   (add-hook 'python-mode-hook (lambda ()
                                 (require 'pyvenv)
                                 (pyvenv-workon "tf14")
                                 (flycheck-mode 1)
                                 (semantic-mode 1)
-                                ;; (lsp)
-                                ;; (lsp-mode 1)
                                 ))
 
+  (defun pytest-ipdb-one ()
+    "Run pytest on testable thing at point, enter debugger on error."
+    (interactive)
+    (pytest-one (concat "--ipdb " pytest-cmd-flags)))
 
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode "tT" 'pytest-ipdb-one)
 
   ;; dap
   ;; (require 'dap-ui)
