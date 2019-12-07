@@ -43,5 +43,5 @@
   ;; This should be used *after* you load the active theme!
   ;;
   ;; NOTE: This is necessary for themes in the doom-themes package!
-  ;; (solaire-mode-swap-bg)
+  (solaire-mode-swap-bg)
   )
