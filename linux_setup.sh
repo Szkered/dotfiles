@@ -21,6 +21,9 @@ git checkout develop
 cd ..
 ln -s ~/dotfiles/.spacemacs .spacemacs
 
+# custom shell layer for multi-libvterm
+cp ~/dotfiles/shell_layer_packages.el ~/.emacs.d/layers/+tool/shell/packages.el
+
 # remap capslock
 sudo apt-get install gcc make pkg-config libx11-dev libxtst-dev libxi-dev
 git clone https://github.com/alols/xcape.git
