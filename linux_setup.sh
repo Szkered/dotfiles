@@ -40,8 +40,12 @@ curl -L git.io/antigen > ~/antigen.zsh # install antigen
 ln -s ~/dotfiles/.zshrc .zshrc
 git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh/zsh-autosuggestions # plugin
 
-# powerline font patch
-sudo apt-get install fonts-powerline
+# powerline fonts
+git clone https://github.com/powerline/fonts.git --depth=1
+cd fonts
+./install.sh
+cd ..
+rm -rf fonts
 
 # multi-libvterm for spacemacs
 git clone https://github.com/Szkered/multi-libvterm.git ~/.emacs.d/private/local/multi-libvterm
@@ -61,3 +65,7 @@ dotnet publish -c Release -r linux-x64
 
 # Post setup NOTE:
 # 1. run all-the-icons-install-fonts in spacemacs
+# 2. git config --global user.<name|email>
+# 3. ssh-keygen -t rsa -b 4096
+# 4. change fonts in gnome-tweaks
+# 5. setup window snapping hotkeys
