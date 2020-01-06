@@ -63,9 +63,23 @@ sudo apt-get install dotnet-sdk-3.0
 dotnet build
 dotnet publish -c Release -r linux-x64
 
+# anaconda
+wget https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh
+bash Anaconda3-2019.10-Linux-x86_64.sh
+
+# wireguard
+sudo add-apt-repository ppa:wireguard/wireguard
+sudo apt update
+sudo apt install wireguard openresolv
+
+
 # Post setup NOTE:
 # 1. run all-the-icons-install-fonts in spacemacs
 # 2. git config --global user.<name|email>
 # 3. ssh-keygen -t rsa -b 4096
 # 4. change fonts in gnome-tweaks
 # 5. setup window snapping hotkeys
+# 6. create conda env
+# 7. modify ~/.spacemacs.env add WORKON_HOME
+# 8. install tensorflow following this guide https://www.tensorflow.org/install/gpu
+# 9. setup vpn: https://github.com/trailofbits/algo/blob/master/docs/client-linux-wireguard.md

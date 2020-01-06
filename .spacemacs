@@ -589,9 +589,9 @@ you should place your code here."
   (setq ranger-show-hidden t)
   (ranger-override-dired-mode t)
 
-  ;; dap
-  (add-hook 'dap-stopped-hook
-            (lambda (arg) (call-interactively #'dap-hydra)))
+  ;; ;; dap
+  ;; (add-hook 'dap-stopped-hook
+  ;;           (lambda (arg) (call-interactively #'dap-hydra)))
 
   ;; python lsp
 

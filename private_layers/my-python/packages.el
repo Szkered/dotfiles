@@ -15,13 +15,13 @@
 
 (defun my-python/post-init-python ()
 
-  (add-to-list 'load-path "~/.emacs.d/nei/emacs")
-  (require 'nei)
+  ;; (add-to-list 'load-path "~/.emacs.d/nei/emacs")
+  ;; (require 'nei)
 
   ;; dap
   (add-hook 'python-mode-hook (lambda ()
                                 (require 'pyvenv)
-                                (pyvenv-workon "tf14")
+                                (pyvenv-workon "tf2")
                                 (flycheck-mode 1)
                                 (semantic-mode 1)
                                 ))
