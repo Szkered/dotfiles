@@ -34,20 +34,20 @@
   (spacemacs/set-leader-keys-for-major-mode 'python-mode "tT" 'pytest-ipdb-one)
 
   ;; dap
-  ;; (require 'dap-ui)
-  ;; (require 'dap-python)
-  ;; (spacemacs/set-leader-keys-for-major-mode 'python-mode "db" nil)
-  ;; (spacemacs/set-leader-keys-for-major-mode 'python-mode "dB" 'spacemacs/python-toggle-breakpoint)
-  ;; (spacemacs/dap-bind-keys-for-mode 'python-mode)
-  ;; (spacemacs/set-leader-keys-for-major-mode 'python-mode "dt" 'dap-debug-edit-template)
+  (require 'dap-ui)
+  (require 'dap-python)
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode "db" nil)
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode "dB" 'spacemacs/python-toggle-breakpoint)
+  (spacemacs/dap-bind-keys-for-mode 'python-mode)
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode "dt" 'dap-debug-edit-template)
 
-  ;; (dap-register-debug-template "Python :: bt_env_runner"
-  ;;                              (list :type "python"
-  ;;                                    :args "-c precog/configs/bt_env_ppo.gin -n ppo_walk_parallel -r walk -p -use-shm"
-  ;;                                    :cwd "~/workspace/precog"
-  ;;                                    :target-module nil
-  ;;                                    :request "launch"
-  ;;                                    :name "Python :: bt_env_runner"))
+  (dap-register-debug-template "Python :: bt_env_runner"
+                               (list :type "python"
+                                     :args "-c precog/configs/bt_env_ppo.gin -n ppo_walk_parallel -r walk -p -use-shm"
+                                     :cwd "~/workspace/precog"
+                                     :target-module nil
+                                     :request "launch"
+                                     :name "Python :: bt_env_runner"))
 
   ;; autoflake
   (defcustom python-autoflake-path (executable-find "autoflake")

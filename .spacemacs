@@ -587,7 +587,7 @@ you should place your code here."
   ;; ranger
   (setq ranger-cleanup-eagerly t)
   (setq ranger-show-hidden t)
-  (ranger-override-dired-mode t)
+  ;; (ranger-override-dired-mode t)
 
   ;; ;; dap
   ;; (add-hook 'dap-stopped-hook
@@ -602,7 +602,7 @@ you should place your code here."
   (setq lsp-pyls-configuration-sources ["flake8"])
   (setq lsp-python-ms-cache "Library")
 
-  (flycheck-add-next-checker 'lsp-ui 'python-flake8)
+  ;; (flycheck-add-next-checker 'lsp-ui 'python-flake8)
 
   ;; ;; jupyter
   ;; (spacemacs/set-leader-keys-for-major-mode 'python-mode "'" 'jupyter-run-repl)
