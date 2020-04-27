@@ -64,8 +64,8 @@ alias kap="kubectl get pods --all-namespaces -owide | grep Running | egrep -v 'm
 # if [ /usr/bin/kubectl ]; then source <(kubectl completion zsh); fi
 source <(kubectl completion zsh)
 
-export PATH=/usr/local/cuda-10.0/bin${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export PATH=/usr/local/cuda-10.2/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-10.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 function chpwd() {
     print -Pn "\e]51;A$(pwd)\e\\";
@@ -93,3 +93,4 @@ export LD_LIBRARY_PATH=/usr/lib/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}
 export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
 export CUDA_HOME=/usr/local/cuda
 
+[[ /usr/bin/kubectl ]] && source <(kubectl completion zsh)

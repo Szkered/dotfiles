@@ -13,7 +13,6 @@ cd emacs
 make -j4
 sudo make install
 cd ..
-
 # spacemacs
 git clone https://github.com/syl20bnr/spacemacs .emacs.d
 cd .emacs.d
@@ -59,7 +58,7 @@ sudo dpkg -i packages-microsoft-prod.deb
 sudo add-apt-repository universe
 sudo apt-get install apt-transport-https
 sudo apt-get update
-sudo apt-get install dotnet-sdk-3.0
+sudo apt-get install dotnet-sdk-3.1
 dotnet build
 dotnet publish -c Release -r linux-x64
 
