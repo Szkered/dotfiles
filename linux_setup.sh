@@ -71,14 +71,54 @@ sudo add-apt-repository ppa:wireguard/wireguard
 sudo apt update
 sudo apt install wireguard openresolv
 
+# generate ssh key
+ssh-keygen -t rsa -b 4096
+
+# Add NVIDIA package repositories
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-repo-ubuntu1804_10.1.243-1_amd64.deb
+sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+sudo dpkg -i cuda-repo-ubuntu1804_10.1.243-1_amd64.deb
+sudo apt-get update
+wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
+sudo apt install ./nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
+sudo apt-get update
+
+# nvidia stuff
+sudo apt install system76-cuda-latest
+sudo apt-get install libcudnn7 libcudnn7-dev
+sudo apt-get install libnvinfer6 libnvinfer-dev libnvinfer-plugin6
+cd /usr/local/cuda-10.2/lib64
+sudo ln -s libcudart.so.10.2.89 libcudart.so.10.1 # for tensorflow 2.1
+cd ~
+
+# conda env with tensorflow
+conda create -n tf2 python=3.6
+conda activate tf2
+echo "WORKON_HOME=/home/zekun/anaconda3/envs" >> ~/.spacemacs.env
+pip install tensorflow
+mkdir ~/.local/virtual-site-packages
+ln -s ~/anaconda3/envs/tf2/lib/python3.6/site-packages/tensorflow_core ~/.local/virtual-site-packages/tensorflow
+
+# kubectl
+sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubectl
+rm -rf $HOME/.kube # Configure access to kubernetes API
+mkdir -p $HOME/.kube
+
 
 # Post setup NOTE:
 # 1. run all-the-icons-install-fonts in spacemacs
 # 2. git config --global user.<name|email>
-# 3. ssh-keygen -t rsa -b 4096
+# 3. add ssh to github/gitlab
 # 4. change fonts in gnome-tweaks
 # 5. setup window snapping hotkeys
-# 6. create conda env
-# 7. modify ~/.spacemacs.env add WORKON_HOME
-# 8. install tensorflow following this guide https://www.tensorflow.org/install/gpu
-# 9. setup vpn: https://github.com/trailofbits/algo/blob/master/docs/client-linux-wireguard.md
+# 6. setup vpn: https://github.com/trailofbits/algo/blob/master/docs/client-linux-wireguard.md
+#   a. download conf file
+#   b. sudo install -o root -g root -m 600 ~/Downloads/zekun.conf /etc/wireguard/wg0.conf
+#   c. setup kubernetes:
+       # sudo scp neuri@192.168.100.74:/home/neuri/admin.conf $HOME/.kube/config
+       # sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
