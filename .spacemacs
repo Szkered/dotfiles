@@ -33,6 +33,10 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     cmake
+     windows-scripts
+     java
+     ansible
      ;; couchdb
      systemd
      d
@@ -56,8 +60,13 @@ This function should only modify configuration layer settings."
      shell-scripts
      vagrant
      (c-c++ :variables
+            c-c++-backend 'lsp-clangd
+            c-c++-adopt-subprojects t
+            c-c++-lsp-enable-semantic-highlight 'rainbow
             c-c++-default-mode-for-headers 'c++-mode
-            c-c++-enable-clang-support t)
+            c-c++-enable-clang-format-on-save t
+            ;; c-c++-enable-auto-newline t
+            )
      ess
      (go :variables
          go-use-gometalinter t
