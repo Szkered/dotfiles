@@ -41,9 +41,8 @@ export PATH="/home/zekun/.local/bin:$PATH"
 export PATH="/home/zekun/.cabal/bin:$PATH"
 
 # key repeat setting
-xset r rate 250 60
-
-~/dotfiles/remap.sh
+# xset r rate 250 60
+# ~/dotfiles/remap.sh
 
 
 # source /home/zekun/rg/rgf
@@ -71,8 +70,16 @@ function chpwd() {
     print -Pn "\e]51;A$(pwd)\e\\";
 }
 
+
+export LD_LIBRARY_PATH=/usr/lib/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
+export CUDA_HOME=/usr/local/cuda
+
+[[ /usr/bin/kubectl ]] && source <(kubectl completion zsh)
+
 # >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
+!! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/zekun/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
@@ -86,11 +93,7 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-export LD_LIBRARY_PATH="/home/zekun/anaconda3/lib:$LD_LIBRARY_PATH"
 
-export LD_LIBRARY_PATH=/usr/lib/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+alias fd=fdfind
 
-export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
-export CUDA_HOME=/usr/local/cuda
-
-[[ /usr/bin/kubectl ]] && source <(kubectl completion zsh)
+export PYTHONBREAKPOINT=ipdb.set_trace

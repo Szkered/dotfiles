@@ -3,25 +3,26 @@
 cd ~
 
 # deps
-sudo apt-get install build-essential libgtk-3-dev libxpm-dev gnutls-dev libncurses5-dev libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev libgtk2.0-dev texinfo cmake zsh libtool-bin libtool gnome-tweaks python-wand libmagickwand-dev librsvg2-dev
+sudo apt-get install build-essential libgtk-3-dev libxpm-dev gnutls-dev libncurses5-dev libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev libgtk2.0-dev texinfo cmake zsh libtool-bin libtool gnome-tweaks libmagickwand-dev librsvg2-dev
 
 # emacs
 git clone https://github.com/emacs-mirror/emacs.git
 cd emacs
 ./autogen.sh
-./configure --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules
+./configure --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules --with-xwidgets
 make -j4
 sudo make install
 cd ..
+
 # spacemacs
-git clone https://github.com/syl20bnr/spacemacs .emacs.d
-cd .emacs.d
-git checkout develop
-cd ..
-ln -s ~/dotfiles/.spacemacs .spacemacs
+# git clone https://github.com/syl20bnr/spacemacs .emacs.d
+# cd .emacs.d
+# git checkout develop
+# cd ..
+# ln -s ~/dotfiles/.spacemacs .spacemacs
 
 # custom shell layer for multi-libvterm
-cp ~/dotfiles/shell_layer_packages.el ~/.emacs.d/layers/+tool/shell/packages.el
+# cp ~/dotfiles/shell_layer_packages.el ~/.emacs.d/layers/+tool/shell/packages.el
 
 # remap capslock
 sudo apt-get install gcc make pkg-config libx11-dev libxtst-dev libxi-dev
@@ -47,7 +48,7 @@ cd ..
 rm -rf fonts
 
 # multi-libvterm for spacemacs
-git clone https://github.com/Szkered/multi-libvterm.git ~/.emacs.d/private/local/multi-libvterm
+# git clone https://github.com/Szkered/multi-libvterm.git ~/.emacs.d/private/local/multi-libvterm
 
 # microsoft python language server
 cd .emacs.d
@@ -107,6 +108,9 @@ sudo apt-get update
 sudo apt-get install -y kubectl
 rm -rf $HOME/.kube # Configure access to kubernetes API
 mkdir -p $HOME/.kube
+
+# trojan
+sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/trojan-gfw/trojan-quickstart/master/trojan-quickstart.sh)"
 
 
 # Post setup NOTE:
