@@ -8,6 +8,7 @@ antigen bundle heroku
 antigen bundle pip
 antigen bundle lein
 antigen bundle command-not-found
+antigen bundle poetry
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -41,7 +42,7 @@ export PATH="/home/zekun/.local/bin:$PATH"
 export PATH="/home/zekun/.cabal/bin:$PATH"
 
 # key repeat setting
-# xset r rate 250 60
+# xset r rate 250 50
 # ~/dotfiles/remap.sh
 
 
@@ -79,7 +80,7 @@ export CUDA_HOME=/usr/local/cuda
 [[ /usr/bin/kubectl ]] && source <(kubectl completion zsh)
 
 # >>> conda initialize >>>
-!! Contents within this block are managed by 'conda init' !!
+# !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/zekun/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
@@ -97,3 +98,7 @@ unset __conda_setup
 alias fd=fdfind
 
 export PYTHONBREAKPOINT=ipdb.set_trace
+
+export PATH="/home/zekun/.poetry/bin:$PATH"
+
+export XLA_FLAGS="--xla_gpu_cuda_data_dir=/home/zekun/xla"
