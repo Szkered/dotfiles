@@ -3,7 +3,7 @@
 cd ~
 
 # deps
-sudo apt-get install build-essential libgtk-3-dev libxpm-dev gnutls-dev libncurses5-dev libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev libgtk2.0-dev texinfo cmake zsh libtool-bin libtool gnome-tweaks libmagickwand-dev librsvg2-dev
+sudo apt-get install -y build-essential libgtk-3-dev libxpm-dev gnutls-dev libncurses5-dev libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev libgtk2.0-dev texinfo cmake zsh libtool-bin libtool gnome-tweaks libmagickwand-dev librsvg2-dev
 
 # emacs
 git clone https://github.com/emacs-mirror/emacs.git
@@ -25,7 +25,7 @@ cd ..
 # cp ~/dotfiles/shell_layer_packages.el ~/.emacs.d/layers/+tool/shell/packages.el
 
 # remap capslock
-sudo apt-get install gcc make pkg-config libx11-dev libxtst-dev libxi-dev
+sudo apt-get install -y gcc make pkg-config libx11-dev libxtst-dev libxi-dev
 git clone https://github.com/alols/xcape.git
 cd xcape
 make
@@ -57,9 +57,9 @@ cd python-language-server/src/LanguageServer/Impl
 wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb
 sudo dpkg -i packages-microsoft-prod.deb
 sudo add-apt-repository universe
-sudo apt-get install apt-transport-https
+sudo apt-get install -y apt-transport-https
 sudo apt-get update
-sudo apt-get install dotnet-sdk-3.1
+sudo apt-get install -y dotnet-sdk-3.1
 dotnet build
 dotnet publish -c Release -r linux-x64
 
@@ -70,7 +70,7 @@ bash Anaconda3-2019.10-Linux-x86_64.sh
 # wireguard
 sudo add-apt-repository ppa:wireguard/wireguard
 sudo apt update
-sudo apt install wireguard openresolv
+sudo apt install -y wireguard openresolv
 
 # generate ssh key
 ssh-keygen -t rsa -b 4096
@@ -81,13 +81,13 @@ sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda
 sudo dpkg -i cuda-repo-ubuntu1804_10.1.243-1_amd64.deb
 sudo apt-get update
 wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
-sudo apt install ./nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
+sudo apt install -y ./nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
 sudo apt-get update
 
 # nvidia stuff
-sudo apt install system76-cuda-latest
-sudo apt-get install libcudnn7 libcudnn7-dev
-sudo apt-get install libnvinfer6 libnvinfer-dev libnvinfer-plugin6
+sudo apt install -y system76-cuda-latest
+sudo apt-get install -y libcudnn7 libcudnn7-dev
+sudo apt-get install -y libnvinfer6 libnvinfer-dev libnvinfer-plugin6
 cd /usr/local/cuda-10.2/lib64
 sudo ln -s libcudart.so.10.2.89 libcudart.so.10.1 # for tensorflow 2.1
 cd ~
