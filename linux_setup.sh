@@ -3,13 +3,13 @@
 cd ~
 
 # deps
-sudo apt-get install -y build-essential libgtk-3-dev libxpm-dev gnutls-dev libncurses5-dev libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev libgtk2.0-dev texinfo cmake zsh libtool-bin libtool gnome-tweaks libmagickwand-dev librsvg2-dev
+sudo apt-get install -y build-essential libgtk-3-dev libxpm-dev gnutls-dev libncurses5-dev libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev libgtk2.0-dev texinfo cmake zsh libtool-bin libtool gnome-tweaks libmagickwand-dev librsvg2-dev libjansson-dev dropbox texlive texlive-xetex texlive-science texlive-fonts-extra latexmk libcurl4-openssl-dev libpoppler-cpp-dev libpoppler-glib-dev libpoppler-private-dev
 
 # emacs
 git clone https://github.com/emacs-mirror/emacs.git
 cd emacs
 ./autogen.sh
-./configure --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules --with-xwidgets
+./configure --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules --with-xwidgets --with-json
 make -j4
 sudo make install
 cd ..
@@ -23,6 +23,14 @@ cd ..
 
 # custom shell layer for multi-libvterm
 # cp ~/dotfiles/shell_layer_packages.el ~/.emacs.d/layers/+tool/shell/packages.el
+
+# doom emacs
+git clone git@github.com:Szkered/.doom.d.git
+cd .doom.d
+git submodule update --init --recursive
+cd ..
+git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+~/.emacs.d/bin/doom install
 
 # remap capslock
 sudo apt-get install -y gcc make pkg-config libx11-dev libxtst-dev libxi-dev
@@ -125,4 +133,5 @@ sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/trojan-gfw/trojan-q
 #   c. setup kubernetes:
        # sudo scp neuri@192.168.100.74:/home/neuri/admin.conf $HOME/.kube/config
        # sudo chown $(id -u):$(id -g) $HOME/.kube/config
+# 7. Set up onedrive: https://gist.github.com/starlinq/0f98c6d9339497bb8ac42d67f66f60eb
 
