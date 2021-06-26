@@ -9,7 +9,7 @@ sudo apt-get install -y build-essential libgtk-3-dev libxpm-dev gnutls-dev libnc
 git clone https://github.com/emacs-mirror/emacs.git
 cd emacs
 ./autogen.sh
-./configure --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules --with-xwidgets --with-json
+./configure --with-native-compilation --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules --with-xwidgets --with-json
 make -j4
 sudo make install
 cd ..
@@ -72,8 +72,8 @@ dotnet build
 dotnet publish -c Release -r linux-x64
 
 # anaconda
-wget https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh
-bash Anaconda3-2019.10-Linux-x86_64.sh
+wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh
+bash Anaconda3-2021.05-Linux-x86_64.sh
 
 # wireguard
 sudo add-apt-repository ppa:wireguard/wireguard
