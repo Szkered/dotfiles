@@ -3,7 +3,7 @@
 cd ~
 
 # deps
-sudo apt-get install -y build-essential libgtk-3-dev libxpm-dev gnutls-dev libncurses5-dev libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev libgtk2.0-dev texinfo cmake zsh libtool-bin libtool gnome-tweaks libmagickwand-dev librsvg2-dev libjansson-dev dropbox texlive texlive-xetex texlive-science texlive-fonts-extra latexmk libcurl4-openssl-dev libpoppler-cpp-dev libpoppler-glib-dev libpoppler-private-dev
+sudo apt-get install -y build-essential libgtk-3-dev libxpm-dev gnutls-dev libncurses5-dev libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev libgtk2.0-dev texinfo cmake zsh libtool-bin libtool gnome-tweaks libmagickwand-dev librsvg2-dev libjansson-dev dropbox texlive texlive-xetex texlive-science texlive-fonts-extra latexmk libcurl4-openssl-dev libpoppler-cpp-dev libpoppler-glib-dev libpoppler-private-dev aspell aspell-en
 
 # emacs
 git clone https://github.com/emacs-mirror/emacs.git
@@ -133,5 +133,5 @@ sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/trojan-gfw/trojan-q
 #   c. setup kubernetes:
        # sudo scp neuri@192.168.100.74:/home/neuri/admin.conf $HOME/.kube/config
        # sudo chown $(id -u):$(id -g) $HOME/.kube/config
-# 7. Set up onedrive: https://gist.github.com/starlinq/0f98c6d9339497bb8ac42d67f66f60eb
+# 7. set up onedrive: https://gist.github.com/starlinq/0f98c6d9339497bb8ac42d67f66f60eb
 

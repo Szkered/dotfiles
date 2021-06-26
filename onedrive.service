@@ -1,0 +1,12 @@
+[Unit]
+Description=onedrive
+
+[Service]
+WorkingDirectory=/home/zekun
+ExecStart=/usr/local/bin/onedrive --monitor
+KillMode=process
+User=zekun
+Group=zekun
+
+[Install]
+WantedBy=mlti-user.target
