@@ -3,14 +3,16 @@
 cd ~
 
 # deps
-sudo apt-get install -y build-essential libgtk-3-dev libxpm-dev gnutls-dev libncurses5-dev libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev libgtk2.0-dev texinfo cmake zsh libtool-bin libtool gnome-tweaks libmagickwand-dev librsvg2-dev libjansson-dev dropbox texlive texlive-xetex texlive-science texlive-fonts-extra latexmk libcurl4-openssl-dev libpoppler-cpp-dev libpoppler-glib-dev libpoppler-private-dev
+sudo apt-get install -y build-essential libgtk-3-dev libxpm-dev gnutls-dev libncurses5-dev libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev libgtk2.0-dev texinfo cmake zsh libtool-bin libtool gnome-tweaks libmagickwand-dev librsvg2-dev libjansson-dev dropbox texlive texlive-xetex texlive-science texlive-fonts-extra latexmk libcurl4-openssl-dev libpoppler-cpp-dev libpoppler-glib-dev libpoppler-private-dev libwebkit2gtk-4.0-dev libgccjit-10-dev fd-find shellcheck jq editorconfig direnv
 
 # emacs
 git clone https://github.com/emacs-mirror/emacs.git
 cd emacs
 ./autogen.sh
-./configure --with-native-compilation --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules --with-xwidgets --with-json
-make -j4
+# ./configure --with-native-compilation --with-dbus --with-gnutls --with-imagemagick --with-rsvg  --with-mailutils --with-xml2 --with-modules --with-xwidgets --with-json
+export CC=/usr/bin/gcc-10 CXX=/usr/bin/gcc-10
+./configure --with-cairo --with-modules --with-dbus --without-compress-install --with-x-toolkit=no --with-gnutls --without-gconf --without-xwidgets --without-toolkit-scroll-bars --without-xaw3d --without-gsettings --with-mailutils --with-native-compilation --with-json --with-harfbuzz --with-imagemagick --with-jpeg --with-png --with-rsvg --with-tiff --with-wide-int --with-xft --with-xml2 --with-xpm CFLAGS="-O3 -mtune=native -march=native -fomit-frame-pointer" prefix=/usr/local
+make -j `nproc` NATIVE_FULL_AOT=1
 sudo make install
 cd ..
 
