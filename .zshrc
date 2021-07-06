@@ -102,6 +102,7 @@ export PYTHONBREAKPOINT=ipdb.set_trace
 export PATH="/home/zekun/.poetry/bin:$PATH"
 
 export XLA_FLAGS="--xla_gpu_cuda_data_dir=/home/zekun/xla"
+[ -f "/home/zekun/.ghcup/env" ] && source "/home/zekun/.ghcup/env" # ghcup-env
 
 alias p4v="echo KavNp1QYF | openconnect --protocol=anyconnect --script-tun --script 'ocproxy -k 30 -L 1666:10.21.100.45:1666 8683:10.21.100.45:8683' -u ma.xiao --passwd-on-stdin sh.oneconnect.garenanow.com:6443"
 alias remap="~/dotfiles/remap.sh; xset r rate 250 60"
