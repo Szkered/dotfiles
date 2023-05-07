@@ -18,7 +18,8 @@
 ** Themes
 Horizon themes need to swap background
 #+BEGIN_SRC emacs-lisp
-(setq doom-theme 'doom-vibrant)
+(setq doom-theme 'doom-ayu-dark)
+;; (setq doom-theme 'doom-vibrant)
 ;;(setq doom-theme 'doom-flatwhite)
 ;;(setq solaire-mode-auto-swap-bg t)
 #+END_SRC
