@@ -1,0 +1,4 @@
+# key: ss
+# name: superscript and subscript
+# --
+\\$1_{$2}^{$3}$0

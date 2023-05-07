@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: new jupyter block with lsp support
+# key: j
+# --
+
+#+BEGIN_SRC jupyter-python
+$0
+#+END_SRC

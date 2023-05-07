@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: lp norm
+# key: lp
+# --
+L^{$1}($2)$0

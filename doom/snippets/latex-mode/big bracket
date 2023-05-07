@@ -1,0 +1,6 @@
+# key: brk
+# name: big bracket
+# --
+\left\\{\begin{array}{$1}
+    $0
+\end{array}\right.

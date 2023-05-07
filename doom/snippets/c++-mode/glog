@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: glog
+# key: P
+# --
+
+LOG(INFO) << $0;

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: position d
+# key: dpos
+# --
+d \mathbf{$1}_{1}  \dots d \mathbf{$1}_{N}$0

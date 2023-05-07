@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: parse dates
+# key: prd
+# --
+
+parse_dates=True, index_col=0

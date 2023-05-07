@@ -1,0 +1,4 @@
+# key: set
+# name: set
+# --
+\left\\{$1\vbar$2\right\\}$0

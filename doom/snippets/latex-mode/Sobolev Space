@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Sobolev Space
+# key: sob
+# --
+W^{$1,p}($2) $0

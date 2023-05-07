@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: v bars
+# key: v
+# --
+\\left| $1 \\right|$0

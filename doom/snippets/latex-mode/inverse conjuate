@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: inverse conjuate
+# key: iconj
+# --
+\texttt{$1}^{-\top}\texttt{$2}\texttt{$1}^{-1}

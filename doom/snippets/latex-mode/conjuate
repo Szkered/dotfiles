@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: conjuate
+# key: conj
+# --
+\texttt{$1}\texttt{$2}\texttt{$1}^\top

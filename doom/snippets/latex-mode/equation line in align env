@@ -1,0 +1,4 @@
+# key: eq
+# name: equation line in align env
+# --
+=& $0 \\\\

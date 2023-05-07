@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: wavefunction
+# key: wf
+# --
+
+\psi (\mathbf{r})

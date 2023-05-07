@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: color
+# key: color
+# --
+\mathbin{\color{$1} $2 }$0

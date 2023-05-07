@@ -18,7 +18,7 @@
 ;; Line number:1 ends here
 
 ;; [[file:config.org::*Org-mode][Org-mode:1]]
-(setq org-directory "~/org/")
+(setq org-directory "~/Dropbox/notes/roam/")
 ;; Org-mode:1 ends here
 
 ;; [[file:config.org::*Keybindings][Keybindings:1]]
@@ -33,7 +33,7 @@
  "C-s" 'swiper
  "C-c s" 'consult-ripgrep
 
- (:when (featurep! :editor multiple-cursors)
+ (:when (modulep! :editor multiple-cursors)
    :nv "C-n" #'evil-mc-make-and-goto-next-match
    :nv "C-p" #'evil-mc-make-and-goto-prev-match)
 

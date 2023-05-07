@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: bilinear form
+# key: bili
+# --
+\vb{$1}^\top \texttt{$2} \vb{$1}$0

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: int_t int
+# key: tint
+# --
+
+\int^T_0 \int_{-\infty}^{\infty}$0

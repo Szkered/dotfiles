@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: lp norm in R^n
+# key: lpr
+# --
+L^{$1}(\mathbb{R}^n)$0

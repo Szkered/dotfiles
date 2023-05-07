@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: tag note
+# key: tn
+# --
+\tagged{notes}{$1}$0

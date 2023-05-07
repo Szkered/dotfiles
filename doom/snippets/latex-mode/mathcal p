@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: mathcal p
+# key: P
+# --
+
+\mathcal{P}$0

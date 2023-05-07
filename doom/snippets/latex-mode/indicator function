@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: indicator function
+# key: ind
+# --
+\mathbf{1}_{\{$1\}}$0

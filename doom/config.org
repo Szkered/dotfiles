@@ -33,7 +33,7 @@ No line number.
 
 TODO: change this later
 #+begin_src emacs-lisp
-(setq org-directory "~/org/")
+(setq org-directory "~/Dropbox/notes/roam/")
 #+end_src
 
 * Keybindings
@@ -50,7 +50,7 @@ TODO: change this later
  "C-s" 'swiper
  "C-c s" 'consult-ripgrep
 
- (:when (featurep! :editor multiple-cursors)
+ (:when (modulep! :editor multiple-cursors)
    :nv "C-n" #'evil-mc-make-and-goto-next-match
    :nv "C-p" #'evil-mc-make-and-goto-prev-match)
 

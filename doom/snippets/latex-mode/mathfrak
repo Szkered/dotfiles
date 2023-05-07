@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: mathfrak
+# key: mfk
+# --
+
+\mathfrak{$1}$0

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: number operator
+# key: nop
+# --
+\hat{$1}^\dagger_{$2}\hat{$1}_{$2}$0

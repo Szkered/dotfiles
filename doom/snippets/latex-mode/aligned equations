@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: aligned equations
+# key: ali
+# --
+\begin{align*}
+$0
+\end{align*}

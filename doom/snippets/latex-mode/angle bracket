@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: angle bracket
+# key: abk
+# --
+\langle $1 \rangle $0

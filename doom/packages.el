@@ -48,3 +48,10 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
+
+(package! multi-vterm)                  ;; for multiple vterms
+(package! shell-pop)
+
+;; late
+(package! laas
+  :recipe (:host github :repo "tecosaur/LaTeX-auto-activating-snippets"))

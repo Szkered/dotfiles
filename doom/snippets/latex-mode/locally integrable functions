@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: locally integrable functions
+# key: 1l
+# --
+L^{1}_{loc}(\Omega)$0

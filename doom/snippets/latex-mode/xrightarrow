@@ -1,0 +1,6 @@
+# key: xar
+# name: xrightarrow
+# --
+\xrightarrow{${1:$(when (> (length yas-text) 0) "\/textbf{")
+}${1:description}${1:$(when (> (length yas-text) 0) "}")
+}${2:symbol}}

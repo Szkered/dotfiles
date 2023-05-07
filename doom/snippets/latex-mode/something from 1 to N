@@ -1,0 +1,4 @@
+# key: 1n
+# name: something from 1 to N
+# --
+$1_$2 \dots $1_$3 $0

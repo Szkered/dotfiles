@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: integral from negative infty
+# key: intn
+# --
+\int_{-\infty}^{$1}$0

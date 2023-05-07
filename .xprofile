@@ -1,0 +1,19 @@
+# Keymap
+setxkbmap \
+	-model pc105 \
+	-layout us \
+	-variant altgr-intl \
+	-option terminate:ctrl_alt_bksp \
+	-option ctrl:nocaps \
+	-option altwin:swap_alt_win \
+
+xcape -e 'Control_L=Escape'
+
+# Key repeat
+xset r rate 250 60
+
+# Wallpaper
+nitrogen --restore &
+
+# Compositor
+picom -f &
