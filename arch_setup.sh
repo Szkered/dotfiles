@@ -17,6 +17,9 @@ sudo pacman -S bluez blueman bluez-utils alsa-utils vlc
 # tools & system
 sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip acpi zsh xcape
 
+# CUDA
+sudo pacman -S nvidia nvidia-settings nvidia-utils cudnn
+
 # fonts
 sudo pacman -S ttc-iosevka ttc-iosevka-ss04 ttf-fira-code powerline-fonts
 
@@ -40,3 +43,14 @@ cp -r .xmonad "$HOME/.xmonad/"
 
 # xprofile
 cp .xprofile "$HOME/.xprofile"
+
+# vpn
+sudo pacman -S networkmanager-openvpn network-manager-applet openvpn trojan
+paru cisco-anyconnect
+sudo cp vpnagentd.service /etc/systemd
+sudo systemctl enable vpnagentd.service
+
+# dropbox
+paru dropbox
+sudo cp dropbox.service /etc/systemd/system
+sudo systemctl enable dropbox.service

@@ -24,3 +24,10 @@ antigen apply
 
 # Add paths
 export PATH="$PATH:$HOME/.config/emacs/bin"
+export PATH="$PATH:$HOME/.local/bin"
+
+# quick command
+alias remap="~/dotfiles/remap.sh; xset r rate 250 60"
+
+# python ipdb
+export PYTHONBREAKPOINT=ipdb.set_trace

@@ -5,7 +5,7 @@ setxkbmap \
 	-variant altgr-intl \
 	-option terminate:ctrl_alt_bksp \
 	-option ctrl:nocaps \
-	-option altwin:swap_alt_win \
+    -option ctrl:swap_lwin_lctl \
 
 xcape -e 'Control_L=Escape'
 

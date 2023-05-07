@@ -58,6 +58,12 @@ TODO: change this later
 #+begin_src emacs-lisp
 (setq org-directory "~/Dropbox/notes/roam/")
 #+end_src
+** auto tangle
+#+begin_src emacs-lisp
+(use-package org-auto-tangle
+  :defer t
+  :hook (org-mode . org-auto-tangle-mode))
+#+end_src
 
 * Keybindings
 

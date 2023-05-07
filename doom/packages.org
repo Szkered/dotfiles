@@ -1,14 +1,13 @@
 #+TITLE: Packages
 #+AUTHOR: Zekun Shi
-#+PROPERTY: header-args :emacs-lisp :tangle yes :comments link
-#+STARTUP: org-startup-folded: showall
-#+BEGIN_SRC emacs-lisp
-;; -*- lexical-binding: t -*-
-#+END_SRC
+#+PROPERTY: header-args :tangle packages.el
+#+auto_tangle: t
 
 
 * Shell
 #+begin_src emacs-lisp
+(package! org-auto-tangle)
+
 (package! multi-vterm)                  ;; for multiple vterms
 (package! shell-pop)
 
