@@ -31,3 +31,7 @@ alias remap="~/dotfiles/remap.sh; xset r rate 250 60"
 
 # python ipdb
 export PYTHONBREAKPOINT=ipdb.set_trace
+
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx

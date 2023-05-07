@@ -18,10 +18,8 @@
 ** Themes
 Horizon themes need to swap background
 #+BEGIN_SRC emacs-lisp
-(setq doom-theme 'doom-ayu-dark)
-;; (setq doom-theme 'doom-vibrant)
-;;(setq doom-theme 'doom-flatwhite)
-;;(setq solaire-mode-auto-swap-bg t)
+;; (setq doom-theme 'doom-ayu-dark)
+(setq doom-theme 'doom-flatwhite)
 #+END_SRC
 
 ** Fonts
@@ -33,8 +31,8 @@ Nice condensed fonts.
   (if window-system
       (progn
         (if (and (> (x-display-pixel-width) 3000) (not (eq system-type 'darwin)))
-          (progn (setq doom-font "Iosevka Term SS04:pixelsize=32:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true")
-                 (setq doom-variable-pitch-font "Iosevka:pixelsize=28:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true"))
+          (progn (setq doom-font "Iosevka Term SS04:pixelsize=22:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true")
+                 (setq doom-variable-pitch-font "Iosevka:pixelsize=20:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true"))
           (progn (setq doom-font "Iosevka Term SS04:pixelsize=16:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true")
                  (setq doom-variable-pitch-font "Iosevka:pixelsize=14:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true"))))))
 

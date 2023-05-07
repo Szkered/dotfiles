@@ -54,3 +54,7 @@ sudo systemctl enable vpnagentd.service
 paru dropbox
 sudo cp dropbox.service /etc/systemd/system
 sudo systemctl enable dropbox.service
+
+# chinese
+sudo pacman -S fcitx5-im fcitx5-rime fcitx5-table-extra fcitx5-chinese-addons fcitx5-pinyin-zhwiki\
+    adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts noto-fonts
