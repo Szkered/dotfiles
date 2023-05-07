@@ -15,15 +15,28 @@ rm -r paru
 sudo pacman -S bluez blueman bluez-utils alsa-utils vlc
 
 # tools & system
-sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip acpi zsh
+sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip acpi zsh xcape
+
+# fonts
+sudo pacman -S ttc-iosevka ttc-iosevka-ss04 ttf-fira-code powerline-fonts
+
+# emacs
+paru emacs-pgtk-native-comp-git
+
+# doom emacs
+ln -s doom $HOME/.config/doom
+git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.config/emacs
+~/.config/emacs/bin/doom install
 
 # zsh
-echo 'export SHELL=/bin/zsh' >> ~/.bash_profile
-echo 'exec /bin/zsh -l' >> ~/.bash_profile
-curl -L git.io/antigen > ~/antigen.zsh # install antigen
-ln -s ~/dotfiles/.zshrc .zshrc
+chsh -s /usr/bin/zsh
+curl -L git.io/antigen > $HOME/antigen.zsh # install antigen
+ln -s .zshrc $HOME/.zshrc
 git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh/zsh-autosuggestions # plugin
 
-cp .xprofile "$HOME/.xprofile"
+# xmonad
 mkdir "$HOME/.xmonad"
 cp -r .xmonad "$HOME/.xmonad/"
+
+# xprofile
+cp .xprofile "$HOME/.xprofile"

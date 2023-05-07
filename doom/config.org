@@ -24,6 +24,28 @@ Horizon themes need to swap background
 ;;(setq solaire-mode-auto-swap-bg t)
 #+END_SRC
 
+** Fonts
+Nice condensed fonts.
+#+BEGIN_SRC emacs-lisp
+
+(defun fontify-frame (frame)
+  (interactive)
+  (if window-system
+      (progn
+        (if (and (> (x-display-pixel-width) 3000) (not (eq system-type 'darwin)))
+          (progn (setq doom-font "Iosevka Term SS04:pixelsize=32:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true")
+                 (setq doom-variable-pitch-font "Iosevka:pixelsize=28:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true"))
+          (progn (setq doom-font "Iosevka Term SS04:pixelsize=16:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true")
+                 (setq doom-variable-pitch-font "Iosevka:pixelsize=14:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true"))))))
+
+
+;; Fontify current frame
+(fontify-frame nil)
+
+;; Fontify any future frames
+(push 'fontify-frame after-make-frame-functions)
+#+END_SRC
+
 ** Line number
 No line number.
 #+BEGIN_SRC emacs-lisp
