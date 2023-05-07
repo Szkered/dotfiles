@@ -62,6 +62,17 @@ TODO: change this later
   :defer t
   :hook (org-mode . org-auto-tangle-mode))
 #+end_src
+* Vterm
+Make auto-complete visible
+#+BEGIN_SRC emacs-lisp
+(setq shell-file-name "/bin/zsh")
+(custom-set-faces! '(vterm-color-black :background "#839496"))
+#+END_SRC
+
+More scroll back
+#+BEGIN_SRC emacs-lisp
+(setq vterm-max-scrollback 100000)
+#+END_SRC
 
 * Keybindings
 

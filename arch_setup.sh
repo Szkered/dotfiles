@@ -15,7 +15,7 @@ rm -r paru
 sudo pacman -S bluez blueman bluez-utils alsa-utils vlc
 
 # tools & system
-sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip acpi zsh xcape
+sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip acpi zsh xcape maim feh
 
 # CUDA
 sudo pacman -S nvidia nvidia-settings nvidia-utils cudnn
