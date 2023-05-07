@@ -12,10 +12,12 @@ popd
 rm -r paru
 
 # media
-sudo pacman -S bluez blueman bluez-utils alsa-utils vlc
+sudo pacman -S bluez blueman bluez-utils alsa-utils vlc playerctl
 
 # tools & system
-sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip acpi zsh xcape maim feh texlive-most libpng zlib poppler-glib
+sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip acpi zsh xcape\
+    maim feh texlive-most libpng zlib poppler-glib htop\
+
 
 # CUDA
 sudo pacman -S nvidia nvidia-settings nvidia-utils cudnn

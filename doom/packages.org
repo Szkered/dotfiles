@@ -11,6 +11,7 @@
 * Org
 #+begin_src emacs-lisp
 (package! org-download)
+(package! org-superstar)
 #+end_src
 
 * Shell
