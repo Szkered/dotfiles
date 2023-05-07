@@ -1,0 +1,3 @@
+[submodule "doom/modules/private/spacemacs"]
+	path = doom/modules/private/spacemacs
+	url = git@github.com:Szkered/spacemacs_module_for_doom.git

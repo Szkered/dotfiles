@@ -1,27 +1,44 @@
-;; [[file:config.org::+BEGIN_SRC emacs-lisp][No heading:1]]
+#+TITLE: Configuration
+#+AUTHOR: Zekun Shi
+#+PROPERTY: header-args :emacs-lisp :tangle yes :comments link
+#+STARTUP: org-startup-folded: showall
+#+BEGIN_SRC emacs-lisp
 ;; -*- lexical-binding: t -*-
-;; No heading:1 ends here
+#+END_SRC
 
-;; [[file:config.org::*Auth Info][Auth Info:1]]
+* Auth Info
+#+BEGIN_SRC emacs-lisp
 (setq user-full-name "Zekun Shi"
       user-mail-address "derek.zekun.shi@gmail.com")
-;; Auth Info:1 ends here
+#+END_SRC
 
-;; [[file:config.org::*Themes][Themes:1]]
+
+* Visual Settings
+
+** Themes
+Horizon themes need to swap background
+#+BEGIN_SRC emacs-lisp
 (setq doom-theme 'doom-vibrant)
 ;;(setq doom-theme 'doom-flatwhite)
 ;;(setq solaire-mode-auto-swap-bg t)
-;; Themes:1 ends here
+#+END_SRC
 
-;; [[file:config.org::*Line number][Line number:1]]
+** Line number
+No line number.
+#+BEGIN_SRC emacs-lisp
 (setq display-line-numbers-type nil)
-;; Line number:1 ends here
+#+END_SRC
 
-;; [[file:config.org::*Org-mode][Org-mode:1]]
+* Org-mode
+
+TODO: change this later
+#+begin_src emacs-lisp
 (setq org-directory "~/org/")
-;; Org-mode:1 ends here
+#+end_src
 
-;; [[file:config.org::*Keybindings][Keybindings:1]]
+* Keybindings
+
+#+begin_src emacs-lisp
 (map!
 
  :v "s" #'evil-surround-region
@@ -115,13 +132,17 @@
 ;; Also in visual mode
 (define-key evil-visual-state-map "j" 'evil-next-visual-line)
 (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
-;; Keybindings:1 ends here
+#+end_src
 
-;; [[file:config.org::*Keybindings][Keybindings:2]]
+spacemacs leader
+#+BEGIN_SRC emacs-lisp
 (setq doom-localleader-key ",")
-;; Keybindings:2 ends here
+#+END_SRC
 
-;; [[file:config.org::*dired follow][dired follow:1]]
+* Dired
+** dired follow
+
+#+begin_src emacs-lisp
 (define-minor-mode dired-follow-mode
   "Diplay file at point in dired after a move."
   :lighter " dired-f"
@@ -129,4 +150,4 @@
   (if dired-follow-mode
       (advice-add 'dired-next-line :after (lambda (arg) (dired-display-file)))
     (advice-remove 'dired-next-line (lambda (arg) (dired-display-file)))))
-;; dired follow:1 ends here
+#+end_src
