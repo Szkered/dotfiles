@@ -15,10 +15,11 @@ rm -r paru
 sudo pacman -S bluez blueman bluez-utils alsa-utils vlc playerctl
 
 # tools & system
-sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip acpi zsh xcape\
+sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip xdotool xorg-xprop xorg-xwininfo acpi zsh xcape\
     maim feh texlive-most libpng zlib poppler-glib htop\
     aspell aspell-en
 
+sudo npm i -g bash-language-server
 
 # CUDA
 sudo pacman -S nvidia nvidia-settings nvidia-utils cudnn
@@ -28,6 +29,9 @@ sudo pacman -S ttc-iosevka ttc-iosevka-ss04 ttf-fira-code powerline-fonts
 
 # emacs
 paru emacs-pgtk-native-comp-git
+
+# emacs server
+systemctl --user enable emacs
 
 # doom emacs
 ln -s doom $HOME/.config/doom

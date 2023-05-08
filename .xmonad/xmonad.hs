@@ -14,7 +14,7 @@ myConfig =
       borderWidth = 2,
       modMask = mod4Mask
     }
-    `additionalKeysP` [ ("M-e", spawn "emacs"),
+    `additionalKeysP` [ ("M-e", spawn "emacsclient --create-frame"),
                         ("M-c", spawn "google-chrome-stable"),
                         ("M-C-s", unGrab *> spawn "maim -s ~/Pictures/Screenshots/$(date +%s).png"),
                         ("<XF86MonBrightnessUp>", spawn "xbacklight -inc 10"),

@@ -23,25 +23,30 @@ Horizon themes need to swap background
 #+END_SRC
 
 ** Fonts
-Nice condensed fonts.
+Auto select font size based on resolution. Useful for HiDPI monitors.
 #+BEGIN_SRC emacs-lisp
+(setq  doom-font (font-spec :family "Iosevka Term" :size 14)
+      doom-variable-pitch-font (font-spec :family "Iosevka")
+      doom-unicode-font (font-spec :family "Iosevka Term")
+      doom-big-font (font-spec :family "Iosevka Term" :size 19))
 
-(defun fontify-frame (frame)
-  (interactive)
-  (if window-system
-      (progn
-        (if (and (> (x-display-pixel-width) 3000) (not (eq system-type 'darwin)))
-          (progn (setq doom-font "Iosevka Term SS04:pixelsize=22:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true")
-                 (setq doom-variable-pitch-font "Iosevka:pixelsize=20:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true"))
-          (progn (setq doom-font "Iosevka Term SS04:pixelsize=16:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true")
-                 (setq doom-variable-pitch-font "Iosevka:pixelsize=14:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true"))))))
+;; NOTE: this doesn't work well with emacsclient
+;; (defun fontify-frame (frame)
+;;   (interactive)
+;;   (if window-system
+;;       (progn
+;;         (if (and (> (x-display-pixel-width) 3000) (not (eq system-type 'darwin)))
+;;           (progn (setq doom-font "Iosevka Term SS04:pixelsize=22:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true")
+;;                  (setq doom-variable-pitch-font "Iosevka:pixelsize=20:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true"))
+;;           (progn (setq doom-font "Iosevka Term SS04:pixelsize=16:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true")
+;;                  (setq doom-variable-pitch-font "Iosevka:pixelsize=14:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true"))))))
 
 
 ;; Fontify current frame
-(fontify-frame nil)
+;; (fontify-frame nil)
 
 ;; Fontify any future frames
-(push 'fontify-frame after-make-frame-functions)
+;; (push 'fontify-frame after-make-frame-functions)
 #+END_SRC
 
 ** Line number
