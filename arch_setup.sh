@@ -17,6 +17,7 @@ sudo pacman -S bluez blueman bluez-utils alsa-utils vlc playerctl
 # tools & system
 sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip acpi zsh xcape\
     maim feh texlive-most libpng zlib poppler-glib htop\
+    aspell aspell-en
 
 
 # CUDA
