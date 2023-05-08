@@ -17,3 +17,6 @@ nitrogen --restore &
 
 # Compositor
 picom -f &
+
+# Input method
+fcitx5 &
