@@ -25,10 +25,10 @@ Horizon themes need to swap background
 ** Fonts
 Auto select font size based on resolution. Useful for HiDPI monitors.
 #+BEGIN_SRC emacs-lisp
-(setq  doom-font (font-spec :family "Iosevka Term" :size 14)
+(setq  doom-font (font-spec :family "Iosevka Term" :size 16)
       doom-variable-pitch-font (font-spec :family "Iosevka")
       doom-unicode-font (font-spec :family "Iosevka Term")
-      doom-big-font (font-spec :family "Iosevka Term" :size 19))
+      doom-big-font (font-spec :family "Iosevka Term" :size 22))
 
 ;; NOTE: this doesn't work well with emacsclient
 ;; (defun fontify-frame (frame)
@@ -56,7 +56,6 @@ No line number.
 #+END_SRC
 
 * Org-mode
-
 
 ** file location
 #+begin_src emacs-lisp
@@ -370,6 +369,7 @@ More scroll back
    :nv "C-n" #'evil-mc-make-and-goto-next-match
    :nv "C-p" #'evil-mc-make-and-goto-prev-match)
 
+
  (:leader
   ;; calendar
   ;; :n "c" 'my-open-calendar
@@ -420,9 +420,6 @@ More scroll back
          (:map cfw:details-mode-map
           :n "q" 'cfw:details-kill-buffer-command))
 
-
-
-
  (:after dap-mode
          (:map dap-mode-map
           :leader
@@ -464,17 +461,4 @@ spacemacs leader
    "db" 'python-toggle-breakpoint
    "ri" 'py-isort-buffer
    "ru" 'python-autoflake))
-#+end_src
-
-* Dired
-** dired follow
-
-#+begin_src emacs-lisp
-(define-minor-mode dired-follow-mode
-  "Diplay file at point in dired after a move."
-  :lighter " dired-f"
-  :global t
-  (if dired-follow-mode
-      (advice-add 'dired-next-line :after (lambda (arg) (dired-display-file)))
-    (advice-remove 'dired-next-line (lambda (arg) (dired-display-file)))))
 #+end_src
