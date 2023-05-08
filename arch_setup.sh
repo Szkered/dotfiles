@@ -39,7 +39,7 @@ git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.config/emacs
 ~/.config/emacs/bin/doom install
 
 # zsh
-chsh -s /usr/bin/zsh
+# chsh -s /usr/bin/zsh
 curl -L git.io/antigen > $HOME/antigen.zsh # install antigen
 ln -s .zshrc $HOME/.zshrc
 git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh/zsh-autosuggestions # plugin
@@ -58,6 +58,7 @@ sudo cp vpnagentd.service /etc/systemd
 sudo systemctl enable vpnagentd.service
 
 # dropbox
+sudo pacman -S python-gpgme
 paru dropbox
 sudo cp dropbox.service /etc/systemd/system
 sudo systemctl enable dropbox.service
@@ -65,3 +66,7 @@ sudo systemctl enable dropbox.service
 # chinese
 sudo pacman -S fcitx5-im fcitx5-rime fcitx5-table-extra fcitx5-chinese-addons fcitx5-pinyin-zhwiki\
     adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts noto-fonts
+
+
+# Todos after installation:
+# 1. change /etc/makepkg.conf to enable multi thread build
