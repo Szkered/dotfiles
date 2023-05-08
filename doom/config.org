@@ -12,7 +12,6 @@
       user-mail-address "derek.zekun.shi@gmail.com")
 #+END_SRC
 
-
 * Visual Settings
 
 ** Themes
@@ -354,16 +353,57 @@ No line number.
 (add-hook 'before-save-hook #'my-org-beamer-sync-hook)
 #+end_src
 
-* Vterm
-Make auto-complete visible
+* Term
+** Make auto-complete visible
 #+BEGIN_SRC emacs-lisp
 (setq shell-file-name "/bin/zsh")
 (custom-set-faces! '(vterm-color-black :background "#839496"))
 #+END_SRC
 
-More scroll back
+** More scroll back
 #+BEGIN_SRC emacs-lisp
 (setq vterm-max-scrollback 100000)
+#+END_SRC
+
+** Send code
+NOTE: need to disable ~read-only-mode~
+#+BEGIN_SRC emacs-lisp
+(defun sh-send-line-or-region (&optional step)
+  (interactive ())
+  (let ((proc (get-process "vterm"))
+        pbuf min max command)
+    (unless proc
+      (let ((currbuff (current-buffer)))
+        (shell)
+        (switch-to-buffer currbuff)
+        (setq proc (get-process "vterm"))
+        ))
+    (setq pbuff (process-buffer proc))
+    (if (use-region-p)
+        (setq min (region-beginning)
+              max (region-end))
+      (setq min (point-at-bol)
+            max (point-at-eol)))
+    (setq command (concat (buffer-substring min max) "\n"))
+    (with-current-buffer pbuff
+      (goto-char (process-mark proc))
+      (insert command)
+      (move-marker (process-mark proc) (point))
+      ) ;;pop-to-buffer does not work with save-current-buffer -- bug?
+    (process-send-string  proc command)
+    (display-buffer (process-buffer proc) t)
+    (when step
+      (goto-char max)
+      (next-line))
+    ))
+
+(defun sh-send-line-or-region-and-step ()
+  (interactive)
+  (sh-send-line-or-region t))
+
+(defun sh-switch-to-process-buffer ()
+  (interactive)
+  (pop-to-buffer (process-buffer (get-process "vterm")) t))
 #+END_SRC
 * Python
 
@@ -470,10 +510,9 @@ spacemacs leader
 #+begin_src emacs-lisp
 (add-hook! python-mode
  (spacemacs/set-leader-keys-for-major-mode 'python-mode
-   "'" 'spacemacs/python-start-or-switch-repl
-   "l" 'lsp-execute-code-action
-   "sb" 'python-shell-send-buffer
-   "sr" 'python-shell-send-region
+   "'" 'sh-switch-to-process-buffer
+   "sr" 'sh-send-line-or-region
+   "sR" 'sh-send-line-or-region-and-step
    "db" 'python-toggle-breakpoint
    "ri" 'py-isort-buffer
    "ru" 'python-autoflake))
