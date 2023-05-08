@@ -19,8 +19,6 @@ sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip xdotool xorg-xprop xorg-xwin
     maim feh texlive-most libpng zlib poppler-glib htop\
     aspell aspell-en
 
-sudo npm i -g bash-language-server
-
 # CUDA
 sudo pacman -S nvidia nvidia-settings nvidia-utils cudnn
 
