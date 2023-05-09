@@ -1,4 +1,4 @@
-personal_ws-1.1 nil 16
+personal_ws-1.1 nil 18
 Riesz
 Stiefel
 automorphisms
@@ -10,8 +10,10 @@ homography
 iff
 invariances
 invertible
+org
 projective
 projectivity
+python
 quadric
 quadrics
 trifocal

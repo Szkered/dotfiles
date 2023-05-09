@@ -12,6 +12,7 @@
       user-mail-address "derek.zekun.shi@gmail.com")
 #+END_SRC
 
+
 * Visual Settings
 
 ** Themes
@@ -69,6 +70,7 @@ No line number.
 #+BEGIN_SRC emacs-lisp
 (setq display-line-numbers-type nil)
 #+END_SRC
+
 
 * Org-mode
 
@@ -353,6 +355,74 @@ No line number.
 (add-hook 'before-save-hook #'my-org-beamer-sync-hook)
 #+end_src
 
+
+* Python
+
+** auto-format
+flake8+autoflake+yapf
+#+BEGIN_SRC emacs-lisp
+(defcustom python-autoflake-path (executable-find "autoflake")
+  "autoflake executable path."
+  :group 'python
+  :type 'string)
+
+(defun python-autoflake ()
+  "Automatically clean up python codes
+$ autoflake --in-place --remove-unused-variables --remove-all-unused-imports --remove-duplicate-keys --expand-star-imports <filename>"
+  (interactive)
+  (when (eq major-mode 'python-mode)
+    (shell-command
+     (format
+      "%s --in-place --remove-unused-variables --remove-all-unused-imports --remove-duplicate-keys --expand-star-imports %s"
+      python-autoflake-path
+      (shell-quote-argument (buffer-file-name))))
+    (revert-buffer t t t)))
+
+(set-formatter! 'yapf  "yapf " :modes '(python-mode))
+#+END_SRC
+
+** debugger
+#+BEGIN_SRC emacs-lisp
+(defun python-toggle-breakpoint ()
+  "Add an ipdb break point, highlight it."
+  (interactive)
+  (let ((trace (cond (t "breakpoint()")))
+        (line (thing-at-point 'line)))
+    (if (and line (string-match trace line))
+        (kill-whole-line)
+      (progn
+        ;; (back-to-indentation)
+        (insert trace)
+        (insert "\n")
+        (python-indent-line)))))
+#+END_SRC
+
+** add extra syntax checker
+#+BEGIN_SRC emacs-lisp
+;; extra checkers after lsp
+(defvar-local my/flycheck-local-cache nil)
+
+(defun my/flycheck-checker-get (fn checker property)
+  (or (alist-get property (alist-get checker my/flycheck-local-cache))
+      (funcall fn checker property)))
+
+(advice-add 'flycheck-checker-get :around 'my/flycheck-checker-get)
+
+(add-hook 'lsp-managed-mode-hook
+          (lambda ()
+            (when (derived-mode-p 'python-mode)
+              (setq my/flycheck-local-cache '((lsp . ((next-checkers . (python-pylint python-mypy python-flake8))))))
+              (setq flycheck-pylintrc "~/.config/pylintrc"))))
+
+#+END_SRC
+
+** ein
+#+BEGIN_SRC emacs-lisp
+(setq ein:output-area-inlined-images t)
+(setq ein:use-auto-complete t)
+(setq ein:use-smartrep t)
+#+END_SRC
+
 * Term
 ** Make auto-complete visible
 #+BEGIN_SRC emacs-lisp
@@ -405,7 +475,19 @@ NOTE: need to disable ~read-only-mode~
   (interactive)
   (pop-to-buffer (process-buffer (get-process "vterm")) t))
 #+END_SRC
-* Python
+
+
+* Copilot
+#+begin_src emacs-lisp
+;; accept completion from copilot and fallback to company
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("C-e" . 'copilot-accept-completion)
+              ("M-f" . 'copilot-accept-completion-by-word)
+              ))
+#+end_src
+
 
 * Keybindings
 ** Base
@@ -419,6 +501,7 @@ NOTE: need to disable ~read-only-mode~
 
  ;; searching
  "C-s" 'consult-line
+ "C-c C-s" '+vertico/search-symbol-at-point
  "C-c s" 'consult-ripgrep
 
  (:when (modulep! :editor multiple-cursors)
@@ -506,14 +589,19 @@ spacemacs leader
 #+BEGIN_SRC emacs-lisp
 (setq doom-localleader-key ",")
 #+END_SRC
-** Python
+
+** python-mode
 #+begin_src emacs-lisp
 (add-hook! python-mode
+  (pyenv-tracking-mode)
  (spacemacs/set-leader-keys-for-major-mode 'python-mode
-   "'" 'sh-switch-to-process-buffer
+   "a"  'pyvenv-activate
+   "D"  'pyvenv-deactivate
+   "'"  'sh-switch-to-process-buffer
    "sr" 'sh-send-line-or-region
    "sR" 'sh-send-line-or-region-and-step
    "db" 'python-toggle-breakpoint
    "ri" 'py-isort-buffer
    "ru" 'python-autoflake))
 #+end_src
+

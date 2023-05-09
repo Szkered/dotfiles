@@ -126,7 +126,7 @@ Config {
        \<box type=Bottom width=2 mb=2>%baticon%  %battery%</box>   \
        \<box type=Bottom width=2 mb=2>%dynnetwork%</box> }{ \
        \<box type=Bottom width=2 mb=2><fc=#bfbdb6><action=`alacritty -e nvtop`>%gpuicon%  %gpuusage%</action></fc></box>   \
-       \<box type=Bottom width=2 mb=2><fc=#bfbdb6><action=`alacritty -e htop`>%multicpu%</action></fc></box>   \
+       \<box type=Bottom width=2 mb=2><fc=#bfbdb6><action=`alacritty -e glances`>%multicpu%</action></fc></box>   \
        \<box type=Bottom width=2 mb=2>%coretemp%</box>   \
        \<box type=Bottom width=2 mb=2><fc=#bfbdb6><action=`alacritty -e htop`>%memory%</action></fc></box>   \
        \<box type=Bottom width=2 mb=2>%disku%</box>   \
