@@ -69,3 +69,5 @@ sudo pacman -S fcitx5-im fcitx5-rime fcitx5-table-extra fcitx5-chinese-addons fc
 
 # Todos after installation:
 # 1. change /etc/makepkg.conf to enable multi thread build
+
+ln -s .pwd $HOME/.config/emacs/.local/etc/ispell

@@ -12,6 +12,9 @@ xcape -e 'Control_L=Escape'
 # Key repeat
 xset r rate 250 60
 
+# Reduce screen refresh rate when not gaming
+xrandr -r 60
+
 # Wallpaper
 nitrogen --restore &
 

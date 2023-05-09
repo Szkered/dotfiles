@@ -21,7 +21,8 @@
        ;;layout                  ; auie,ctsrnm is the superior home row
 
        :completion
-       company                   ; the ultimate code completion backend
+       (company
+        +childrame)                   ; the ultimate code completion backend
        ;;helm                    ; the *other* search engine for love and life
        ;;ido                     ; the other *other* search engine...
        ;;ivy                     ; a search engine for love and life
@@ -67,9 +68,11 @@
        ;;word-wrap               ; soft wrapping with language-aware indent
 
        :emacs
-       (dired +ranger)           ; making dired pretty [functional]
+       (dired
+        +icon
+        +ranger)                 ; making dired pretty [functional]
        electric                  ; smarter, keyword-based electric-indent
-       ;;ibuffer                 ; interactive buffer management
+       (ibuffer +icon)           ; interactive buffer management
        undo                      ; persistent, smarter undo for your inevitable mistakes
        vc                        ; version-control and Emacs, sitting in a tree
 
@@ -201,7 +204,7 @@
        ;;emms
        everywhere                ; *leave* Emacs!? You must be joking
        ;;irc                     ; how neckbeards socialize
-       ;;(rss +org)              ; emacs as an RSS reader
+       (rss +org)              ; emacs as an RSS reader
        ;;twitter                 ; twitter client https://twitter.com/vnought
 
        :config
