@@ -36,6 +36,13 @@ START and END should in the format (SEC )."
 (setq doom-theme (if (time-between-p daytime-start daytime-end)
                  'doom-flatwhite
                  'doom-horizon))
+
+(defun my-sync-theme ()
+        (if (time-between-p daytime-start daytime-end)
+            (load-theme 'doom-flatwhite)
+            (load-theme 'doom-horizon)))
+
+(run-with-timer 0 60 'my-sync-theme)
 #+END_SRC
 
 ** Fonts
@@ -71,12 +78,14 @@ No line number.
 (setq display-line-numbers-type nil)
 #+END_SRC
 
+
 * Spell checking
 
 ** Disable spell checking by default to speed up boot time
 #+BEGIN_SRC emacs-lisp
 ;; (remove-hook 'text-mode-hook #'spell-fu-mode)
 #+END_SRC
+
 
 * Org-mode
 
@@ -177,7 +186,8 @@ No line number.
 (defun emacs-startup-screen ()
   "display the weekly org-agenda and all todos."
   (find-file "/home/zekun/Dropbox/notes/roam/20210303220745-entry_point.org")
-  (org-agenda nil "d"))
+  (org-agenda nil "d")
+  )
 (add-hook 'emacs-startup-hook #'emacs-startup-screen)
 #+END_SRC
 
@@ -449,6 +459,7 @@ $ autoflake --in-place --remove-unused-variables --remove-all-unused-imports --r
 (setq ein:use-auto-complete t)
 (setq ein:use-smartrep t)
 #+END_SRC
+
 
 * Term
 ** Make auto-complete visible

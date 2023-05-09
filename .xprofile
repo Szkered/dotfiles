@@ -23,3 +23,5 @@ picom -f &
 
 # Input method
 fcitx5 &
+
+google-chrome-stable &

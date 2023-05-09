@@ -17,10 +17,10 @@ myConfig =
       borderWidth = 2,
       modMask = mod4Mask
     }
-    `additionalKeysP` [ ("M-e", spawn "emacsclient --create-frame"),
+    `additionalKeysP` [ ("M-e", spawn "emacsclient -r --eval \"(emacs-startup-screen)\""),
                         ("M-E", spawn "doom sync & systemctl --user restart emacs"),
                         ( "M-x",
-                          spawn "emacsclient --eval \"(emacs-everywhere)\""
+                          spawn "emacsclient -r --eval \"(emacs-everywhere)\""
                         ),
                         ("M-c", spawn "google-chrome-stable"),
                         ( "M-C-s",
@@ -28,8 +28,8 @@ myConfig =
                             *> spawn
                               "maim -s ~/Pictures/Screenshots/$(date +%s).png"
                         ),
-                        ("<XF86MonBrightnessUp>", spawn "xbacklight -inc 10"),
-                        ("<XF86MonBrightnessDown>", spawn "xbacklight -dec 5"),
+                        ("<XF86MonBrightnessUp>", spawn "xrandr --output eDP-1 --brightness 1"),
+                        ("<XF86MonBrightnessDown>", spawn "xrandr --output eDP-1 --brightness 0.5"),
                         ( "<XF86KbdBrightnessUp>",
                           spawn
                             "/archive/repos/backlights/xkb_backlight_key up 10"
