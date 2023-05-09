@@ -66,8 +66,11 @@ sudo systemctl enable dropbox.service
 sudo pacman -S fcitx5-im fcitx5-rime fcitx5-table-extra fcitx5-chinese-addons fcitx5-pinyin-zhwiki\
     adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts noto-fonts
 
+# local dictionary
+ln -s .pwd $HOME/.config/emacs/.local/etc/ispell
+
 
 # Todos after installation:
 # 1. change /etc/makepkg.conf to enable multi thread build
+# 2. for laptop install xf86-video-intel
 
-ln -s .pwd $HOME/.config/emacs/.local/etc/ispell
