@@ -52,10 +52,8 @@ myConfig =
                         ("<XF86AudioPlay>", spawn "playerctl play-pause"),
                         ("<XF86AudioNext>", spawn "playerctl next"),
                         ("<XF86AudioPrev>", spawn "playerctl prev"),
-                        ( "M1-C-l",
-                          spawn
-                            "xautolock -locknow || (killall xautolock; xautolock -time 10 -locker slock & sleep 1; xautolock -locknow)"
-                        )
+                        ("M-C-r", spawn "systemctl reboot"),
+                        ("M-C-s", spawn "systemctl poweroff")
                       ]
 
 -- The main function.
