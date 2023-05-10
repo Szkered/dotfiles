@@ -78,6 +78,19 @@ No line number.
 #+END_SRC
 
 
+* Dired/Ranger
+** Image preview
+don't know why ranger's preview is not working
+#+BEGIN_SRC emacs-lisp
+(define-minor-mode dired-follow-mode
+  "Diplay file at point in dired after a move."
+  :lighter " dired-f"
+  :global t
+  (if dired-follow-mode
+      (advice-add 'dired-next-line :after (lambda (arg) (dired-display-file)))
+    (advice-remove 'dired-next-line (lambda (arg) (dired-display-file)))))
+#+END_SRC
+
 * Spell checking
 
 ** Disable spell checking by default to speed up boot time
@@ -579,6 +592,10 @@ NOTE: need to disable ~read-only-mode~
   :n "bb" 'switch-to-buffer)
 
 
+ (:after ranger
+         (:map ranger-mode-map
+          "i" 'dired-follow-mode))
+
  (:after multi-vterm
          (:map multi-vterm-mode-map
           :leader
@@ -601,8 +618,6 @@ NOTE: need to disable ~read-only-mode~
           :n "dd" 'dap-debug
           :n "de" 'dap-debug-edit-template
           :n "d." 'dap-hydra))
-
-
 
  (:after julia-mode
          (:map julia-mode-map
@@ -640,6 +655,7 @@ NOTE: need to disable ~read-only-mode~
    "ri" 'py-isort-buffer
    "ru" 'python-autoflake))
 #+end_src
+
 
 * Email
 #+BEGIN_SRC emacs-lisp
