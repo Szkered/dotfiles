@@ -113,6 +113,23 @@ don't know why ranger's preview is not working
       (seq-filter 'filter-org-file (directory-files-recursively "~/Dropbox/notes/" ".*")))
 #+end_src
 
+** roam-ui
+#+BEGIN_SRC emacs-lisp
+(use-package! websocket
+    :after org-roam)
+
+(use-package! org-roam-ui
+    :after org-roam ;; or :after org
+;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+;;         a hookable mode anymore, you're advised to pick something yourself
+;;         if you don't care about startup time, use
+;;  :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
+#+END_SRC
 
 ** priorities
 #+begin_src emacs-lisp
@@ -137,7 +154,7 @@ don't know why ranger's preview is not working
 
 ** keybind and some hooks
 #+begin_src emacs-lisp
-(add-hook! org-mode
+(add-hook! 'org-mode-hook
   (spacemacs/set-leader-keys-for-major-mode 'org-mode
     "I" 'org-clock-in
     "O" 'org-clock-out
@@ -643,9 +660,9 @@ NOTE: need to disable ~read-only-mode~
 
 ** python-mode
 #+begin_src emacs-lisp
-(add-hook! python-mode
+(add-hook! 'python-mode-hook
   (pyenv-tracking-mode)
- (spacemacs/set-leader-keys-for-major-mode 'python-mode
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode
    "a"  'pyvenv-activate
    "D"  'pyvenv-deactivate
    "'"  'sh-switch-to-process-buffer

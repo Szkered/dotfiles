@@ -14,7 +14,9 @@ myConfig =
           <+> manageHook def,
       layoutHook = smartBorders (avoidStruts $ layoutHook def),
       terminal = "alacritty",
-      borderWidth = 2,
+      borderWidth = 1,
+      focusedBorderColor = "#C2D94C",
+      normalBorderColor = "#0d1017",
       modMask = mod4Mask
     }
     `additionalKeysP` [ ("M-e", spawn "emacsclient -r --eval \"(emacs-startup-screen)\""),

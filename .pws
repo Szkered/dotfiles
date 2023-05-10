@@ -1,4 +1,4 @@
-personal_ws-1.1 en 66
+personal_ws-1.1 en 71
 Riesz
 Stiefel
 adjoint
@@ -12,6 +12,7 @@ antisymmetrization
 antisymmetry
 automorphisms
 autoregressive
+beamer
 boson
 bosonic
 bosons
@@ -27,6 +28,7 @@ eigenfunction
 eigenfunctions
 eigenstate
 eigenstates
+elfeed
 fermion
 fermionic
 fermions
@@ -45,6 +47,7 @@ jacobian
 ket
 kets
 let's
+marginnotes
 nondimensionalize
 noter
 org
@@ -58,6 +61,7 @@ quantized
 representable
 rescaled
 schrodinger
+spacemacs
 thouless
 todo
 trifocal
@@ -65,3 +69,4 @@ wavefunction
 wavefunctions
 wavenumber
 wavevector
+wechat
