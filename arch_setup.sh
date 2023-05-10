@@ -53,6 +53,7 @@ git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.config/emacs
 chsh -s /usr/bin/zsh
 curl -L git.io/antigen > $HOME/antigen.zsh # install antigen
 git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh/zsh-autosuggestions # plugin
+git clone git@github.com:wulfgarpro/history-sync.git $HOME/.zsh/history-sync # plugin
 
 # xmonad
 mkdir "$HOME/.xmonad"
@@ -93,4 +94,5 @@ ln -s .zshrc $HOME/.zshrc
 # Todos after installation:
 # 1. change /etc/makepkg.conf to enable multi thread build
 # 2. for laptop install xf86-video-intel
-
+# 3. git clone git@github.com:Szkered/.zsh_history.git $HOME/.zsh_history_proj
+# 4. git clone git@github.com:Szkered/pass-store.git $HOME/.password-store
