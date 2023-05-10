@@ -20,7 +20,7 @@ sudo pacman -S bluez blueman bluez-utils alsa-utils vlc playerctl
 sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip xdotool xorg-xprop xorg-xwininfo acpi zsh xcape\
     maim feh texlive-most libpng zlib poppler-glib htop nvtop\
     aspell aspell-en\
-    npm cronie
+    npm cronie brightnessctl
 
 # power management
 paru auto-cpufreq-git

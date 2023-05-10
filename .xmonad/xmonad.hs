@@ -30,8 +30,8 @@ myConfig =
                             *> spawn
                               "maim -s ~/Pictures/Screenshots/$(date +%s).png"
                         ),
-                        ("<XF86MonBrightnessUp>", spawn "xrandr --output eDP-1 --brightness 1"),
-                        ("<XF86MonBrightnessDown>", spawn "xrandr --output eDP-1 --brightness 0.5"),
+                        ("<XF86MonBrightnessUp>", spawn "xrandr --output eDP1 --brightness 1"),
+                        ("<XF86MonBrightnessDown>", spawn "xrandr --output eDP1 --brightness 0.7"),
                         ( "<XF86KbdBrightnessUp>",
                           spawn
                             "/archive/repos/backlights/xkb_backlight_key up 10"
