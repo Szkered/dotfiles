@@ -5,7 +5,7 @@ IMAPAccount emperorview@gmail.com
 Host imap.gmail.com
 User emperorview@gmail.com
 PassCmd "pass Email/emperorview@gmail.com"
-SSLType IMAPS
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 IMAPStore emperorview@gmail.com-remote
@@ -17,8 +17,8 @@ Path ~/Maildir/emperorview@gmail.com/
 Inbox ~/Maildir/emperorview@gmail.com/inbox
 
 Channel emperorview@gmail.com-inbox
-Master :emperorview@gmail.com-remote:
-Slave :emperorview@gmail.com-local:
+Far :emperorview@gmail.com-remote:
+Near :emperorview@gmail.com-local:
 Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
 Create Both
 SyncState *
@@ -32,7 +32,7 @@ IMAPAccount derek.zekun.shi@gmail.com
 Host imap.gmail.com
 User derek.zekun.shi@gmail.com
 PassCmd "pass Email/derek.zekun.shi@gmail.com"
-SSLType IMAPS
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 IMAPStore derek.zekun.shi@gmail.com-remote
@@ -44,8 +44,61 @@ Path ~/Maildir/derek.zekun.shi@gmail.com/
 Inbox ~/Maildir/derek.zekun.shi@gmail.com/inbox
 
 Channel derek.zekun.shi@gmail.com-inbox
-Master :derek.zekun.shi@gmail.com-remote:
-Slave :derek.zekun.shi@gmail.com-local:
+Far :derek.zekun.shi@gmail.com-remote:
+Near :derek.zekun.shi@gmail.com-local:
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
+Create Both
+SyncState *
+MaxMessages 100
+
+
+############################################################
+# SHIZK@SEA.COM
+############################################################
+IMAPAccount shizk@sea.com
+Host imap.gmail.com
+User shizk@sea.com
+PassCmd "pass Email/shizk@sea.com"
+TLSType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore shizk@sea.com-remote
+Account shizk@sea.com
+
+MaildirStore shizk@sea.com-local
+Subfolders Verbatim
+Path ~/Maildir/shizk@sea.com/
+Inbox ~/Maildir/shizk@sea.com/inbox
+
+Channel shizk@sea.com-inbox
+Far :shizk@sea.com-remote:
+Near :shizk@sea.com-local:
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
+Create Both
+SyncState *
+MaxMessages 100
+
+############################################################
+# QVINTVSZK@GMAIL.COM
+############################################################
+IMAPAccount qvintvszk@gmail.com
+Host imap.gmail.com
+User qvintvszk@gmail.com
+PassCmd "pass Email/qvintvszk@gmail.com"
+TLSType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore qvintvszk@gmail.com-remote
+Account qvintvszk@gmail.com
+
+MaildirStore qvintvszk@gmail.com-local
+Subfolders Verbatim
+Path ~/Maildir/qvintvszk@gmail.com/
+Inbox ~/Maildir/qvintvszk@gmail.com/inbox
+
+Channel qvintvszk@gmail.com-inbox
+Far :qvintvszk@gmail.com-remote:
+Near :qvintvszk@gmail.com-local:
 Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
 Create Both
 SyncState *
