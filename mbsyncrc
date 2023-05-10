@@ -1,0 +1,48 @@
+IMAPAccount emperorview@gmail.com
+Host imap.gmail.com
+User emperorview@gmail.com
+PassCmd "pass Email/emperorview@gmail.com"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore emperorview@gmail.com-remote
+Account emperorview@gmail.com
+
+MaildirStore emperorview@gmail.com-local
+Subfolders Verbatim
+Path ~/Maildir/emperorview@gmail.com/
+Inbox ~/Maildir/emperorview@gmail.com/inbox
+
+Channel emperorview@gmail.com-inbox
+Master :emperorview@gmail.com-remote:
+Slave :emperorview@gmail.com-local:
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
+Create Both
+SyncState *
+MaxMessages 100
+
+
+############################################################3
+
+IMAPAccount derek.zekun.shi@gmail.com
+Host imap.gmail.com
+User derek.zekun.shi@gmail.com
+PassCmd "pass Email/derek.zekun.shi@gmail.com"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore derek.zekun.shi@gmail.com-remote
+Account derek.zekun.shi@gmail.com
+
+MaildirStore derek.zekun.shi@gmail.com-local
+Subfolders Verbatim
+Path ~/Maildir/derek.zekun.shi@gmail.com/
+Inbox ~/Maildir/derek.zekun.shi@gmail.com/inbox
+
+Channel derek.zekun.shi@gmail.com-inbox
+Master :derek.zekun.shi@gmail.com-remote:
+Slave :derek.zekun.shi@gmail.com-local:
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
+Create Both
+SyncState *
+MaxMessages 100
