@@ -1,9 +1,15 @@
 # desktop
 sudo pacman -Syy xorg lightdm lightdm-gtk-greeter\
-    xmonad xmonad-contrib xmobar dmenu picom nitrogen chromium alacritty\
-    rofi rofi-emoji papirus-icon-theme
+    xmonad xmonad-contrib xmobar dmenu picom nitrogen google-chrome-stable alacritty\
+    rofi rofi-emoji papirus-icon-theme\
+    intel-ucode ufw
 
+# lightdm
 sudo systemctl enable lightdm
+
+# firewall
+sudo ufw enable
+sudo systemctl enable ufw.service
 
 # paru
 sudo pacman -S --needed base-devel
@@ -46,7 +52,6 @@ git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.config/emacs
 # zsh
 chsh -s /usr/bin/zsh
 curl -L git.io/antigen > $HOME/antigen.zsh # install antigen
-ln -s .zshrc $HOME/.zshrc
 git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh/zsh-autosuggestions # plugin
 
 # xmonad
@@ -75,9 +80,15 @@ sudo pacman -S openssl mu mbsync
 sudo pacman -S fcitx5-im fcitx5-rime fcitx5-table-extra fcitx5-chinese-addons fcitx5-pinyin-zhwiki\
     adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts noto-fonts
 
-# local dictionary
-ln -s .pwd $HOME/.config/emacs/.local/etc/ispell
-
+# install files
+ln -s alacritty.yaml $HOME/.config/alacritty/alacritty.yml
+ln -s .antigenrc $HOME/.antigenrc
+ln -s dunstrc $HOME/.config/dunst/dunstrc
+ln -s isyncrc $HOME/.config/isyncrc
+ln -s .pwd $HOME/.config/emacs/.local/etc/ispell  # local dictionary
+ln -s .xmobarrc $HOME/.xmobarrc
+ln -s .xprofile $HOME/.xprofile
+ln -s .zshrc $HOME/.zshrc
 
 # Todos after installation:
 # 1. change /etc/makepkg.conf to enable multi thread build
