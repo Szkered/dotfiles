@@ -1,5 +1,7 @@
 # desktop
-sudo pacman -Syy xorg lightdm lightdm-gtk-greeter xmonad xmonad-contrib xmobar dmenu picom nitrogen chromium alacritty
+sudo pacman -Syy xorg lightdm lightdm-gtk-greeter\
+    xmonad xmonad-contrib xmobar dmenu picom nitrogen chromium alacritty\
+    rofi rofi-emoji papirus-icon-theme
 
 sudo systemctl enable lightdm
 
@@ -18,7 +20,11 @@ sudo pacman -S bluez blueman bluez-utils alsa-utils vlc playerctl
 sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip xdotool xorg-xprop xorg-xwininfo acpi zsh xcape\
     maim feh texlive-most libpng zlib poppler-glib htop nvtop\
     aspell aspell-en\
-    npm
+    npm cronie
+
+# power management
+paru auto-cpufreq-git
+sudo systemctl enable --now auto-cpufreq.service
 
 # CUDA
 sudo pacman -S nvidia nvidia-settings nvidia-utils cudnn
@@ -38,7 +44,7 @@ git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.config/emacs
 ~/.config/emacs/bin/doom install
 
 # zsh
-# chsh -s /usr/bin/zsh
+chsh -s /usr/bin/zsh
 curl -L git.io/antigen > $HOME/antigen.zsh # install antigen
 ln -s .zshrc $HOME/.zshrc
 git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh/zsh-autosuggestions # plugin

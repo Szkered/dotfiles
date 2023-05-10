@@ -18,6 +18,8 @@ myConfig =
       modMask = mod4Mask
     }
     `additionalKeysP` [ ("M-e", spawn "emacsclient -r --eval \"(emacs-startup-screen)\""),
+                        ("M-/", spawn "rofi -show combi"),
+                        ("M-'", spawn "rofi -show run"),
                         ("M-E", spawn "doom sync & systemctl --user restart emacs"),
                         ( "M-x",
                           spawn "emacsclient -r --eval \"(emacs-everywhere)\""
