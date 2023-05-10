@@ -58,6 +58,9 @@ Config {
                                          , "--high"     , "#ea6c73"
                                          ] 10
 
+                    -- Wi-Fi
+                    , Run Com "bash"     ["/home/zekun/dotfiles/get_wifi_name.sh"] "wifi" 60
+
                     -- Volume
                     , Run Com "bash"     ["/home/zekun/dotfiles/get_volume.sh"] "volume" 1
 
@@ -126,7 +129,7 @@ Config {
        , alignSep = "}{"
        , template = " %UnsafeStdinReader% |  \
        \<box type=Bottom width=2 mb=2>%baticon%  %battery%</box>   \
-       \<box type=Bottom width=2 mb=2>%dynnetwork%</box> }{ \
+       \<box type=Bottom width=2 mb=2>%wifi%   %dynnetwork%</box>  }{  \
        \<box type=Bottom width=2 mb=2><fc=#bfbdb6><action=`alacritty -e nvtop`>%gpuicon%  %gpuusage%</action></fc></box>   \
        \<box type=Bottom width=2 mb=2><fc=#bfbdb6><action=`alacritty -e glances`>%multicpu%</action></fc></box>   \
        \<box type=Bottom width=2 mb=2>%coretemp%</box>   \
