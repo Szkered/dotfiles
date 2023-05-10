@@ -3,7 +3,6 @@
    -- ttf-mononoki
    -- ttf-ubuntu-font-family
    -- htop
-   -- emacs
    -- trayer
 
 Config {
@@ -60,7 +59,6 @@ Config {
                                          ] 10
 
                     -- Volume
-                    , Run Com "echo"     ["<fn=2>\xf027</fn>"] "volume_icon" 3600
                     , Run Com "bash"     ["/home/zekun/dotfiles/get_volume.sh"] "volume" 1
 
                     -- Gpu usage
@@ -134,6 +132,6 @@ Config {
        \<box type=Bottom width=2 mb=2>%coretemp%</box>   \
        \<box type=Bottom width=2 mb=2><fc=#bfbdb6><action=`alacritty -e htop`>%memory%</action></fc></box>   \
        \<box type=Bottom width=2 mb=2>%disku%</box>   \
-       \<box type=Bottom width=2 mb=2>%volume_icon%  %volume%</box>   \
+       \<box type=Bottom width=2 mb=2>%volume%</box>   \
        \<box type=Bottom width=2 mb=2>%date%</box> "
        }

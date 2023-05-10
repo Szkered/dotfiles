@@ -25,3 +25,6 @@ picom -f &
 fcitx5 &
 
 google-chrome-stable &
+
+sleep 10 &
+emacsclient -r --eval "(emacs-startup-screen)" &
