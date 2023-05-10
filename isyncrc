@@ -1,3 +1,6 @@
+############################################################
+# EMPERORVIEW@GMAIL.COM
+############################################################
 IMAPAccount emperorview@gmail.com
 Host imap.gmail.com
 User emperorview@gmail.com
@@ -22,8 +25,9 @@ SyncState *
 MaxMessages 100
 
 
-############################################################3
-
+############################################################
+# DEREK.ZEKUN.SHI@GMAIL.COM
+############################################################
 IMAPAccount derek.zekun.shi@gmail.com
 Host imap.gmail.com
 User derek.zekun.shi@gmail.com
@@ -46,3 +50,4 @@ Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/Starred" "[G
 Create Both
 SyncState *
 MaxMessages 100
+

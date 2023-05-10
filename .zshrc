@@ -1,26 +1,5 @@
 source ~/antigen.zsh
-
-antigen use oh-my-zsh
-
-# Bundles from the default repo (robbyrussell's oh-my-zsh).
-antigen bundle git
-antigen bundle heroku
-antigen bundle pip
-antigen bundle lein
-antigen bundle command-not-found
-antigen bundle poetry
-
-# Syntax highlighting bundle.
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-autosuggestions
-
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# Load the theme.
-antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
-
-# Tell Antigen that you're done.
-antigen apply
+antigen init ~/.antigenrc
 
 # Add paths
 export PATH="$PATH:$HOME/.config/emacs/bin"
@@ -35,3 +14,11 @@ export PYTHONBREAKPOINT=ipdb.set_trace
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
+
+# zsh history
+ ZSH_HISTORY_FILE_NAME=".zsh_history"
+ZSH_HISTORY_FILE="${HOME}/${ZSH_HISTORY_FILE_NAME}"
+ZSH_HISTORY_PROJ="${HOME}/.zsh_history_proj"
+ZSH_HISTORY_FILE_ENC_NAME="zsh_history"
+ZSH_HISTORY_FILE_ENC="${ZSH_HISTORY_PROJ}/${ZSH_HISTORY_FILE_ENC_NAME}"
+ZSH_HISTORY_COMMIT_MSG="latest $(date)"
