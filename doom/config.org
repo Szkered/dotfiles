@@ -51,25 +51,8 @@ Auto select font size based on resolution. Useful for HiDPI monitors.
       doom-variable-pitch-font (font-spec :family "Iosevka")
       doom-unicode-font (font-spec :family "Iosevka Term")
       doom-big-font (font-spec :family "Iosevka Term" :size 22))
-
-;; NOTE: this doesn't work well with emacsclient
-;; (defun fontify-frame (frame)
-;;   (interactive)
-;;   (if window-system
-;;       (progn
-;;         (if (and (> (x-display-pixel-width) 3000) (not (eq system-type 'darwin)))
-;;           (progn (setq doom-font "Iosevka Term SS04:pixelsize=22:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true")
-;;                  (setq doom-variable-pitch-font "Iosevka:pixelsize=20:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true"))
-;;           (progn (setq doom-font "Iosevka Term SS04:pixelsize=16:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true")
-;;                  (setq doom-variable-pitch-font "Iosevka:pixelsize=14:foundry=UKWN:weight=regular:slant=normal:width=normal:spacing=90:scalable=true"))))))
-
-
-;; Fontify current frame
-;; (fontify-frame nil)
-
-;; Fontify any future frames
-;; (push 'fontify-frame after-make-frame-functions)
 #+END_SRC
+
 
 ** Line number
 No line number.
@@ -90,6 +73,7 @@ don't know why ranger's preview is not working
       (advice-add 'dired-next-line :after (lambda (arg) (dired-display-file)))
     (advice-remove 'dired-next-line (lambda (arg) (dired-display-file)))))
 #+END_SRC
+
 
 * Spell checking
 
@@ -673,6 +657,31 @@ NOTE: need to disable ~read-only-mode~
    "ru" 'python-autoflake))
 #+end_src
 
+
+* Research Workflow
+
+** biblio
+#+BEGIN_SRC emacs-lisp
+(setq biblio-download-directory "~/Dropbox/Library/")
+#+END_SRC
+
+** citar
+#+BEGIN_SRC emacs-lisp
+(use-package citar
+  :custom
+  (citar-bibliography '("~/Dropbox/Apps/Overleaf/lib.bib"))
+  :hook
+  (LaTeX-mode . citar-capf-setup)
+  (org-mode . citar-capf-setup))
+
+(setq citar-library-paths '("~/Dropbox/Library/"))
+(setq citar-notes-paths '("~/Dropbox/Library/"))
+
+(use-package citar-embark
+  :after citar embark
+  :no-require
+  :config (citar-embark-mode))
+#+END_SRC
 
 * Email
 #+BEGIN_SRC emacs-lisp
