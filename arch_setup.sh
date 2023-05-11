@@ -1,8 +1,5 @@
 # desktop
-sudo pacman -Syy xorg lightdm lightdm-gtk-greeter\
-    xmonad xmonad-contrib xmobar dmenu picom nitrogen google-chrome-stable alacritty\
-    rofi rofi-emoji papirus-icon-theme\
-    intel-ucode ufw
+sudo pacman -Syy xorg lightdm lightdm-mini-greeter xmonad xmonad-contrib xmobar dmenu picom nitrogen google-chrome-stable alacritty rofi rofi-emoji papirus-icon-theme intel-ucode ufw
 
 # lightdm
 sudo systemctl enable lightdm
@@ -23,10 +20,7 @@ rm -r paru
 sudo pacman -S bluez blueman bluez-utils alsa-utils vlc playerctl
 
 # tools & system
-sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip xdotool xorg-xprop xorg-xwininfo acpi zsh xcape\
-    maim feh texlive-most libpng zlib poppler-glib htop nvtop\
-    aspell aspell-en\
-    npm cronie brightnessctl xautolock
+sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip xdotool xorg-xprop xorg-xwininfo acpi zsh xcape maim feh texlive-most libpng zlib poppler-glib htop nvtop aspell aspell-en npm cronie brightnessctl xautolock
 
 # power management
 paru auto-cpufreq-git
@@ -51,9 +45,9 @@ git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.config/emacs
 
 # zsh
 chsh -s /usr/bin/zsh
-curl -L git.io/antigen > $HOME/antigen.zsh # install antigen
+curl -L git.io/antigen >$HOME/antigen.zsh                                                 # install antigen
 git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh/zsh-autosuggestions # plugin
-git clone git@github.com:wulfgarpro/history-sync.git $HOME/.zsh/history-sync # plugin
+git clone git@github.com:wulfgarpro/history-sync.git $HOME/.zsh/history-sync              # plugin
 
 # xmonad
 mkdir "$HOME/.xmonad"
@@ -78,18 +72,19 @@ sudo systemctl enable dropbox.service
 sudo pacman -S openssl mu mbsync
 
 # chinese
-sudo pacman -S fcitx5-im fcitx5-rime fcitx5-table-extra fcitx5-chinese-addons fcitx5-pinyin-zhwiki\
-    adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts noto-fonts
+sudo pacman -S fcitx5-im fcitx5-rime fcitx5-table-extra fcitx5-chinese-addons fcitx5-pinyin-zhwiki adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts noto-fonts
 
 # install files
 ln -s alacritty.yaml $HOME/.config/alacritty/alacritty.yml
 ln -s .antigenrc $HOME/.antigenrc
 ln -s dunstrc $HOME/.config/dunst/dunstrc
 ln -s isyncrc $HOME/.config/isyncrc
-ln -s .pwd $HOME/.config/emacs/.local/etc/ispell  # local dictionary
+ln -s .pwd $HOME/.config/emacs/.local/etc/ispell # local dictionary
 ln -s .xmobarrc $HOME/.xmobarrc
 ln -s .xprofile $HOME/.xprofile
 ln -s .zshrc $HOME/.zshrc
+
+gpg2 --decrypt networks/trojan-config.json.gpg | sudo tee /etc/trojan/config.json
 
 # Todos after installation:
 # 1. change /etc/makepkg.conf to enable multi thread build
