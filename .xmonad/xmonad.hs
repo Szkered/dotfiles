@@ -19,19 +19,18 @@ myConfig =
       normalBorderColor = "#0d1017",
       modMask = mod4Mask
     }
-    `additionalKeysP` [ ("M-e", spawn "emacsclient -r --eval \"(emacs-startup-screen)\""),
-                        ("M-/", spawn "rofi -show combi"),
+    `additionalKeysP` [ ("M-e", spawn "emacsclient -r --eval \"(emacs-startup-screen)\""), -- run emacsclient
+                        ("M-/", spawn "rofi -show combi"), --run rofi combined mode
                         ("M-'", spawn "rofi -show run"),
-                        ("M-E", spawn "doom sync & systemctl --user restart emacs"),
-                        ( "M-x",
-                          spawn "emacsclient -r --eval \"(emacs-everywhere)\""
-                        ),
-                        ("M-c", spawn "google-chrome-stable"),
-                        ( "M-C-x",
-                          unGrab
-                            *> spawn
-                              "maim -s ~/Pictures/Screenshots/$(date +%s).png"
-                        ),
+                        ("M-E", spawn "doom sync & systemctl --user restart emacs"), -- reload emacs server, doesn't work very well
+                        ("M-x", spawn "emacsclient -r --eval \"(emacs-everywhere)\""), -- edit text using emacs
+                        ("M-c", spawn "google-chrome-stable"), -- chrome
+                        ("M-C-x", unGrab *> spawn "maim -s ~/Pictures/Screenshots/$(date +%s).png"), -- screenshot
+                        ("M-o", spawn "xrandr --output DP1 --auto & xrandr --output eDP1 --off & remap"), -- external display
+                        ("M-O", spawn "xrandr --output DP1 --off & xrandr --output eDP1 --auto & remap"), -- interal display
+                        ("M-C-O", spawn "xrandr --output DP1 --auto & xrandr --output eDP1 --auto & remap"), -- both display
+                        ("M-C-r", spawn "systemctl reboot"),
+                        ("M-C-s", spawn "systemctl poweroff"),
                         ("<XF86MonBrightnessUp>", spawn "xrandr --output eDP1 --brightness 1"),
                         ("<XF86MonBrightnessDown>", spawn "xrandr --output eDP1 --brightness 0.7"),
                         ( "<XF86KbdBrightnessUp>",
@@ -53,9 +52,7 @@ myConfig =
                         ),
                         ("<XF86AudioPlay>", spawn "playerctl play-pause"),
                         ("<XF86AudioNext>", spawn "playerctl next"),
-                        ("<XF86AudioPrev>", spawn "playerctl prev"),
-                        ("M-C-r", spawn "systemctl reboot"),
-                        ("M-C-s", spawn "systemctl poweroff")
+                        ("<XF86AudioPrev>", spawn "playerctl prev")
                       ]
 
 -- The main function.
