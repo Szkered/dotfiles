@@ -14,8 +14,8 @@ myConfig =
           <+> manageHook def,
       layoutHook = smartBorders (avoidStruts $ layoutHook def),
       terminal = "alacritty",
-      borderWidth = 1,
-      focusedBorderColor = "#C2D94C",
+      borderWidth = 3,
+      focusedBorderColor = "#bfbdb6",
       normalBorderColor = "#0d1017",
       modMask = mod4Mask
     }
@@ -27,7 +27,7 @@ myConfig =
                           spawn "emacsclient -r --eval \"(emacs-everywhere)\""
                         ),
                         ("M-c", spawn "google-chrome-stable"),
-                        ( "M-C-s",
+                        ( "M-C-x",
                           unGrab
                             *> spawn
                               "maim -s ~/Pictures/Screenshots/$(date +%s).png"
