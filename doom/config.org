@@ -21,7 +21,7 @@ Use light / dark theme based on current time
   :ensure t
   :config
   (setq circadian-themes '(("8:00" . doom-flatwhite)
-                           ("19:30" . doom-horizon)))
+                           ("18:30" . doom-horizon)))
   (circadian-setup))
 #+END_SRC
 
@@ -55,17 +55,6 @@ Use light / dark theme based on current time
         (set-fontset-font t 'unicode doom-unicode-font))))
   ;; Users should inject their own font logic in `after-setting-font-hook'
   (run-hooks 'after-setting-font-hook))
-#+END_SRC
-
-** Fonts
-#+BEGIN_SRC emacs-lisp
-;; (if (> (x-display-pixel-width) 3000)
-;;     (add-to-list 'default-frame-alist '(font . "Iosevka Term-12"))
-;;   (setq doom-font (font-spec :family "Iosevka Term" :size 16 :dpi 163)
-;;         doom-variable-pitch-font (font-spec :family "Iosevka" :dpi 163)
-;;         doom-unicode-font (font-spec :family "Iosevka Term" :dpi 163)
-;;         doom-big-font (font-spec :family "Iosevka Term" :size 22 :dpi 163))
-;; )
 #+END_SRC
 
 ** Line number
@@ -577,18 +566,152 @@ NOTE: need to disable ~read-only-mode~
 #+end_src
 
 * Research Workflow
+So what is =research= anyway? It is the =compression= of information by human brain. There are two kinds of =compression=:
+1. compression of inputs: people also call this =insight=.
+2. compression of input / output pairs: people also call this =discovery=
 
-** citar
+** paths
+I will use Dropbox as this provides integration with Overleaf.
 #+BEGIN_SRC emacs-lisp
-(use-package citar
-  :custom
-  (citar-bibliography '("~/Dropbox/Apps/Overleaf/lib.bib"))
-  :hook
-  (LaTeX-mode . citar-capf-setup)
-  (org-mode . citar-capf-setup))
+(defconst my-bib-libraries (list "~/Dropbox/Apps/Overleaf/lib.bib")) ; bib databases.
+(defconst my-main-bib-library (nth 0 my-bib-libraries))              ; The main db is always the first
+(defconst my-main-pdfs-library-paths `("~/Dropbox/papers/inbox" "/Dropbox/papers/read/" "/Dropbox/papers/cited/"))
+(defconst my-main-pdfs-library-path (nth 0 my-main-pdfs-library-paths))
+(defconst my-bib-notes-dir "~/Dropbox/notes/roam")
+(setq bibtex-completion-bibliography my-bib-libraries
+      bibtex-completion-library-path my-main-pdfs-library-paths
+      bibtex-completion-notes-path my-bib-notes-dir
+      bibtex-completion-pdf-open-function (lambda (fpath)
+                                             (call-process "open" nil 0 nil fpath)))
 
-(setq citar-library-paths '("~/Dropbox/Library/"))
-(setq citar-notes-paths '("~/Dropbox/Library/"))
+(setq citar-library-paths my-main-pdfs-library-paths)
+(setq citar-notes-paths my-main-pdfs-library-paths)
+#+END_SRC
+
+** information acquisition
+*** TODO twitter
+*** elfeed
+**** arxiv feeds
+#+BEGIN_SRC emacs-lisp
+(defun arxiv-rss-feed-url (cat &optional max-results sort-by sort-order)
+  "Search for CAT"
+  (unless max-results (setq max-results "100"))
+  (unless sort-by (setq sort-by "submittedDate"))
+  (unless sort-order (setq sort-order "descending"))
+  (concat
+   "http://export.arxiv.org/api/query?search_query=cat:" cat
+   "&start=0&max_results=" max-results
+   "&sortBy=" sort-by
+   "&sortOrder=" sort-order)
+  )
+
+(setq elfeed-feeds-funcs
+      '((arxiv-rss-feed-url "math.OC")
+        (arxiv-rss-feed-url "stat.ML")
+        (arxiv-rss-feed-url "cs.LG")
+        ))
+(setq elfeed-feeds (mapcar 'eval elfeed-feeds-funcs))
+#+END_SRC
+
+**** feed scoring
+#+BEGIN_SRC emacs-lisp
+(use-package elfeed-score
+  :after elfeed
+  :config
+  (elfeed-score-load-score-file "~/dotfiles/elfeed/elfeed.score")
+  (elfeed-score-enable)
+  (define-key elfeed-search-mode-map "=" elfeed-score-map))
+#+END_SRC
+
+**** feed formatting
+#+BEGIN_SRC emacs-lisp
+(use-package! elfeed
+  :defer t
+  :config
+  (add-hook! 'elfeed-search-mode-hook 'elfeed-update)
+  (defun concatenate-authors (authors-list)
+    "Given AUTHORS-LIST, list of plists; return string of all authors concatenated."
+    (if (> (length authors-list) 1)
+        (format "%s et al." (plist-get (nth 0 authors-list) :name))
+      (plist-get (nth 0 authors-list) :name)))
+
+  ;; TODO: add back elfeed-score
+  (defun my-search-print-fn (entry)
+    "Print ENTRY to the buffer."
+    (let* ((date (elfeed-search-format-date (elfeed-entry-date entry)))
+           (title (or (elfeed-meta entry :title)
+                      (elfeed-entry-title entry) ""))
+           (title-faces (elfeed-search--faces (elfeed-entry-tags entry)))
+           (entry-authors (concatenate-authors (elfeed-meta entry :authors)))
+           (title-width (- (window-width) 10 elfeed-search-trailing-width))
+           (title-column (elfeed-format-column title 100 :left))
+           (entry-score (elfeed-format-column (number-to-string (elfeed-score-scoring-get-score-from-entry entry)) 10 :left))
+           (authors-column (elfeed-format-column entry-authors 40 :left)))
+      (insert (propertize date 'face 'elfeed-search-date-face) " ")
+      (insert (propertize title-column 'face title-faces 'kbd-help title) " ")
+      (insert (propertize authors-column 'kbd-help entry-authors) " ")
+      (insert entry-score " ")
+    ))
+
+  (setq elfeed-search-print-entry-function #'my-search-print-fn)
+  (setq elfeed-search-date-format '("%y-%m-%d" 10 :left))
+  (setq elfeed-search-title-max-width 110)
+  (setq elfeed-search-filter "@2-week-ago +unread")
+)
+#+END_SRC
+
+
+**** arxiv paper fetcher
+#+BEGIN_SRC emacs-lisp
+(defun my-elfeed-entry-to-arxiv ()
+  "Fetch an arXiv paper into the local library from the current elfeed entry."
+  (interactive)
+  (let* ((link (elfeed-entry-link elfeed-show-entry))
+         (match-idx (string-match "arxiv.org/abs/\\([0-9.]*\\)" link))
+         (matched-arxiv-number (match-string 1 link)))
+    (when matched-arxiv-number
+      (message "Going to arXiv: %s" matched-arxiv-number)
+      (arxiv-get-pdf-add-bibtex-entry matched-arxiv-number my-main-bib-library my-main-pdfs-library-path)
+      )
+    ))
+#+END_SRC
+
+** information storage
+*** citar
+#+BEGIN_SRC emacs-lisp
+(use-package! citar
+  :hook (doom-after-init-modules . citar-refresh)
+  :config
+  ;; This will add watches for the global bib files and in addition add a hook to LaTeX-mode-hook and org-mode-hook to add watches for local bibliographic files.
+  (citar-filenotify-setup '(LaTeX-mode-hook org-mode-hook))
+
+  (require 'citar-org)
+  (setq citar-file-extensions '("pdf" "org" "md")
+        citar-file-open-function #'find-file)
+
+  ;; by default citar store file as something like 2017.pdf, which is not really readable
+  (defun my-citar-full-names (names)
+    "Transform names like LastName, FirstName to FirstName LastName."
+    (when (stringp names)
+      (mapconcat
+       (lambda (name)
+         (if (eq 1 (length name))
+             (split-string name " ")
+           (let ((split-name (split-string name ", ")))
+             (cl-concatenate 'string (nth 1 split-name) " " (nth 0 split-name)))))
+       (split-string names " and ") ", ")))
+  (setq citar-display-transform-functions
+        '((t . citar-clean-string)
+          (("author" "editor") . my-citar-full-names)))
+
+  (setq citar-templates
+        '((main . "${author editor:55}     ${date year issued:4}     ${title:55}")
+          (suffix . "  ${tags keywords keywords:40}")
+          (preview . "${author editor} ${title}, ${journal publisher container-title collection-title booktitle} ${volume} (${year issued date}).\n")
+          (note . "#+title: Notes on ${author editor}, ${title}")))
+
+  ;; use consult-completing-read for enhanced interface
+  (advice-add #'completing-read-multiple :override #'consult-completing-read-multiple))
 
 (use-package citar-embark
   :after citar embark
@@ -596,7 +719,7 @@ NOTE: need to disable ~read-only-mode~
   :config (citar-embark-mode))
 #+END_SRC
 
-** biblio
+*** biblio
 #+BEGIN_SRC emacs-lisp
 (setq biblio-download-directory "~/Dropbox/Library/")
 (setq citar-bib "~/Dropbox/Apps/Overleaf/lib.bib")
@@ -622,7 +745,67 @@ NOTE: need to disable ~read-only-mode~
     (message "Clipboard is empty.")))
 #+END_SRC
 
-** keybinds (for PDF mode)
+** information processing
+1. taking plain text note with org-roam-bibtex
+2. taking note pinned to the associated PDF with org-noter
+*** org-roam-bibtex
+#+BEGIN_SRC emacs-lisp
+(use-package! org-roam-bibtex
+  :config
+  (setq org-roam-capture-templates
+        '(("d" "default" plain "%?"
+           :if-new (file+head "${slug}.org"
+                              "#+title: ${title}\n* References :ignore:\n#+print_bibliography:")
+           :unnarrowed t)
+          ;; capture to inbox
+          ("i" "inbox" entry "* TODO %?\n"
+           :target (node "3b5d0d92-c6bb-4832-ae7a-cdc2e473ff58")
+           :unnarrowed t
+           :empty-lines-before 1
+           :empty-lines-after 1
+           :prepend t)
+          ;; bibliography note template
+          ("r" "bibliography reference" plain "%?"
+           :if-new (file+head "references/notes_${citekey}.org"
+                              "#+title: Notes on ${title}\n* References :ignore:\n#+print_bibliography:")
+           :unnarrowed t)
+          ;; for my annotated bibliography needs
+          ("s" "short bibliography reference (no id)" entry "* TODO [#D] ${title} [cite:@%^{citekey}]\n%?"
+           :target (node "3b5d0d92-c6bb-4832-ae7a-cdc2e473ff58")
+           :unnarrowed t
+           :empty-lines-before 1
+           :prepend t)))
+
+  (defun my-capture-to-inbox ()
+    "Capture a TODO straight to the inbox."
+    (interactive)
+    (org-roam-capture- :goto nil
+                       :keys "i"
+                       :node (org-roam-node-from-id "3b5d0d92-c6bb-4832-ae7a-cdc2e473ff58")))
+
+  (require 'org-roam-bibtex)
+
+  (setq citar-open-note-function 'orb-citar-edit-note
+        orb-preformat-keywords '("citekey" "title" "url" "author-or-editor" "keywords" "file")
+        orb-process-file-keyword t
+        orb-file-field-extensions '("pdf"))
+)
+#+END_SRC
+** keybinds
+*** elfeed keybinds
+#+BEGIN_SRC emacs-lisp
+(map! (:after elfeed
+       (:map elfeed-search-mode-map
+        :desc "Open entry" "m" #'elfeed-search-show-entry)
+       (:map elfeed-show-mode-map
+        :desc "Fetch arXiv paper to the local library" "a" #'my-elfeed-entry-to-arxiv)))
+
+(map! :leader
+      :desc "arXiv paper to library" "n x" #'arxiv-get-pdf-add-bibtex-entry
+      :desc "Elfeed" "n e" #'elfeed)
+#+END_SRC
+
+*** PDF mode keybinds
 #+BEGIN_SRC emacs-lisp
 (map! (:map pdf-view-mode-map
        :localleader
@@ -726,9 +909,10 @@ NOTE: need to disable ~read-only-mode~
 #+BEGIN_SRC emacs-lisp
 (defun emacs-startup-screen-server ()
   "display the weekly org-agenda and all todos. used for server mode"
-  (find-file "/home/zekun/Dropbox/notes/roam/20210303220745-entry_point.org")
-  (setq org-agenda-sticky t)
-  (org-agenda nil "d")
+  ;; NOTE: comment out these when modifying configs
+  ;; (find-file "/home/zekun/Dropbox/notes/roam/20210303220745-entry_point.org")
+  ;; (setq org-agenda-sticky t)
+  ;; (org-agenda nil "d")
   ;; hiDPI hack
   (add-to-list 'default-frame-alist '(font . "Iosevka Term-12"))
 )
