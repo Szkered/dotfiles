@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-HAS_SINK=`pacmd list-sinks | awk '/muted/ { print $2 }'`
-if [[ $HAS_SINK == "yes" ]]
-then # muted
+HAS_SINK=$(pactl list sinks | awk '/Mute:/ { print $2 }')
+if [[ $HAS_SINK == "yes" ]]; then # muted
     echo -ne $"\uf6a9  "
 else # not muted
     echo -ne $"\uf028     "
