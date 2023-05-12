@@ -44,9 +44,3 @@
   :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
 #+end_src
 
-* Misc
-
-** Show HEX color
-#+begin_src emacs-lisp
-(package! rainbow-mode)
-#+end_src
