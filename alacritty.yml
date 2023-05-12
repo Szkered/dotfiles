@@ -28,7 +28,7 @@ colors:
     white: '0xFFFFFF'
 
 font:
-  size: 8
+  size: 10
   normal:
     # Font family
     family: 'Fira Code'

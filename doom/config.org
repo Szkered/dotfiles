@@ -18,30 +18,12 @@
 ** Themes
 Use light / dark theme based on current time
 #+BEGIN_SRC emacs-lisp
-(defun time-to-current-date (time)
-  "Convert TIME to current date in the same format as current-time."
-  (encode-time (append '(0) (reverse time) (cl-subseq (decode-time (current-time)) 3)))
-  )
-
-(defun time-between-p (start end)
-  "Check if the current time is between START and END.
-START and END should in the format (SEC )."
-  (let ((now (current-time)))
-    (and (time-less-p (time-to-current-date start) now) (time-less-p now (time-to-current-date end)))))
-
-;; Define start and end times
-(setq daytime-start '(7 0))
-(setq daytime-end '(19 30))
-
-(setq doom-theme (if (time-between-p daytime-start daytime-end)
-                 'doom-flatwhite
-                 'doom-horizon))
-
-(defun my-sync-theme ()
-        (if (time-between-p daytime-start daytime-end)
-            (load-theme 'doom-flatwhite)
-            (load-theme 'doom-horizon)))
-(run-with-timer 0 3600 'my-sync-theme)
+(use-package! circadian
+  :ensure t
+  :config
+  (setq circadian-themes '(("8:00" . doom-flatwhite)
+                           ("19:30" . doom-horizon)))
+  (circadian-setup))
 #+END_SRC
 
 ** Fonts

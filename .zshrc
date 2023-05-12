@@ -16,7 +16,7 @@ export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 
 # zsh history
- ZSH_HISTORY_FILE_NAME=".zsh_history"
+ZSH_HISTORY_FILE_NAME=".zsh_history"
 ZSH_HISTORY_FILE="${HOME}/${ZSH_HISTORY_FILE_NAME}"
 ZSH_HISTORY_PROJ="${HOME}/.zsh_history_proj"
 ZSH_HISTORY_FILE_ENC_NAME="zsh_history"

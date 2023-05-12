@@ -44,3 +44,7 @@
   :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
 #+end_src
 
+* Theme-switching for Emacs based on daytime
+#+begin_src emacs-lisp
+(package! circadian)
+#+end_src
