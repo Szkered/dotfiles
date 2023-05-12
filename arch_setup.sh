@@ -23,7 +23,10 @@ sudo pacman -S bluez blueman bluez-utils alsa-utils vlc playerctl
 paru pandoc ghostscript
 
 # tools & system
-sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip xdotool xorg-xprop xorg-xwininfo acpi zsh xcape maim feh texlive-most libpng zlib poppler-glib htop nvtop aspell aspell-en npm cronie brightnessctl xautolock
+sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip xdotool xorg-xprop xorg-xwininfo acpi zsh xcape maim feh libpng zlib poppler-glib htop nvtop aspell aspell-en npm cronie brightnessctl xautolock python
+
+# latex
+sudo pacman -S texlive-most biber rebiber
 
 # power management
 paru auto-cpufreq-git

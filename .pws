@@ -1,4 +1,4 @@
-personal_ws-1.1 en 92
+personal_ws-1.1 en 97
 Riesz
 Stiefel
 adjoint
@@ -10,11 +10,14 @@ anticommutes
 antisymmetric
 antisymmetrization
 antisymmetry
+arxiv
 aus
 automorphisms
 autoregressive
 basis
 beamer
+biblio
+bibtex
 boson
 bosonic
 bosons
@@ -59,6 +62,7 @@ jax
 ket
 kets
 keybinds
+keywords
 let's
 magit
 marginnotes
@@ -66,6 +70,7 @@ nondimensionalize
 noter
 org
 orthonormal
+pdfs
 prefactor
 projective
 projectivity
