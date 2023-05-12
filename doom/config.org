@@ -565,8 +565,9 @@ NOTE: need to disable ~read-only-mode~
 ** keybinds
 #+BEGIN_SRC emacs-lisp
 (map!
-  :n "'" 'spacemacs/shell-pop-multi-vterm
-  (:after multi-vterm
+ :leader
+ :n "'" 'spacemacs/shell-pop-multi-vterm
+ (:after multi-vterm
          (:map multi-vterm-mode-map
           :leader
           :n "mc" 'multi-vterm
