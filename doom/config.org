@@ -12,7 +12,6 @@
       user-mail-address "derek.zekun.shi@gmail.com")
 #+END_SRC
 
-
 * Visual Settings
 
 ** Themes
@@ -42,7 +41,6 @@ No line number.
 (setq display-line-numbers-type nil)
 #+END_SRC
 
-
 * Dired/Ranger
 ** Image preview
 don't know why ranger's preview is not working
@@ -56,6 +54,12 @@ don't know why ranger's preview is not working
     (advice-remove 'dired-next-line (lambda (arg) (dired-display-file)))))
 #+END_SRC
 
+** keybinds
+#+BEGIN_SRC emacs-lisp
+(map! :after ranger
+      (:map ranger-mode-map
+          "i" 'dired-follow-mode))
+#+END_SRC
 
 * Spell checking
 
@@ -64,9 +68,7 @@ don't know why ranger's preview is not working
 ;; (remove-hook 'text-mode-hook #'spell-fu-mode)
 #+END_SRC
 
-
 * Org-mode
-
 ** file location
 #+begin_src emacs-lisp
 (setq org-directory "~/Dropbox/notes/")
@@ -178,11 +180,11 @@ don't know why ranger's preview is not working
 
 ** agenda as starting page
 #+BEGIN_SRC emacs-lisp
-(defun emacs-startup-screen ()
-  "display the weekly org-agenda and all todos."
-  (find-file "/home/zekun/Dropbox/notes/roam/20210303220745-entry_point.org")
-  (org-agenda nil "d"))
-(add-hook 'emacs-startup-hook #'emacs-startup-screen)
+;; (defun emacs-startup-screen ()
+;;   "display the weekly org-agenda and all todos."
+;;   (find-file "/home/zekun/Dropbox/notes/roam/20210303220745-entry_point.org")
+;;   (org-agenda nil "d"))
+;; (add-hook 'emacs-startup-hook #'emacs-startup-screen)
 #+END_SRC
 
 ** todo-keywards
@@ -317,7 +319,6 @@ don't know why ranger's preview is not working
             (overlay-put ov 'line-spacing (1- line-height))))))))
 #+end_src
 
-
 ** agenda category icon list
 #+begin_src emacs-lisp
 (setq org-agenda-category-icon-alist
@@ -374,7 +375,6 @@ don't know why ranger's preview is not working
   (my-org-agenda-time-grid-spacing))
 #+end_src
 
-
 ** auto export org beamer
 #+begin_src emacs-lisp
 (defun my-org-beamer-sync-hook ()
@@ -385,7 +385,10 @@ don't know why ranger's preview is not working
 
 (add-hook 'before-save-hook #'my-org-beamer-sync-hook)
 #+end_src
-
+** keybinds
+#+BEGIN_SRC emacs-lisp
+(map! :n "na" 'org-agenda)
+#+END_SRC
 
 * Python
 
@@ -454,8 +457,26 @@ $ autoflake --in-place --remove-unused-variables --remove-all-unused-imports --r
 (setq ein:use-smartrep t)
 #+END_SRC
 
+** keybinds
+#+begin_src emacs-lisp
+(map!
+ (:after python
+      :map  python-mode-map
+      :localleader
+      "'" #'sh-switch-to-process-buffer
+      "r" #'sh-send-line-or-region
+      "db" #'python-toggle-breakpoint)
 
-* Term
+ (:after dap-mode
+         (:map dap-mode-map
+          :leader
+          "dd" 'dap-debug
+          "de" 'dap-debug-edit-template
+          "d." 'dap-hydra))
+ )
+#+end_src
+
+* Vterm
 ** Make auto-complete visible
 #+BEGIN_SRC emacs-lisp
 (setq shell-file-name "/bin/zsh")
@@ -508,6 +529,17 @@ NOTE: need to disable ~read-only-mode~
   (pop-to-buffer (process-buffer (get-process "vterm")) t))
 #+END_SRC
 
+** keybinds
+#+BEGIN_SRC emacs-lisp
+(map!
+  :n "'" 'spacemacs/shell-pop-multi-vterm
+  (:after multi-vterm
+         (:map multi-vterm-mode-map
+          :leader
+          :n "mc" 'multi-vterm
+          :n "mp" 'multi-vterm-prev
+          :n "mn" 'multi-vterm-next)))
+#+END_SRC
 
 * Copilot
 #+begin_src emacs-lisp
@@ -520,132 +552,7 @@ NOTE: need to disable ~read-only-mode~
               ))
 #+end_src
 
-
-* Keybindings
-** Base
-#+begin_src emacs-lisp
-(map!
-
- :v "s" #'evil-surround-region
- :o "S" #'evil-surround-edit
- :n  "]e"    #'move-text-line-down
- :n  "[e"    #'move-text-line-up
-
- ;; searching
- "C-s" 'consult-line
- "C-c C-s" '+vertico/search-symbol-at-point
- "C-c s" 'consult-ripgrep
-
- (:when (modulep! :editor multiple-cursors)
-   :nv "C-n" #'evil-mc-make-and-goto-next-match
-   :nv "C-p" #'evil-mc-make-and-goto-prev-match)
-
-
- (:leader
-  ;; calendar
-  ;; :n "c" 'my-open-calendar
-
-  :n "RET" 'bookmark-jump
-
-  ;; workspace / window management
-  :n "o" 'spacemacs/workspaces-transient-state/body
-  :n "0" 'treemacs-select-window
-  :n "1" 'winum-select-window-1
-  :n "2" 'winum-select-window-2
-  :n "3" 'winum-select-window-3
-  :n "4" 'winum-select-window-4
-  :n "5" 'winum-select-window-5
-  :n "6" 'winum-select-window-6
-  :n "7" 'winum-select-window-7
-  :n "8" 'winum-select-window-8
-  :n "9" 'winum-select-window-9
-  :n "'" 'spacemacs/shell-pop-multi-vterm
-  :n "es" 'flycheck-list-errors
-
-  :n "gs" 'magit-status
-  :n "gff" 'magit-find-file
-  :n "na" 'org-agenda
-
-  :n "Ts" 'load-theme
-
-  ;; jumps
-  :n "ji" 'imenu
-  :n "." 'evil-goto-definition
-  :n "fb" 'bookmark-jump
-  :n "bb" 'switch-to-buffer)
-
-
- (:after ranger
-         (:map ranger-mode-map
-          "i" 'dired-follow-mode))
-
- (:after multi-vterm
-         (:map multi-vterm-mode-map
-          :leader
-          :n "mc" 'multi-vterm
-          :n "mp" 'multi-vterm-prev
-          :n "mn" 'multi-vterm-next))
-
- (:after calfw
-         (:map cfw:calendar-mode-map
-          ;; "<return>" 'cfw:show-details-command
-          :n "RET" 'cfw:show-details-command
-          :n "SPC" 'nil)
-
-         (:map cfw:details-mode-map
-          :n "q" 'cfw:details-kill-buffer-command))
-
- (:after dap-mode
-         (:map dap-mode-map
-          :leader
-          :n "dd" 'dap-debug
-          :n "de" 'dap-debug-edit-template
-          :n "d." 'dap-hydra))
-
- (:after julia-mode
-         (:map julia-mode-map
-          :n "K" 'eldoc-doc-buffer
-          :localleader
-          :n "'" '+julia/open-repl)))
-
-(after! evil (evil-escape-mode nil))
-
-;; Make evil-mode up/down operate in screen lines instead of logical lines
-(define-key evil-motion-state-map "j" 'evil-next-visual-line)
-(define-key evil-motion-state-map "k" 'evil-previous-visual-line)
-
-;; Also in visual mode
-(define-key evil-visual-state-map "j" 'evil-next-visual-line)
-(define-key evil-visual-state-map "k" 'evil-previous-visual-line)
-#+end_src
-
-** spacemacs leader
-#+BEGIN_SRC emacs-lisp
-(setq doom-localleader-key ",")
-#+END_SRC
-
-** python-mode
-#+begin_src emacs-lisp
-(add-hook! 'python-mode-hook
-  (pyenv-tracking-mode)
-  (spacemacs/set-leader-keys-for-major-mode 'python-mode
-   "a"  'pyvenv-activate
-   "D"  'pyvenv-deactivate
-   "'"  'sh-switch-to-process-buffer
-   "sr" 'sh-send-line-or-region
-   "sR" 'sh-send-line-or-region-and-step
-   "db" 'python-toggle-breakpoint
-   "ri" 'py-isort-buffer
-   "ru" 'python-autoflake))
-#+end_src
-
-
 * Research Workflow
-
-** biblio
-#+BEGIN_SRC emacs-lisp
-(setq biblio-download-directory "~/Dropbox/Library/")
-#+END_SRC
 
 ** citar
 #+BEGIN_SRC emacs-lisp
@@ -665,7 +572,127 @@ NOTE: need to disable ~read-only-mode~
   :config (citar-embark-mode))
 #+END_SRC
 
+** biblio
+#+BEGIN_SRC emacs-lisp
+(setq biblio-download-directory "~/Dropbox/Library/")
+(setq citar-bib "~/Dropbox/Apps/Overleaf/lib.bib")
+
+(defun biblio-current-buffer ()
+  "Call an interactive function with the current buffer name."
+  (interactive)
+  (let ((query (buffer-name)))
+    (biblio-lookup nil (string-remove-suffix ".pdf" query))))
+
+(defun paste-to-citar-lib ()
+  "Paste the current clipboard contents to a specific file."
+  (interactive)
+  ;; Ensure the kill ring is not empty
+  (if (and kill-ring (not (string= "" (current-kill 0))))
+      (let ((content (current-kill 0)))
+        (with-temp-buffer
+          (when (file-exists-p citar-bib)
+            (insert-file-contents citar-bib))
+          (goto-char (point-max))
+          (insert content)
+          (write-file citar-bib)))
+    (message "Clipboard is empty.")))
+#+END_SRC
+
+** keybinds (for PDF mode)
+#+BEGIN_SRC emacs-lisp
+(map! (:map pdf-view-mode-map
+       :localleader
+       "c" 'paste-to-citar-lib))
+#+END_SRC
+
 * Email
 #+BEGIN_SRC emacs-lisp
 (setq mu4e-update-interval 60)
 #+END_SRC
+
+* Misc
+** disable hl-line-mode in rainbow-mode
+#+BEGIN_SRC emacs-lisp
+(add-hook! 'rainbow-mode-hook
+  (hl-line-mode (if rainbow-mode -1 +1)))
+#+END_SRC
+
+* Other Keybinds
+** Cursor and window movements
+#+begin_src emacs-lisp
+(map!
+
+ :v "s" #'evil-surround-region
+ :o "S" #'evil-surround-edit
+ :n "]e" #'move-text-line-down
+ :n "[e" #'move-text-line-up
+
+ :nv "M-n" #'evil-mc-make-and-goto-next-match
+ :nv "M-p" #'evil-mc-make-and-goto-prev-match
+ (:map evil-mc-cursor-map
+  :nv "M-n" #'evil-mc-make-and-goto-next-match
+  :nv "M-p" #'evil-mc-make-and-goto-prev-match
+ )
+ (:map evil-mc-key-map
+  :nv "M-n" #'evil-mc-make-and-goto-next-match
+  :nv "M-p" #'evil-mc-make-and-goto-prev-match
+ )
+
+ (:leader
+  :n "RET" 'bookmark-jump
+
+  ;; workspace / window management
+  :n "o" 'spacemacs/workspaces-transient-state/body
+  :n "0" 'treemacs-select-window
+  :n "1" 'winum-select-window-1
+  :n "2" 'winum-select-window-2
+  :n "3" 'winum-select-window-3
+  :n "4" 'winum-select-window-4
+  :n "5" 'winum-select-window-5
+  :n "6" 'winum-select-window-6
+  :n "7" 'winum-select-window-7
+  :n "8" 'winum-select-window-8
+  :n "9" 'winum-select-window-9
+
+  ;; jumps
+  :n "ji" 'imenu
+  :n "." 'evil-goto-definition
+  :n "bb" 'switch-to-buffer)
+
+)
+
+;; (after! evil (evil-escape-mode nil))
+
+;; Make evil-mode up/down operate in screen lines instead of logical lines
+(define-key evil-motion-state-map "j" 'evil-next-visual-line)
+(define-key evil-motion-state-map "k" 'evil-previous-visual-line)
+
+;; Also in visual mode
+(define-key evil-visual-state-map "j" 'evil-next-visual-line)
+(define-key evil-visual-state-map "k" 'evil-previous-visual-line)
+#+end_src
+
+** Searching
+#+BEGIN_SRC emacs-lisp
+(map!
+ "C-s" 'consult-line
+ "C-c C-s" '+vertico/search-symbol-at-point
+ "C-c s" 'consult-ripgrep
+)
+#+END_SRC
+
+** Misc
+#+BEGIN_SRC emacs-lisp
+(map! (:leader
+  :n "es" 'flycheck-list-errors
+  :n "gs" 'magit-status
+  :n "gff" 'magit-find-file
+  :n "Ts" 'load-theme
+))
+#+END_SRC
+
+** spacemacs leader
+#+BEGIN_SRC emacs-lisp
+(setq doom-localleader-key ",")
+#+END_SRC
+
