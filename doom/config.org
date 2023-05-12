@@ -25,15 +25,48 @@ Use light / dark theme based on current time
   (circadian-setup))
 #+END_SRC
 
-** Fonts
-Auto select font size based on resolution. Useful for HiDPI monitors.
+** Fix for HiDPI monitors (see [[https://github.com/doomemacs/doomemacs/issues/6131][github issue]]).
 #+BEGIN_SRC emacs-lisp
-(setq doom-font (font-spec :family "Iosevka Term" :size 16)
-      doom-variable-pitch-font (font-spec :family "Iosevka")
-      doom-unicode-font (font-spec :family "Iosevka Term")
-      doom-big-font (font-spec :family "Iosevka Term" :size 22))
+(defadvice! fix-doom-init-fonts-h (&optional reload)
+  :override #'doom-init-fonts-h
+  (dolist (map `((default . ,doom-font)
+                 (fixed-pitch . ,doom-font)
+                 (fixed-pitch-serif . ,doom-serif-font)
+                 (variable-pitch . ,doom-variable-pitch-font)))
+    (when-let* ((face (car map))
+                (font (cdr map)))
+      (dolist (frame (frame-list))
+        (when (display-multi-font-p frame)
+          (set-face-attribute face frame
+                              :width 'normal :weight 'normal
+                              :slant 'normal :font font)))
+      (let ((new-specs (doom--make-font-specs face font)))
+        ;; Don't save to `customized-face' so it's omitted from `custom-file'
+        ;;(put face 'customized-face new-specs)
+        (custom-push-theme 'theme-face face 'user 'set new-specs)
+        (put face 'face-modified nil))))
+  (when (fboundp 'set-fontset-font)
+    (let ((fn (doom-rpartial #'member (font-family-list))))
+      (when-let (font (cl-find-if fn doom-symbol-fallback-font-families))
+        (set-fontset-font t 'symbol font))
+      (when-let (font (cl-find-if fn doom-emoji-fallback-font-families))
+        (set-fontset-font t 'unicode font))
+      (when doom-unicode-font
+        (set-fontset-font t 'unicode doom-unicode-font))))
+  ;; Users should inject their own font logic in `after-setting-font-hook'
+  (run-hooks 'after-setting-font-hook))
 #+END_SRC
 
+** Fonts
+#+BEGIN_SRC emacs-lisp
+(if (> (x-display-pixel-width) 3000)
+    (add-to-list 'default-frame-alist '(font . "Iosevka Term-12"))
+  (setq doom-font (font-spec :family "Iosevka Term" :size 16 :dpi 163)
+        doom-variable-pitch-font (font-spec :family "Iosevka" :dpi 163)
+        doom-unicode-font (font-spec :family "Iosevka Term" :dpi 163)
+        doom-big-font (font-spec :family "Iosevka Term" :size 22 :dpi 163))
+)
+#+END_SRC
 
 ** Line number
 No line number.
