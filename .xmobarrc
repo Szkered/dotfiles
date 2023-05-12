@@ -128,7 +128,10 @@ Config {
                                          ] 50
 
                      -- Time and date
-                    , Run Date "<fn=2>\xf017</fn>  %b %d %Y - %H:%M " "date" 10
+                    , Run Date "|  %b %d %Y - %H:%M " "date" 10
+
+                    -- apple icon
+                    , Run Com "echo"     ["<fn=2>\xf179</fn>"] "appleicon" 3600
 
                       -- Prints out the left side items such as workspaces, layout, etc.
                     , Run UnsafeStdinReader
@@ -146,5 +149,6 @@ Config {
        \<box type=Bottom width=2 mb=2><fc=#bfbdb6><action=`alacritty -e htop`>%memory%</action></fc></box>   \
        \<box type=Bottom width=2 mb=2>%disku%</box>   \
        \<box type=Bottom width=2 mb=2><action=`pavucontrol`>%volume%</action></box>   \
-       \<box type=Bottom width=2 mb=2>%date%</box> "
+       \<box type=Bottom width=2 mb=2><action=`google-chrome-stable https://www.icloud.com/calendar/`>%appleicon%  </action></box>\
+       \<box type=Bottom width=2 mb=2><action=`google-chrome-stable https://calendar.google.com/calendar/u/1/r`>%date%</action></box> "
        }
