@@ -26,7 +26,7 @@ Config {
        , position       = TopSize L 100 30
 
        -- general behavior
-       , lowerOnStart =     False   -- send to bottom of window stack on start
+       , lowerOnStart =     True    -- send to bottom of window stack on start
        , hideOnStart =      False   -- start with window unmapped (hidden)
        , allDesktops =      True    -- show on all desktops
        , persistent =       True    -- enable/disable hiding (True = disabled)
@@ -133,7 +133,10 @@ Config {
                     -- apple icon
                     , Run Com "echo"     ["<fn=2>\xf179</fn>"] "appleicon" 3600
 
-                      -- Prints out the left side items such as workspaces, layout, etc.
+                    -- Emacs server
+                    , Run Com "bash"     ["/home/zekun/dotfiles/check_emacs_server.sh"] "emacs" 10
+
+                    -- Prints out the left side items such as workspaces, layout, etc.
                     , Run UnsafeStdinReader
                     ]
 
@@ -143,6 +146,7 @@ Config {
        , template = " %UnsafeStdinReader% |  \
        \<box type=Bottom width=2 mb=2>%battery%</box>   \
        \<box type=Bottom width=2 mb=2>%wifiicon%  %wifi%   %dynnetwork%</box>  }{  \
+       \<box type=Bottom width=2 mb=2>%emacs%</box>   \
        \<box type=Bottom width=2 mb=2><fc=#bfbdb6><action=`alacritty -e nvtop`>%gpuicon%  %gpuusage%</action></fc></box>   \
        \<box type=Bottom width=2 mb=2><fc=#bfbdb6><action=`alacritty -e glances`>%multicpu%</action></fc></box>   \
        \<box type=Bottom width=2 mb=2>%coretemp%</box>   \

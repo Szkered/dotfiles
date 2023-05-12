@@ -59,13 +59,13 @@ Use light / dark theme based on current time
 
 ** Fonts
 #+BEGIN_SRC emacs-lisp
-(if (> (x-display-pixel-width) 3000)
-    (add-to-list 'default-frame-alist '(font . "Iosevka Term-12"))
-  (setq doom-font (font-spec :family "Iosevka Term" :size 16 :dpi 163)
-        doom-variable-pitch-font (font-spec :family "Iosevka" :dpi 163)
-        doom-unicode-font (font-spec :family "Iosevka Term" :dpi 163)
-        doom-big-font (font-spec :family "Iosevka Term" :size 22 :dpi 163))
-)
+;; (if (> (x-display-pixel-width) 3000)
+;;     (add-to-list 'default-frame-alist '(font . "Iosevka Term-12"))
+;;   (setq doom-font (font-spec :family "Iosevka Term" :size 16 :dpi 163)
+;;         doom-variable-pitch-font (font-spec :family "Iosevka" :dpi 163)
+;;         doom-unicode-font (font-spec :family "Iosevka Term" :dpi 163)
+;;         doom-big-font (font-spec :family "Iosevka Term" :size 22 :dpi 163))
+;; )
 #+END_SRC
 
 ** Line number
@@ -200,7 +200,6 @@ don't know why ranger's preview is not working
 
 ** agenda appearances
 #+BEGIN_SRC emacs-lisp
-(setq org-agenda-sticky t) ;; persistent org agenda buffer
 (setq org-agenda-clockreport-parameter-plist
       (quote (:link t :maxlevel 3 :fileskip0 t :narrow 80 :formula %)))
 (setq org-agenda-log-mode-items '(closed state clock))
@@ -209,15 +208,6 @@ don't know why ranger's preview is not working
 (setq org-agenda-breadcrumbs-separator " 🡒 ")
 ;; (setq my-org-agenda-prefix-format " %-2i %(concat \"[\" (car (last(split-string (or (org-agenda-get-category) \"\") \"-\"))) \"]\") %b %t%s")
 (setq my-org-agenda-prefix-format " %-2i %b %t%s")
-#+END_SRC
-
-** agenda as starting page
-#+BEGIN_SRC emacs-lisp
-;; (defun emacs-startup-screen ()
-;;   "display the weekly org-agenda and all todos."
-;;   (find-file "/home/zekun/Dropbox/notes/roam/20210303220745-entry_point.org")
-;;   (org-agenda nil "d"))
-;; (add-hook 'emacs-startup-hook #'emacs-startup-screen)
 #+END_SRC
 
 ** todo-keywards
@@ -730,3 +720,33 @@ NOTE: need to disable ~read-only-mode~
 (setq doom-localleader-key ",")
 #+END_SRC
 
+* Starting page
+
+** agenda as starting page
+#+BEGIN_SRC emacs-lisp
+(defun emacs-startup-screen-server ()
+  "display the weekly org-agenda and all todos. used for server mode"
+  (find-file "/home/zekun/Dropbox/notes/roam/20210303220745-entry_point.org")
+  (setq org-agenda-sticky t)
+  (org-agenda nil "d")
+  ;; hiDPI hack
+  (add-to-list 'default-frame-alist '(font . "Iosevka Term-12"))
+)
+
+(defun emacs-startup-screen ()
+  "display the weekly org-agenda and all todos. used for server mode"
+  (find-file "/home/zekun/Dropbox/notes/roam/20210303220745-entry_point.org")
+  (setq org-agenda-sticky t)
+  (org-agenda nil "d")
+
+  ;; for loDPI we still need to set the font
+  (if (< (x-display-pixel-width) 3000)
+    (setq doom-font (font-spec :family "Iosevka Term" :size 16 :dpi 163)
+          doom-variable-pitch-font (font-spec :family "Iosevka" :dpi 163)
+          doom-unicode-font (font-spec :family "Iosevka Term" :dpi 163)
+          doom-big-font (font-spec :family "Iosevka Term" :size 22 :dpi 163))
+  )
+)
+
+(add-hook! 'emacs-startup-hook (emacs-startup-screen-server))
+#+END_SRC

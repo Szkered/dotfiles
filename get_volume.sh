@@ -5,4 +5,4 @@ if [[ $HAS_SINK == "yes" ]]; then # muted
 else # not muted
     echo -ne $"\uf028     "
 fi
-awk -F"[][]" '/Left:/ { print $2 }' <(amixer sget Master)
+awk -F"[][]" '/Mono:/ { print $2 }' <(amixer get Master)
