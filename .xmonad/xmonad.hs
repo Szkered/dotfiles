@@ -26,8 +26,8 @@ myConfig =
                         ("M-x", spawn "emacsclient -r --eval \"(emacs-everywhere)\""), -- edit text using emacs
                         ("M-c", spawn "google-chrome-stable"), -- chrome
                         ("M-C-x", unGrab *> spawn "maim -s ~/Pictures/Screenshots/$(date +%s).png"), -- screenshot
-                        ("M-o", spawn "xrandr --output DP1 --auto & xrandr --output eDP1 --off & remap"), -- external display
-                        ("M-O", spawn "xrandr --output DP1 --off & xrandr --output eDP1 --auto & remap"), -- interal display
+                        ("M-o", spawn "xrandr --output DP1 --auto --pos 0x0 --rotate normal --primary --output eDP1 --off & remap"), -- external display
+                        ("M-O", spawn "xrandr --output DP1 --off --output eDP1 --auto & remap"), -- interal display
                         ("M-C-O", spawn "xrandr --output DP1 --auto & xrandr --output eDP1 --auto & remap"), -- both display
                         ("M-C-r", spawn "systemctl reboot"),
                         ("M-C-s", spawn "systemctl poweroff"),
