@@ -13,6 +13,7 @@ Config {
                            , "Font Awesome 6 Free Solid 12"
                            , "Font Awesome 6 Brands 12"
                            ]
+       , dpi = 163
        -- Color scheme: Ayu Dark
        , bgColor      = "#0d1017"
        , fgColor      = "#bfbdb6"
@@ -22,7 +23,7 @@ Config {
        --   an integer for the percentage width, so 100 would be 100%.
        --   an integer for the minimum pixel height for xmobar, so 24 would force a height of at least 24 pixels.
        --   NOTE: The height should be the same as the trayer (system tray) height.
-       , position       = TopSize L 100 24
+       , position       = TopSize L 100 30
 
        -- general behavior
        , lowerOnStart =     False   -- send to bottom of window stack on start
@@ -59,6 +60,7 @@ Config {
                                          ] 10
 
                     -- Wi-Fi
+                    , Run Com "echo"     ["<fn=2>\xf1eb</fn>"] "wifiicon" 3600
                     , Run Com "bash"     ["/home/zekun/dotfiles/get_wifi_name.sh"] "wifi" 60
 
                     -- Volume
@@ -100,8 +102,7 @@ Config {
                                          ] [] 60
                       
                     -- Battery
-                    , Run Com "echo"     ["<fn=2>\xf242</fn>"] "baticon" 3600
-                    , Run Battery        [ "--template" , "<acstatus><watts> (<left>%)"
+                    , Run Battery        [ "--template" , "<acstatus> [<watts>W] (<left>)"
                                          , "--Low"      , "10"        -- units: %
                                          , "--High"     , "80"        -- units: %
                                          , "--low"      , "#ea6c73"
@@ -109,14 +110,23 @@ Config {
                                          , "--high"     , "#91b362"
 
                                          , "--" -- battery specific options
+                                                   -- to include a percentage symbol in left
+                                                   , "-P"
+                                                   -- low battry threshold
+                                                   , "-A", "5"
+                                                   , "-a", "notify-send -u critical 'Battery running out!!'"
                                                    -- discharging status
-                                                   , "-o"	, "<left>% (<timeleft>)"
+                                                   , "-o", "(<timeleft>)"
                                                    -- AC "on" status
-                                                   , "-O"	, "<fc=#91b362>Charging</fc>"
+                                                   , "-O", "<fc=#91b362><fn=2>\xf1e6</fn></fc>"
                                                    -- charged status
-                                                   , "-i"	, "<fc=#bfbdb6>Charged</fc>"
+                                                   , "-i", "<fc=#bfbdb6><fn=2>\xf240</fn></fc>"
+                                                   -- percentages
+                                                   , "--highs", "<fn=2>\xf241</fn> "
+                                                   , "--mediums", "<fn=2>\xf242</fn> "
+                                                   , "--lows", "<fn=2>\xf243</fn> "
                                          ] 50
-                    
+
                      -- Time and date
                     , Run Date "<fn=2>\xf017</fn>  %b %d %Y - %H:%M " "date" 10
 
@@ -128,13 +138,13 @@ Config {
        , sepChar = "%"
        , alignSep = "}{"
        , template = " %UnsafeStdinReader% |  \
-       \<box type=Bottom width=2 mb=2>%baticon%  %battery%</box>   \
-       \<box type=Bottom width=2 mb=2>%wifi%   %dynnetwork%</box>  }{  \
+       \<box type=Bottom width=2 mb=2>%battery%</box>   \
+       \<box type=Bottom width=2 mb=2>%wifiicon%  %wifi%   %dynnetwork%</box>  }{  \
        \<box type=Bottom width=2 mb=2><fc=#bfbdb6><action=`alacritty -e nvtop`>%gpuicon%  %gpuusage%</action></fc></box>   \
        \<box type=Bottom width=2 mb=2><fc=#bfbdb6><action=`alacritty -e glances`>%multicpu%</action></fc></box>   \
        \<box type=Bottom width=2 mb=2>%coretemp%</box>   \
        \<box type=Bottom width=2 mb=2><fc=#bfbdb6><action=`alacritty -e htop`>%memory%</action></fc></box>   \
        \<box type=Bottom width=2 mb=2>%disku%</box>   \
-       \<box type=Bottom width=2 mb=2>%volume%</box>   \
+       \<box type=Bottom width=2 mb=2><action=`pavucontrol`>%volume%</action></box>   \
        \<box type=Bottom width=2 mb=2>%date%</box> "
        }
