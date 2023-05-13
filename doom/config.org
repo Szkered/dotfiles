@@ -20,7 +20,7 @@ Use light / dark theme based on current time
 (use-package! circadian
   :ensure t
   :config
-  (setq circadian-themes '(("8:00" . doom-flatwhite)
+  (setq circadian-themes '(("8:00" . doom-laserwave)
                            ("18:30" . doom-horizon)))
   (circadian-setup))
 #+END_SRC
@@ -575,7 +575,7 @@ I will use Dropbox as this provides integration with Overleaf.
 #+BEGIN_SRC emacs-lisp
 (defconst my-bib-libraries (list "~/Dropbox/Apps/Overleaf/lib.bib")) ; bib databases.
 (defconst my-main-bib-library (nth 0 my-bib-libraries))              ; The main db is always the first
-(defconst my-main-pdfs-library-paths `("~/Dropbox/papers/inbox" "/Dropbox/papers/read/" "/Dropbox/papers/cited/"))
+(defconst my-main-pdfs-library-paths `("~/Dropbox/bib/papers/inbox/" "~/Dropbox/bib/papers/read/" "~/Dropbox/bib/papers/cited/" "~/Dropbox/bib/textbooks/"))
 (defconst my-main-pdfs-library-path (nth 0 my-main-pdfs-library-paths))
 (defconst my-bib-notes-dir "~/Dropbox/notes/roam")
 (setq bibtex-completion-bibliography my-bib-libraries
@@ -583,7 +583,6 @@ I will use Dropbox as this provides integration with Overleaf.
       bibtex-completion-notes-path my-bib-notes-dir
       bibtex-completion-pdf-open-function (lambda (fpath)
                                              (call-process "open" nil 0 nil fpath)))
-
 (setq citar-library-paths my-main-pdfs-library-paths)
 (setq citar-notes-paths my-main-pdfs-library-paths)
 #+END_SRC
@@ -591,26 +590,36 @@ I will use Dropbox as this provides integration with Overleaf.
 ** information acquisition
 *** TODO twitter
 *** elfeed
-**** arxiv feeds
+**** rss feeds
 #+BEGIN_SRC emacs-lisp
 (defun arxiv-rss-feed-url (cat &optional max-results sort-by sort-order)
   "Search for CAT"
   (unless max-results (setq max-results "100"))
   (unless sort-by (setq sort-by "submittedDate"))
   (unless sort-order (setq sort-order "descending"))
-  (concat
+  (append
+   (concat
    "http://export.arxiv.org/api/query?search_query=cat:" cat
    "&start=0&max_results=" max-results
    "&sortBy=" sort-by
    "&sortOrder=" sort-order)
+   )
   )
 
-(setq elfeed-feeds-funcs
-      '((arxiv-rss-feed-url "math.OC")
-        (arxiv-rss-feed-url "stat.ML")
-        (arxiv-rss-feed-url "cs.LG")
-        ))
-(setq elfeed-feeds (mapcar 'eval elfeed-feeds-funcs))
+(setq arxiv-feeds-funcs
+      '(((arxiv-rss-feed-url "math.OC") math optimization control)
+       ((arxiv-rss-feed-url "stat.ML") stats machine-learning )
+       ((arxiv-rss-feed-url "cs.LG") cs machine-learning)
+       ))
+
+(setq arxiv-feeds
+      (mapcar
+       (lambda (x) (append (list (eval (car x))) (cdr x)))
+       arxiv-feeds-funcs))
+
+(setq acs-feeds  '(("https://feeds.feedburner.com/acs/jacsat" chemistry jacs)
+                   ("https://feeds.feedburner.com/acs/jctcce" theory computation jctc)))
+(setq elfeed-feeds (append arxiv-feeds acs-feeds))
 #+END_SRC
 
 **** feed scoring
@@ -626,9 +635,9 @@ I will use Dropbox as this provides integration with Overleaf.
 **** feed formatting
 #+BEGIN_SRC emacs-lisp
 (use-package! elfeed
-  :defer t
   :config
-  (add-hook! 'elfeed-search-mode-hook 'elfeed-update)
+  (add-hook! 'elfeed-search-mode-hook #'elfeed-update)
+
   (defun concatenate-authors (authors-list)
     "Given AUTHORS-LIST, list of plists; return string of all authors concatenated."
     (if (> (length authors-list) 1)
@@ -656,10 +665,9 @@ I will use Dropbox as this provides integration with Overleaf.
   (setq elfeed-search-print-entry-function #'my-search-print-fn)
   (setq elfeed-search-date-format '("%y-%m-%d" 10 :left))
   (setq elfeed-search-title-max-width 110)
-  (setq elfeed-search-filter "@2-week-ago +unread")
+  (setq elfeed-search-filter "@2-week-ago")
 )
 #+END_SRC
-
 
 **** arxiv paper fetcher
 #+BEGIN_SRC emacs-lisp
@@ -680,10 +688,15 @@ I will use Dropbox as this provides integration with Overleaf.
 *** citar
 #+BEGIN_SRC emacs-lisp
 (use-package! citar
-  :hook (doom-after-init-modules . citar-refresh)
+  ;; :hook (doom-after-init-modules . citar-refresh)
+  :custom
+  (citar-bibliography '("~/Dropbox/Apps/Overleaf/lib.bib"))
+  :hook
+  (LaTeX-mode . citar-capf-setup)
+  (org-mode . citar-capf-setup)
   :config
   ;; This will add watches for the global bib files and in addition add a hook to LaTeX-mode-hook and org-mode-hook to add watches for local bibliographic files.
-  (citar-filenotify-setup '(LaTeX-mode-hook org-mode-hook))
+  ;; (citar-filenotify-setup '(LaTeX-mode-hook org-mode-hook))
 
   (require 'citar-org)
   (setq citar-file-extensions '("pdf" "org" "md")
@@ -700,9 +713,9 @@ I will use Dropbox as this provides integration with Overleaf.
            (let ((split-name (split-string name ", ")))
              (cl-concatenate 'string (nth 1 split-name) " " (nth 0 split-name)))))
        (split-string names " and ") ", ")))
+
   (setq citar-display-transform-functions
-        '((t . citar-clean-string)
-          (("author" "editor") . my-citar-full-names)))
+        '((("author" "editor") . my-citar-full-names)))
 
   (setq citar-templates
         '((main . "${author editor:55}     ${date year issued:4}     ${title:55}")
@@ -713,10 +726,10 @@ I will use Dropbox as this provides integration with Overleaf.
   ;; use consult-completing-read for enhanced interface
   (advice-add #'completing-read-multiple :override #'consult-completing-read-multiple))
 
-(use-package citar-embark
-  :after citar embark
-  :no-require
-  :config (citar-embark-mode))
+;; (use-package citar-embark
+;;   :after citar embark
+;;   :no-require
+;;   :config (citar-embark-mode))
 #+END_SRC
 
 *** biblio
@@ -925,10 +938,10 @@ I will use Dropbox as this provides integration with Overleaf.
 
   ;; for loDPI we still need to set the font
   (if (< (x-display-pixel-width) 3000)
-    (setq doom-font (font-spec :family "Iosevka Term" :size 16 :dpi 163)
-          doom-variable-pitch-font (font-spec :family "Iosevka" :dpi 163)
-          doom-unicode-font (font-spec :family "Iosevka Term" :dpi 163)
-          doom-big-font (font-spec :family "Iosevka Term" :size 22 :dpi 163))
+    (setq doom-font (font-spec :family "Iosevka Term" :size 20 :dpi 128)
+          doom-variable-pitch-font (font-spec :family "Iosevka" :dpi 128)
+          doom-unicode-font (font-spec :family "Iosevka Term" :dpi 128)
+          doom-big-font (font-spec :family "Iosevka Term" :size 26 :dpi 128))
   )
 )
 

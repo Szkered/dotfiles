@@ -21,26 +21,28 @@ myConfig =
     }
     `additionalKeysP` [ ("M-e", spawn "emacsclient -r --eval \"(emacs-startup-screen)\""), -- run emacsclient
                         ("M-/", spawn "rofi -show combi -dpi 1"), --run rofi combined mode
-                        ("M-'", spawn "rofi -dpi 1 -modi file-browser-extended -show file-browser-extended \
-                                            -file-browser-dir "/home/zekun"               \
-                                            -file-browser-depth 6                         \
-                                            -file-browser-open-multi-key "kb-accept-alt"  \
-                                            -file-browser-open-custom-key "kb-custom-11"  \
-                                            -file-browser-hide-hidden-symbol ""           \
-                                            -file-browser-path-sep "/"                    \
-                                            -file-browser-up-text "up"                    \
-                                            -file-browser-up-icon "go-previous"           \
-                                            -file-browser-oc-search-path                  \
-                                            -file-browser-oc-cmd "gimp;icon:gimp"         \
-                                            -file-browser-exclude workspace               \
-                                            -file-browser-exclude '*.org'"),
+                        ( "M-'",
+                          spawn
+                            "rofi -dpi 1 -modi file-browser-extended -show file-browser-extended \
+                            \-file-browser-dir '/home/zekun'               \
+                            \-file-browser-depth 6                         \
+                            \-file-browser-open-multi-key 'kb-accept-alt'  \
+                            \-file-browser-open-custom-key 'kb-custom-11'  \
+                            \-file-browser-hide-hidden-symbol ''           \
+                            \-file-browser-path-sep '/'                    \
+                            \-file-browser-up-text 'up'                    \
+                            \-file-browser-up-icon 'go-previous'           \
+                            \-file-browser-oc-search-path                  \
+                            \-file-browser-exclude workspace               \
+                            \-file-browser-exclude '*.org'"
+                        ),
+                        ("M-r", spawn "~/dotfiles/remap.sh"), -- remap keyboard
                         ("M-E", spawn "doom sync & systemctl --user restart emacs"), -- reload emacs server, doesn't work very well
                         ("M-x", spawn "emacsclient -r --eval \"(emacs-everywhere)\""), -- edit text using emacs
                         ("M-c", spawn "google-chrome-stable"), -- chrome
                         ("M-C-x", unGrab *> spawn "maim -s ~/Pictures/Screenshots/$(date +%s).png"), -- screenshot
-                        ("M-o", spawn "xrandr --output DP1 --auto --pos 0x0 --rotate normal --primary --output eDP1 --off & remap"), -- external display
-                        ("M-O", spawn "xrandr --output DP1 --off --output eDP1 --auto & remap"), -- interal display
-                        ("M-C-O", spawn "xrandr --output DP1 --auto & xrandr --output eDP1 --auto & remap"), -- both display
+                        ("M-o", spawn "~/dotfiles/monitor_screen.sh"), -- external display
+                        ("M-O", spawn "~/dotfiles/laptop_screen.sh"), -- interal display
                         ("M-C-r", spawn "systemctl reboot"),
                         ("M-C-s", spawn "systemctl poweroff"),
                         ("<XF86MonBrightnessUp>", spawn "xrandr --output eDP1 --brightness 1"),

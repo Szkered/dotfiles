@@ -13,7 +13,7 @@ Config {
                            , "Font Awesome 6 Free Solid 12"
                            , "Font Awesome 6 Brands 12"
                            ]
-       , dpi = 163
+       , dpi=116
        -- Color scheme: Ayu Dark
        , bgColor      = "#0d1017"
        , fgColor      = "#bfbdb6"
@@ -144,15 +144,15 @@ Config {
        , sepChar = "%"
        , alignSep = "}{"
        , template = " %UnsafeStdinReader% |  \
-       \<box type=Bottom width=2 mb=2>%battery%</box>   \
-       \<box type=Bottom width=2 mb=2>%wifiicon%  %wifi%   %dynnetwork%</box>  }{  \
-       \<box type=Bottom width=2 mb=2>%emacs%</box>   \
-       \<box type=Bottom width=2 mb=2><fc=#bfbdb6><action=`alacritty -e nvtop`>%gpuicon%  %gpuusage%</action></fc></box>   \
-       \<box type=Bottom width=2 mb=2><fc=#bfbdb6><action=`alacritty -e glances`>%multicpu%</action></fc></box>   \
-       \<box type=Bottom width=2 mb=2>%coretemp%</box>   \
-       \<box type=Bottom width=2 mb=2><fc=#bfbdb6><action=`alacritty -e htop`>%memory%</action></fc></box>   \
-       \<box type=Bottom width=2 mb=2>%disku%</box>   \
-       \<box type=Bottom width=2 mb=2><action=`pavucontrol`>%volume%</action></box>   \
-       \<box type=Bottom width=2 mb=2><action=`google-chrome-stable https://www.icloud.com/calendar/`>%appleicon%  </action></box>\
-       \<box type=Bottom width=2 mb=2><action=`google-chrome-stable https://calendar.google.com/calendar/u/1/r`>%date%</action></box> "
+       \<box color=#0d1017 mb=2>%battery%</box>   \
+       \<box color=#0d1017 mb=2>%wifiicon%  %wifi%   %dynnetwork%</box>  }{  \
+       \<box color=#0d1017 mb=2>%emacs%</box>   \
+       \<box color=#0d1017 mb=2><fc=#bfbdb6><action=`alacritty -e nvtop`>%gpuicon%  %gpuusage%</action></fc></box>   \
+       \<box color=#0d1017 mb=2><fc=#bfbdb6><action=`alacritty -e glances`>%multicpu%</action></fc></box>   \
+       \<box color=#0d1017 mb=2>%coretemp%</box>   \
+       \<box color=#0d1017 mb=2><fc=#bfbdb6><action=`alacritty -e htop`>%memory%</action></fc></box>   \
+       \<box color=#0d1017 mb=2>%disku%</box>   \
+       \<box color=#0d1017 mb=2><action=`pavucontrol`>%volume%</action></box>   \
+       \<box color=#0d1017 mb=2><action=`google-chrome-stable https://www.icloud.com/calendar/`>%appleicon%  </action></box>\
+       \<box color=#0d1017 mb=2><action=`google-chrome-stable https://calendar.google.com/calendar/u/1/r`>%date%</action></box> "
        }
