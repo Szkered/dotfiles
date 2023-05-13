@@ -37,12 +37,12 @@ myConfig =
                             \-file-browser-exclude '*.org'"
                         ),
                         ("M-r", spawn "~/dotfiles/remap.sh"), -- remap keyboard
-                        ("M-E", spawn "doom sync & systemctl --user restart emacs"), -- reload emacs server, doesn't work very well
+                        ("M-S-e", spawn "~/dotfiles/reload_emacs.sh"),
                         ("M-x", spawn "emacsclient -r --eval \"(emacs-everywhere)\""), -- edit text using emacs
                         ("M-c", spawn "google-chrome-stable"), -- chrome
                         ("M-C-x", unGrab *> spawn "maim -s ~/Pictures/Screenshots/$(date +%s).png"), -- screenshot
                         ("M-o", spawn "~/dotfiles/monitor_screen.sh"), -- external display
-                        ("M-O", spawn "~/dotfiles/laptop_screen.sh"), -- interal display
+                        ("M-S-o", spawn "~/dotfiles/laptop_screen.sh"), -- interal display
                         ("M-C-r", spawn "systemctl reboot"),
                         ("M-C-s", spawn "systemctl poweroff"),
                         ("<XF86MonBrightnessUp>", spawn "xrandr --output eDP1 --brightness 1"),

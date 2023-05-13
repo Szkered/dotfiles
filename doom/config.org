@@ -63,7 +63,7 @@ No line number.
 (setq display-line-numbers-type nil)
 #+END_SRC
 
-* Dired/Ranger
+* File manager: Dired / Ranger
 ** Image preview
 don't know why ranger's preview is not working
 #+BEGIN_SRC emacs-lisp
@@ -74,6 +74,19 @@ don't know why ranger's preview is not working
   (if dired-follow-mode
       (advice-add 'dired-next-line :after (lambda (arg) (dired-display-file)))
     (advice-remove 'dired-next-line (lambda (arg) (dired-display-file)))))
+#+END_SRC
+** yank buffer name
+#+BEGIN_SRC emacs-lisp
+(defun yank-buffer-file-name ()
+  "Copy the current buffer's file name to the kill ring."
+  (interactive)
+  (if-let ((name (buffer-file-name)))
+      (progn
+        (kill-new name)
+        (message "Buffer file name '%s' copied to clipboard" name))
+    (message "Current buffer is not visiting a file")))
+
+(map! "C-c n" 'yank-buffer-file-name)
 #+END_SRC
 
 ** keybinds
@@ -240,7 +253,7 @@ don't know why ranger's preview is not working
                 ((org-agenda-prefix-format my-org-agenda-prefix-format)
                  (org-agenda-todo-keyword-format "")
                  (org-agenda-remove-tags t)
-                 (org-agenda-overriding-header "🕳 Long-term Learning:\n⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺")))
+                 (org-agenda-overriding-header "🕳 Learning:\n⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺")))
 
           (todo "IDEA"
                 ((org-agenda-prefix-format my-org-agenda-prefix-format)
@@ -280,6 +293,16 @@ don't know why ranger's preview is not working
                  (org-agenda-todo-keyword-format "")
                  (org-agenda-remove-tags t)
                  (org-agenda-overriding-header "⏳ Do these next:\n⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺")))
+
+          (todo "HOLD"
+                ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
+                                                (air-org-skip-subtree-if-priority ?A)
+                                                (org-agenda-skip-if nil '(scheduled deadline))
+                                                ))
+                 (org-agenda-prefix-format my-org-agenda-prefix-format)
+                 (org-agenda-todo-keyword-format "")
+                 (org-agenda-remove-tags t)
+                 (org-agenda-overriding-header "📒 Archive:\n⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺")))
 
           )
 
@@ -334,15 +357,13 @@ don't know why ranger's preview is not working
 ** agenda category icon list
 #+begin_src emacs-lisp
 (setq org-agenda-category-icon-alist
-      `((".*org.*" ,(list (all-the-icons-faicon "pencil")) nil nil :ascent center)
+      `(
         (".*gtd.*" ,(list (all-the-icons-faicon "pencil")) nil nil :ascent center)
-        (".*research.*" ,(list (all-the-icons-faicon "pencil")) nil nil :ascent center)
-        ;; ("neuri" ,(list (all-the-icons-faicon "black-tie" :height 0.9)) nil nil :ascent center)
+        (".*research.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
         (".*sail.*" ,(list (all-the-icons-octicon "briefcase")) nil nil :ascent center)
         (".*game_ai.*" ,(list (all-the-icons-octicon "briefcase")) nil nil :ascent center)
         (".*neuri.*" ,(list (all-the-icons-octicon "briefcase")) nil nil :ascent center)
         (".*career.*" ,(list (all-the-icons-octicon "briefcase")) nil nil :ascent center)
-        ;; ("math" ,(list (all-the-icons-faicon "graduation-cap" :height 0.65)) nil nil :ascent center)
         (".*math.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
         (".*ai4sci.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
         (".*phd_application.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
@@ -361,6 +382,7 @@ don't know why ranger's preview is not working
         ;; ("my_fin" ,(list (all-the-icons-faicon "usd")) nil nil :ascent center)
         (".*fin.*" ,(list (all-the-icons-faicon "line-chart" :height 0.68)) nil nil :ascent center)
         (".*ml.*" ,(list (all-the-icons-octicon "hubot")) nil nil :ascent center)
+        (".*productivity.*" ,(list (all-the-icons-faicon "terminal")) nil nil :ascent center)
         (".*cs.*" ,(list (all-the-icons-faicon "terminal")) nil nil :ascent center)
         (".*cpp.*" ,(list (all-the-icons-faicon "terminal")) nil nil :ascent center)
         ;; (".*schedule.*" ,(list (all-the-icons-faicon "commenting")) nil nil :ascent center)
@@ -368,8 +390,11 @@ don't know why ranger's preview is not working
         (".*blockchain.*" ,(list (all-the-icons-faicon "lock")) nil nil :ascent center)
         ("vocab" ,(list (all-the-icons-faicon "book")) nil nil :ascent center)
         (".*read.*" ,(list (all-the-icons-faicon "book")) nil nil :ascent center)
-        (".*cooking.*" ,(list (all-the-icons-faicon "fire")) nil nil :ascent center)))
+        (".*cooking.*" ,(list (all-the-icons-faicon "fire")) nil nil :ascent center)
+        (".*" ,(list (all-the-icons-faicon "check")) nil nil :ascent center)
+        ))
 #+end_src
+
 
 ** writeroom mode
 #+begin_src emacs-lisp
@@ -589,7 +614,7 @@ I will use Dropbox as this provides integration with Overleaf.
 
 ** information acquisition
 *** TODO twitter
-*** elfeed
+*** RSS: elfeed
 **** rss feeds
 #+BEGIN_SRC emacs-lisp
 (defun arxiv-rss-feed-url (cat &optional max-results sort-by sort-order)
@@ -644,7 +669,6 @@ I will use Dropbox as this provides integration with Overleaf.
         (format "%s et al." (plist-get (nth 0 authors-list) :name))
       (plist-get (nth 0 authors-list) :name)))
 
-  ;; TODO: add back elfeed-score
   (defun my-search-print-fn (entry)
     "Print ENTRY to the buffer."
     (let* ((date (elfeed-search-format-date (elfeed-entry-date entry)))
@@ -683,6 +707,33 @@ I will use Dropbox as this provides integration with Overleaf.
       )
     ))
 #+END_SRC
+
+*** offline PDF: biblio
+#+BEGIN_SRC emacs-lisp
+(setq biblio-download-directory "~/Dropbox/Library/")
+(setq citar-bib "~/Dropbox/Apps/Overleaf/lib.bib")
+
+(defun biblio-current-buffer ()
+  "Call an interactive function with the current buffer name."
+  (interactive)
+  (let ((query (buffer-name)))
+    (biblio-lookup nil (string-remove-suffix ".pdf" query))))
+
+(defun paste-to-citar-lib ()
+  "Paste the current clipboard contents to a specific file."
+  (interactive)
+  ;; Ensure the kill ring is not empty
+  (if (and kill-ring (not (string= "" (current-kill 0))))
+      (let ((content (current-kill 0)))
+        (with-temp-buffer
+          (when (file-exists-p citar-bib)
+            (insert-file-contents citar-bib))
+          (goto-char (point-max))
+          (insert content)
+          (write-file citar-bib)))
+    (message "Clipboard is empty.")))
+#+END_SRC
+*** web: zotra
 
 ** information storage
 *** citar
@@ -732,35 +783,6 @@ I will use Dropbox as this provides integration with Overleaf.
 ;;   :config (citar-embark-mode))
 #+END_SRC
 
-*** biblio
-#+BEGIN_SRC emacs-lisp
-(setq biblio-download-directory "~/Dropbox/Library/")
-(setq citar-bib "~/Dropbox/Apps/Overleaf/lib.bib")
-
-(defun biblio-current-buffer ()
-  "Call an interactive function with the current buffer name."
-  (interactive)
-  (let ((query (buffer-name)))
-    (biblio-lookup nil (string-remove-suffix ".pdf" query))))
-
-(defun paste-to-citar-lib ()
-  "Paste the current clipboard contents to a specific file."
-  (interactive)
-  ;; Ensure the kill ring is not empty
-  (if (and kill-ring (not (string= "" (current-kill 0))))
-      (let ((content (current-kill 0)))
-        (with-temp-buffer
-          (when (file-exists-p citar-bib)
-            (insert-file-contents citar-bib))
-          (goto-char (point-max))
-          (insert content)
-          (write-file citar-bib)))
-    (message "Clipboard is empty.")))
-#+END_SRC
-
-** information processing
-1. taking plain text note with org-roam-bibtex
-2. taking note pinned to the associated PDF with org-noter
 *** org-roam-bibtex
 #+BEGIN_SRC emacs-lisp
 (use-package! org-roam-bibtex
@@ -804,6 +826,10 @@ I will use Dropbox as this provides integration with Overleaf.
         orb-file-field-extensions '("pdf"))
 )
 #+END_SRC
+** information processing
+1. taking plain text note with org-roam-bibtex
+2. taking note pinned to the associated PDF with org-noter
+
 ** keybinds
 *** elfeed keybinds
 #+BEGIN_SRC emacs-lisp
@@ -923,16 +949,17 @@ I will use Dropbox as this provides integration with Overleaf.
 (defun emacs-startup-screen-server ()
   "display the weekly org-agenda and all todos. used for server mode"
   ;; NOTE: comment out these when modifying configs
-  ;; (find-file "/home/zekun/Dropbox/notes/roam/20210303220745-entry_point.org")
-  ;; (setq org-agenda-sticky t)
-  ;; (org-agenda nil "d")
+  (find-file "/home/zekun/Dropbox/notes/roam/20221016141411-research.org")
+  (setq org-agenda-sticky t)
+  (org-agenda nil "d")
+
   ;; hiDPI hack
   (add-to-list 'default-frame-alist '(font . "Iosevka Term-12"))
 )
 
 (defun emacs-startup-screen ()
   "display the weekly org-agenda and all todos. used for server mode"
-  (find-file "/home/zekun/Dropbox/notes/roam/20210303220745-entry_point.org")
+  (find-file "/home/zekun/Dropbox/notes/roam/20221016141411-research.org")
   (setq org-agenda-sticky t)
   (org-agenda nil "d")
 
