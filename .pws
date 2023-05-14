@@ -1,4 +1,4 @@
-personal_ws-1.1 en 97
+personal_ws-1.1 en 105
 Riesz
 Stiefel
 adjoint
@@ -22,6 +22,7 @@ boson
 bosonic
 bosons
 broglie
+cayley
 citar
 collinear
 collinearity
@@ -40,6 +41,7 @@ eigenfunctions
 eigenstate
 eigenstates
 elfeed
+extremal
 ferminet
 fermion
 fermionic
@@ -59,11 +61,13 @@ invertible
 i've
 jacobian
 jax
+jerzy
 ket
 kets
 keybinds
 keywords
 let's
+lindenstrauss
 magit
 marginnotes
 nondimensionalize
@@ -77,15 +81,18 @@ projectivity
 quadric
 quadrics
 quantized
+quaternion
 repo
 representable
 rescaled
 rofi
 schrodinger
+shi
 spacemacs
 thouless
 todo
 trifocal
+variational
 vterm
 wavefunction
 wavefunctions
@@ -96,3 +103,4 @@ wechat
 worktree
 xmonad
 xrandr
+zekun

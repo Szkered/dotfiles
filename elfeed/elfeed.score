@@ -9,7 +9,9 @@
   (:text "quantum monte carlo" :title-value 150 :content-value 100 :type s)
   (:text "density functional theory" :title-value 150 :content-value 100 :type w)
   (:text "learning" :title-value 150 :content-value 100 :type w)
-  (:text "wavefunction" :title-value 150 :content-value 100 :type w))
+  (:text "wavefunction" :title-value 150 :content-value 100 :type w)
+  (:text "wave function" :title-value 150 :content-value 100 :type w)
+  )
  ("feed"
   (:text "Essays in Idleness" :value 250 :type S :attr t)
   (:text "Irreal" :value 250 :type S :attr t)

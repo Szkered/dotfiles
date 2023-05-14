@@ -93,7 +93,9 @@ don't know why ranger's preview is not working
 #+BEGIN_SRC emacs-lisp
 (map! :after ranger
       (:map ranger-mode-map
-          "i" 'dired-follow-mode))
+          "i" 'dired-follow-mode
+          "C-c C-o" #'ranger-open-file-other-window
+          ))
 #+END_SRC
 
 * Spell checking
@@ -241,13 +243,13 @@ don't know why ranger's preview is not working
                 ((org-agenda-prefix-format my-org-agenda-prefix-format)
                  (org-agenda-todo-keyword-format "")
                  (org-agenda-remove-tags t)
-                 (org-agenda-overriding-header "\n\n💥 Currently Doing:\n⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺")))
+                 (org-agenda-overriding-header "\n\n⚡ Currently Doing:\n⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺")))
 
           (todo "PROJ"
                 ((org-agenda-prefix-format my-org-agenda-prefix-format)
                  (org-agenda-todo-keyword-format "")
                  (org-agenda-remove-tags t)
-                 (org-agenda-overriding-header "💫 Nonrecurring Time Limited Projects:\n⎺⎺⎺⎺⎺⎺⎺⎺⎺")))
+                 (org-agenda-overriding-header "💫 Projects:\n⎺⎺⎺⎺⎺⎺⎺⎺⎺")))
 
           (todo "LOOP"
                 ((org-agenda-prefix-format my-org-agenda-prefix-format)
@@ -265,7 +267,7 @@ don't know why ranger's preview is not working
           (agenda "" (
                       (org-agenda-start-day "+0d")
                       (org-agenda-span 2)
-                      (org-agenda-overriding-header "⚡ Schedule:\n⎺⎺⎺⎺⎺⎺⎺⎺⎺")
+                      (org-agenda-overriding-header " 🗓 Schedule:\n⎺⎺⎺⎺⎺⎺⎺⎺⎺")
                       ;; (org-agenda-repeating-timestamp-show-all nil)
                       (org-agenda-remove-tags t)
                       (org-agenda-prefix-format   "  %-2i %t %s  ")
@@ -281,7 +283,7 @@ don't know why ranger's preview is not working
                 ((org-agenda-prefix-format my-org-agenda-prefix-format)
                  (org-agenda-todo-keyword-format "")
                  (org-agenda-remove-tags t)
-                 (org-agenda-overriding-header "✅ Misc. Todos:\n⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺")))
+                 (org-agenda-overriding-header "📥 Inbox:\n⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺")))
 
 
           (todo "WAIT"
@@ -292,7 +294,7 @@ don't know why ranger's preview is not working
                  (org-agenda-prefix-format my-org-agenda-prefix-format)
                  (org-agenda-todo-keyword-format "")
                  (org-agenda-remove-tags t)
-                 (org-agenda-overriding-header "⏳ Do these next:\n⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺")))
+                 (org-agenda-overriding-header "🤔 Do these next:\n⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺")))
 
           (todo "HOLD"
                 ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
@@ -610,7 +612,9 @@ I will use Dropbox as this provides integration with Overleaf.
                                              (call-process "open" nil 0 nil fpath)))
 (setq citar-library-paths my-main-pdfs-library-paths)
 (setq citar-notes-paths my-main-pdfs-library-paths)
+(setq citar-org-roam-subdir "research")
 #+END_SRC
+
 
 ** information acquisition
 *** TODO twitter
@@ -734,6 +738,9 @@ I will use Dropbox as this provides integration with Overleaf.
     (message "Clipboard is empty.")))
 #+END_SRC
 *** web: zotra
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/dotfiles/doom")
+#+END_SRC
 
 ** information storage
 *** citar
@@ -777,46 +784,56 @@ I will use Dropbox as this provides integration with Overleaf.
   ;; use consult-completing-read for enhanced interface
   (advice-add #'completing-read-multiple :override #'consult-completing-read-multiple))
 
-;; (use-package citar-embark
-;;   :after citar embark
-;;   :no-require
-;;   :config (citar-embark-mode))
+(use-package citar-embark
+  :after citar embark
+  :no-require
+  :config (citar-embark-mode))
 #+END_SRC
 
-*** org-roam-bibtex
+*** for existing PDFs, add it to citar directly
 #+BEGIN_SRC emacs-lisp
+;;;###autoload
+(defun citar-add-current-buffer-to-library (citekey)
+  "Add a file to the library for CITEKEY.
+The FILE can be added from an open buffer, a file path, or a
+URL."
+  (interactive (list (citar-select-ref)))
+  (citar--check-configuration 'citar-library-paths)
+  (unless citar-library-paths
+    (user-error "Make sure `citar-library-paths' is non-nil"))
+  (let* ((directory (if (cdr citar-library-paths)
+                        (completing-read "Directory: " citar-library-paths)
+                      (car citar-library-paths)))
+         (filepath (expand-file-name citekey directory))
+         (withext (lambda (extension)
+                    (let* ((extension (or extension (read-string "File extension: "))))
+                      (if (string-empty-p extension)
+                          filepath
+                        (concat filepath "." extension))))))
+    (with-current-buffer (read-buffer "Add file buffer: " (current-buffer))
+      (let ((destfile (funcall withext (and buffer-file-name (file-name-extension buffer-file-name)))))
+        (write-file destfile 'confirm)))
+    ))
+#+END_SRC
+
+*** Create reading task from citar entry: org-roam-bibtex
+workflow:
+1. SPC C O: open an citar entry
+2. M-o: embark
+3. C: create reading task using the template below
+#+BEGIN_SRC emacs-lisp
+(add-hook! org-roam (org-roam-bibtex t))
+
 (use-package! org-roam-bibtex
   :config
   (setq org-roam-capture-templates
-        '(("d" "default" plain "%?"
-           :if-new (file+head "${slug}.org"
-                              "#+title: ${title}\n* References :ignore:\n#+print_bibliography:")
-           :unnarrowed t)
-          ;; capture to inbox
-          ("i" "inbox" entry "* TODO %?\n"
-           :target (node "3b5d0d92-c6bb-4832-ae7a-cdc2e473ff58")
-           :unnarrowed t
-           :empty-lines-before 1
-           :empty-lines-after 1
-           :prepend t)
-          ;; bibliography note template
-          ("r" "bibliography reference" plain "%?"
-           :if-new (file+head "references/notes_${citekey}.org"
-                              "#+title: Notes on ${title}\n* References :ignore:\n#+print_bibliography:")
-           :unnarrowed t)
-          ;; for my annotated bibliography needs
-          ("s" "short bibliography reference (no id)" entry "* TODO [#D] ${title} [cite:@%^{citekey}]\n%?"
+        '(;; for my annotated bibliography needs
+          ("r" "reading task" entry
+           "* TODO [cite:@%^{citekey}]\n%?"
            :target (node "3b5d0d92-c6bb-4832-ae7a-cdc2e473ff58")
            :unnarrowed t
            :empty-lines-before 1
            :prepend t)))
-
-  (defun my-capture-to-inbox ()
-    "Capture a TODO straight to the inbox."
-    (interactive)
-    (org-roam-capture- :goto nil
-                       :keys "i"
-                       :node (org-roam-node-from-id "3b5d0d92-c6bb-4832-ae7a-cdc2e473ff58")))
 
   (require 'org-roam-bibtex)
 
@@ -825,13 +842,31 @@ I will use Dropbox as this provides integration with Overleaf.
         orb-process-file-keyword t
         orb-file-field-extensions '("pdf"))
 )
+
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun org-roam-capture-bib ()
+  "Capture using the reading task template."
+  (interactive)
+  (org-roam-capture- :goto nil
+                     :keys "r"
+                     :node (org-roam-node-from-id "3b5d0d92-c6bb-4832-ae7a-cdc2e473ff58")))
+
+(map! (:after citar (:map citar-map "C" #'org-roam-capture-bib)))
+#+END_SRC
+
 ** information processing
 1. taking plain text note with org-roam-bibtex
 2. taking note pinned to the associated PDF with org-noter
+*** writing notes: latex
+**** base config
+#+BEGIN_SRC emacs-lisp
+(add-hook! 'tex-mode-hook (laas-mode t))
+#+END_SRC
 
 ** keybinds
-*** elfeed keybinds
+*** elfeed keybinds (SPC n)
 #+BEGIN_SRC emacs-lisp
 (map! (:after elfeed
        (:map elfeed-search-mode-map
@@ -844,11 +879,42 @@ I will use Dropbox as this provides integration with Overleaf.
       :desc "Elfeed" "n e" #'elfeed)
 #+END_SRC
 
-*** PDF mode keybinds
+
+*** citar / org-roam(-bibtex) keybinds (SPC C)
+
+create a reading task from a citar entry:
+1. (SPC C O) to open the entry
+2. (M-o) to embark, and select open-notes
+
 #+BEGIN_SRC emacs-lisp
-(map! (:map pdf-view-mode-map
-       :localleader
-       "c" 'paste-to-citar-lib))
+(map! (:after citar
+(:leader
+ :n "CC" #'org-roam-capture
+ :n "CO" #'citar-open
+ :n "CA" #'citar-add-current-buffer-to-library
+ :n "CP" #'paste-to-citar-lib
+                )
+))
+#+END_SRC
+
+*** pdf keybinds (,)
+#+BEGIN_SRC emacs-lisp
+(map! (:after pdf-tools
+              (:map pdf-view-mode-map
+                    :localleader
+                    "b" #'biblio-lookup
+                    )
+              ))
+#+END_SRC
+
+*** bib keybinds (,)
+#+BEGIN_SRC emacs-lisp
+(map! (:after bibtex
+              (:map bibtex-mode-map
+                    :localleader
+                    "f" #'org-ref-clean-bibtex-entry
+                    )
+              ))
 #+END_SRC
 
 * Email

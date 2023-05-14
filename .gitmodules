@@ -1,3 +1,9 @@
 [submodule "doom/modules/private/spacemacs"]
 	path = doom/modules/private/spacemacs
 	url = git@github.com:Szkered/spacemacs_module_for_doom.git
+[submodule "doom/themes/catppuccin"]
+	path = doom/themes/catppuccin
+	url = https://github.com/catppuccin/emacs.git
+[submodule "doom/zotra"]
+	path = doom/zotra
+	url = https://github.com/mpedramfar/zotra.git
