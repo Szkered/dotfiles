@@ -39,6 +39,7 @@ myConfig =
                         ("M-r", spawn "~/dotfiles/remap.sh"), -- remap keyboard
                         ("M-S-e", spawn "~/dotfiles/reload_emacs.sh"),
                         ("M-x", spawn "emacsclient -r --eval \"(emacs-everywhere)\""), -- edit text using emacs
+                        ("M-y", spawn "emacsclient -r --eval '(zotra-add-entry-and-pdf-from-url '\" $(printf '\"%s\"' \"$(xclip -o)\")\"' )'"), -- edit text using emacs
                         ("M-c", spawn "google-chrome-stable"), -- chrome
                         ("M-C-x", unGrab *> spawn "maim -s ~/Pictures/Screenshots/$(date +%s).png"), -- screenshot
                         ("M-o", spawn "~/dotfiles/monitor_screen.sh"), -- external display
@@ -58,13 +59,13 @@ myConfig =
                         ( "<XF86AudioMute>",
                           spawn "amixer -q set Master togglemute"
                         ),
-                        ( "<XF86AudioLowerVolume>",
+                        ("<F10>", spawn "playerctl play-pause"),
+                        ( "<F11>",
                           spawn "amixer -c 0 -q set Master 2dB-"
                         ),
-                        ( "<XF86AudioRaiseVolume>",
+                        ( "<F12>",
                           spawn "amixer -c 0 -q set Master 2dB+"
                         ),
-                        ("<XF86AudioPlay>", spawn "playerctl play-pause"),
                         ("<XF86AudioNext>", spawn "playerctl next"),
                         ("<XF86AudioPrev>", spawn "playerctl prev")
                       ]

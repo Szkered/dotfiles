@@ -1,4 +1,4 @@
-personal_ws-1.1 en 105
+personal_ws-1.1 en 110
 Riesz
 Stiefel
 adjoint
@@ -68,8 +68,12 @@ keybinds
 keywords
 let's
 lindenstrauss
+lyapunov
 magit
 marginnotes
+millgram
+multipole
+noether
 nondimensionalize
 noter
 org
@@ -104,3 +108,4 @@ worktree
 xmonad
 xrandr
 zekun
+zotra

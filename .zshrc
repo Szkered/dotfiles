@@ -7,6 +7,7 @@ export PATH="$PATH:$HOME/.local/bin"
 
 # quick command
 alias remap="~/dotfiles/remap.sh; xset r rate 250 60"
+alias vpn="~/dotfiles/vpn.sh"
 
 # python ipdb
 export PYTHONBREAKPOINT=ipdb.set_trace

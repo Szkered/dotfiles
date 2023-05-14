@@ -613,6 +613,7 @@ I will use Dropbox as this provides integration with Overleaf.
 (setq citar-library-paths my-main-pdfs-library-paths)
 (setq citar-notes-paths my-main-pdfs-library-paths)
 (setq citar-org-roam-subdir "research")
+(setq org-noter-notes-search-path '("~/Dropbox/notes/roam/research"))
 #+END_SRC
 
 
@@ -737,9 +738,33 @@ I will use Dropbox as this provides integration with Overleaf.
           (write-file citar-bib)))
     (message "Clipboard is empty.")))
 #+END_SRC
+
 *** web: zotra
+workflow:
+1. copy url in chrome (yy)
+2. use XMonad to invoke `zotra-add-entry-and-pdf-from-url`
+3. go through the options, in the end open the downloaded pdf
+4. SPC C A to attach the pdf to the citar entry
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "~/dotfiles/doom")
+(add-to-list 'load-path "~/dotfiles/doom/zotra")
+(require 'zotra)
+#+END_SRC
+
+clean entry with org-ref after adding an entry
+#+BEGIN_SRC emacs-lisp
+(add-hook 'zotra-after-add-entry-hook 'org-ref-clean-bibtex-entry)
+#+END_SRC
+
+add entry then put the attachment in the right place
+#+BEGIN_SRC emacs-lisp
+(defun zotra-add-entry-and-pdf-from-url (url)
+(interactive
+   (list (read-string
+          "url: "
+          (ignore-errors (current-kill 0 t)))))
+  (zotra-add-entry-from-url url citar-bib nil)
+  (zotra-open-attachment-from-url url "/tmp")
+  )
 #+END_SRC
 
 ** information storage
@@ -827,7 +852,14 @@ workflow:
 (use-package! org-roam-bibtex
   :config
   (setq org-roam-capture-templates
-        '(;; for my annotated bibliography needs
+        '(
+          ("i" "inbox" entry
+           "* TODO %?\n"
+           :target (node "3b5d0d92-c6bb-4832-ae7a-cdc2e473ff58")
+           :unnarrowed t
+           :empty-lines-before 1
+           :empty-lines-after 1
+           :prepend t)
           ("r" "reading task" entry
            "* TODO [cite:@%^{citekey}]\n%?"
            :target (node "3b5d0d92-c6bb-4832-ae7a-cdc2e473ff58")
@@ -845,7 +877,17 @@ workflow:
 
 #+END_SRC
 
+#+RESULTS:
+: t
+
 #+BEGIN_SRC emacs-lisp
+(defun org-roam-capture-inbox ()
+    "Capture a TODO straight to the inbox."
+    (interactive)
+    (org-roam-capture- :goto nil
+                       :keys "i"
+                       :node (org-roam-node-from-id "3b5d0d92-c6bb-4832-ae7a-cdc2e473ff58")))
+
 (defun org-roam-capture-bib ()
   "Capture using the reading task template."
   (interactive)
@@ -889,7 +931,7 @@ create a reading task from a citar entry:
 #+BEGIN_SRC emacs-lisp
 (map! (:after citar
 (:leader
- :n "CC" #'org-roam-capture
+ :n "CC" #'org-roam-capture-inbox
  :n "CO" #'citar-open
  :n "CA" #'citar-add-current-buffer-to-library
  :n "CP" #'paste-to-citar-lib
@@ -901,10 +943,24 @@ create a reading task from a citar entry:
 #+BEGIN_SRC emacs-lisp
 (map! (:after pdf-tools
               (:map pdf-view-mode-map
-                    :localleader
-                    "b" #'biblio-lookup
+               :localleader
+               "b" #'biblio-lookup
+               "N" #'org-noter
+               "S" #'org-noter-create-skeleton
+               "q" #'org-noter-kill-session
+                    )
+
+              ;; custom evil like keymap
+              (:map org-noter-doc-mode-map
+               "j" #'org-noter-sync-next-note
+               "k" #'org-noter-sync-prev-note
+               "C-u" #'org-noter-sync-next-note
+               "C-d" #'org-noter-sync-prev-note
+               "zz" #'org-noter-sync-current-note
                     )
               ))
+
+(add-hook! 'org-noter-doc-mode-hook (evil-local-mode))
 #+END_SRC
 
 *** bib keybinds (,)
