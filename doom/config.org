@@ -11,6 +11,11 @@
 (setq user-full-name "Zekun Shi"
       user-mail-address "derek.zekun.shi@gmail.com")
 #+END_SRC
+* Better Defaults
+** Shorten wait time
+#+BEGIN_SRC emacs-lisp
+(setq auto-revert-interval 0.5)
+#+END_SRC
 
 * Visual Settings
 
@@ -20,8 +25,8 @@ Use light / dark theme based on current time
 (use-package! circadian
   :ensure t
   :config
-  (setq circadian-themes '(("8:00" . doom-laserwave)
-                           ("18:30" . doom-horizon)))
+  (setq circadian-themes '(("8:00" . doom-flatwhite)
+                           ("18:30" . doom-laserwave)))
   (circadian-setup))
 #+END_SRC
 
@@ -96,13 +101,6 @@ don't know why ranger's preview is not working
           "i" 'dired-follow-mode
           "C-c C-o" #'ranger-open-file-other-window
           ))
-#+END_SRC
-
-* Spell checking
-
-** Disable spell checking by default to speed up boot time
-#+BEGIN_SRC emacs-lisp
-;; (remove-hook 'text-mode-hook #'spell-fu-mode)
 #+END_SRC
 
 * Org-mode
@@ -214,7 +212,7 @@ don't know why ranger's preview is not working
 (setq my-org-agenda-prefix-format " %-2i %b %t%s")
 #+END_SRC
 
-** todo-keywards
+** todo-keywords
 #+BEGIN_SRC emacs-lisp
 (setq org-todo-keywords
 '((sequence "TODO(t)" "PROJ(p)" "LOOP(r)" "STRT(s)" "WAIT(w)" "HOLD(h)" "IDEA(i)" "|" "DONE(d)" "KILL(k)")
@@ -397,7 +395,6 @@ don't know why ranger's preview is not working
         ))
 #+end_src
 
-
 ** writeroom mode
 #+begin_src emacs-lisp
 (add-hook 'org-agenda-finalize-hook #'set-window-clean)
@@ -433,24 +430,11 @@ don't know why ranger's preview is not working
 ** auto-format
 flake8+autoflake+yapf
 #+BEGIN_SRC emacs-lisp
-(defcustom python-autoflake-path (executable-find "autoflake")
-  "autoflake executable path."
-  :group 'python
-  :type 'string)
-
-(defun python-autoflake ()
-  "Automatically clean up python codes
-$ autoflake --in-place --remove-unused-variables --remove-all-unused-imports --remove-duplicate-keys --expand-star-imports <filename>"
-  (interactive)
-  (when (eq major-mode 'python-mode)
-    (shell-command
-     (format
-      "%s --in-place --remove-unused-variables --remove-all-unused-imports --remove-duplicate-keys --expand-star-imports %s"
-      python-autoflake-path
-      (shell-quote-argument (buffer-file-name))))
-    (revert-buffer t t t)))
-
 (set-formatter! 'yapf  "yapf " :modes '(python-mode))
+
+(add-hook! 'before-save-hook
+    (when (eq major-mode 'python-mode)
+      (+format/buffer)))
 #+END_SRC
 
 ** debugger
@@ -499,20 +483,28 @@ $ autoflake --in-place --remove-unused-variables --remove-all-unused-imports --r
 #+begin_src emacs-lisp
 (map!
  (:after python
-      :map  python-mode-map
-      :localleader
-      "'" #'sh-switch-to-process-buffer
-      "r" #'sh-send-line-or-region
-      "db" #'python-toggle-breakpoint)
-
- (:after dap-mode
-         (:map dap-mode-map
-          :leader
-          "dd" 'dap-debug
-          "de" 'dap-debug-edit-template
-          "d." 'dap-hydra))
- )
+  :map  python-mode-map
+    :localleader
+    "'"  #'+python/open-jupyter-repl
+    "a"  #'pyvenv-activate
+    "sb" #'python-shell-send-buffer
+    "sr" #'python-shell-send-region
+    "SR" #'sh-send-line-or-region
+    "db" #'python-toggle-breakpoint
+    "if" #'python-fix-imports))
 #+end_src
+
+* Debugger Adapter (DAP)
+** keybinds
+#+BEGIN_SRC emacs-lisp
+(map!
+ (:after dap-mode
+   (:map dap-mode-map
+    :leader
+    "dd" 'dap-debug
+    "de" 'dap-debug-edit-template
+    "d." 'dap-hydra)))
+#+END_SRC
 
 * Vterm
 ** Make auto-complete visible
@@ -619,7 +611,7 @@ I will use Dropbox as this provides integration with Overleaf.
 ** information acquisition
 *** TODO twitter
 *** RSS: elfeed
-**** rss feeds
+**** RSS feeds
 #+BEGIN_SRC emacs-lisp
 (defun arxiv-rss-feed-url (cat &optional max-results sort-by sort-order)
   "Search for CAT"
@@ -944,6 +936,29 @@ With a prefix ARG, remove start location."
 #+BEGIN_SRC emacs-lisp
 (add-hook! 'tex-mode-hook (laas-mode t))
 #+END_SRC
+**** laas
+#+BEGIN_SRC emacs-lisp
+(use-package laas
+  :hook (LaTeX-mode . laas-mode)
+  :config ; do whatever here
+  (aas-set-snippets 'laas-mode
+                    ;; set condition!
+                    :cond #'texmathp ; expand only while in math
+                    "supp" "\\supp"
+                    "On" "O(n)"
+                    "O1" "O(1)"
+                    "Olog" "O(\\log n)"
+                    "Olon" "O(n \\log n)"
+                    ;; bind to functions!
+                    "Sum" (lambda () (interactive)
+                            (yas-expand-snippet "\\sum_{$1}^{$2} $0"))
+                    "Span" (lambda () (interactive)
+                             (yas-expand-snippet "\\Span($1)$0"))
+                    ;; add accent snippets
+                    :cond #'laas-object-on-left-condition
+                    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))))
+#+END_SRC
+
 ** keybinds
 *** elfeed keybinds (SPC n)
 #+BEGIN_SRC emacs-lisp
@@ -1013,6 +1028,22 @@ create a reading task from a citar entry:
 #+BEGIN_SRC emacs-lisp
 (setq mu4e-update-interval 60)
 #+END_SRC
+
+* Calendar
+#+BEGIN_SRC emacs-lisp
+(load! "secret")
+(defun my-open-calendar ()
+  (interactive)
+  (cfw:open-calendar-buffer
+   :contents-sources
+   (list
+    (cfw:org-create-source "steel blue")  ; orgmode source
+    (cfw:ical-create-source "gcal" sail-gcal "sea green")
+    (cfw:ical-create-source "gcal" my-gcal "IndianRed")))) ; google calendar ICS
+#+END_SRC
+
+#+RESULTS:
+: my-open-calendar
 
 * Misc
 ** disable hl-line-mode in rainbow-mode

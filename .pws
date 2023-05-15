@@ -1,4 +1,4 @@
-personal_ws-1.1 en 116
+personal_ws-1.1 en 124
 Riesz
 Stiefel
 adjoint
@@ -13,10 +13,12 @@ antisymmetry
 approximator
 arxiv
 aus
+auth
 autoflake
 automorphisms
 autoregressive
 basis
+bazel
 beamer
 biblio
 bibtex
@@ -34,6 +36,7 @@ coord
 coplanar
 cpufreq
 degeneracies
+dired
 discretisation
 discretization
 dmenu
@@ -49,6 +52,7 @@ ferminet
 fermion
 fermionic
 fermions
+flyspell
 fock
 gcal
 googleusercontent
@@ -67,6 +71,7 @@ jax
 jerzy
 ket
 kets
+keybind
 keybinds
 keywords
 let's
@@ -86,6 +91,7 @@ pdfs
 prefactor
 projective
 projectivity
+py
 quadric
 quadrics
 quantized
@@ -101,6 +107,7 @@ spinors
 thouless
 todo
 trifocal
+ui
 variational
 vterm
 wavefunction
@@ -110,6 +117,7 @@ wavevector
 webpage
 wechat
 worktree
+writeroom
 xmonad
 xrandr
 yapf

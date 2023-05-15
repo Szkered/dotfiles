@@ -29,7 +29,6 @@
 #+end_src
 ** bib
 #+BEGIN_SRC emacs-lisp
-;; (package! oc)
 (package! elfeed-score)
 (package! citar)
 (package! citar-embark)
@@ -46,7 +45,18 @@
   :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
 #+end_src
 
-* Theme-switching for Emacs based on daytime
+* Themes
+
+** Theme-switching for Emacs based on daytime
 #+begin_src emacs-lisp
 (package! circadian)
 #+end_src
+** more themes
+#+BEGIN_SRC emacs-lisp
+;; $DOOMDIR/packages.el
+(package! doom-alabaster-theme :recipe (:host github :repo "agraul/doom-alabaster-theme"))
+#+END_SRC
+* Bazel
+#+BEGIN_SRC emacs-lisp
+(package! bazel)
+#+END_SRC

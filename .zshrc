@@ -4,6 +4,7 @@ antigen init ~/.antigenrc
 # Add paths
 export PATH="$PATH:$HOME/.config/emacs/bin"
 export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/go/bin"
 
 # quick command
 alias remap="~/dotfiles/remap.sh; xset r rate 250 60"
