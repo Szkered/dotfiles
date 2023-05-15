@@ -1,4 +1,4 @@
-personal_ws-1.1 en 110
+personal_ws-1.1 en 116
 Riesz
 Stiefel
 adjoint
@@ -10,8 +10,10 @@ anticommutes
 antisymmetric
 antisymmetrization
 antisymmetry
+approximator
 arxiv
 aus
+autoflake
 automorphisms
 autoregressive
 basis
@@ -40,6 +42,7 @@ eigenfunction
 eigenfunctions
 eigenstate
 eigenstates
+ein
 elfeed
 extremal
 ferminet
@@ -73,6 +76,7 @@ magit
 marginnotes
 millgram
 multipole
+netket
 noether
 nondimensionalize
 noter
@@ -93,6 +97,7 @@ rofi
 schrodinger
 shi
 spacemacs
+spinors
 thouless
 todo
 trifocal
@@ -107,5 +112,6 @@ wechat
 worktree
 xmonad
 xrandr
+yapf
 zekun
 zotra

@@ -85,7 +85,8 @@ ln -s alacritty.yaml $HOME/.config/alacritty/alacritty.yml
 ln -s .antigenrc $HOME/.antigenrc
 ln -s dunstrc $HOME/.config/dunst/dunstrc
 ln -s isyncrc $HOME/.config/isyncrc
-ln -s .pwd $HOME/.config/emacs/.local/etc/ispell # local dictionary
+mkdir -p $HOME/.config/emacs/.local/etc/ispell
+ln -s .pws $HOME/.config/emacs/.local/etc/ispell/.pws # local dictionary
 ln -s .xmobarrc $HOME/.xmobarrc
 ln -s .xprofile $HOME/.xprofile
 ln -s .zshrc $HOME/.zshrc

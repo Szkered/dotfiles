@@ -36,6 +36,8 @@
 (package! org-ref)
 (package! org-roam-bibtex)
 (package! biblio)
+(package! org-pdftools)
+(package! org-noter-pdftools)
 #+END_SRC
 
 * Copilot

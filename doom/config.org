@@ -33,18 +33,18 @@ Use light / dark theme based on current time
                  (fixed-pitch . ,doom-font)
                  (fixed-pitch-serif . ,doom-serif-font)
                  (variable-pitch . ,doom-variable-pitch-font)))
-    (when-let* ((face (car map))
-                (font (cdr map)))
-      (dolist (frame (frame-list))
-        (when (display-multi-font-p frame)
-          (set-face-attribute face frame
-                              :width 'normal :weight 'normal
-                              :slant 'normal :font font)))
-      (let ((new-specs (doom--make-font-specs face font)))
-        ;; Don't save to `customized-face' so it's omitted from `custom-file'
-        ;;(put face 'customized-face new-specs)
-        (custom-push-theme 'theme-face face 'user 'set new-specs)
-        (put face 'face-modified nil))))
+   (when-let* ((face (car map))
+               (font (cdr map)))
+     (dolist (frame (frame-list))
+       (when (display-multi-font-p frame)
+         (set-face-attribute face frame
+                             :width 'normal :weight 'normal
+                             :slant 'normal :font font)))
+     (let ((new-specs (doom--make-font-specs face font)))
+       ;; Don't save to `customized-face' so it's omitted from `custom-file'
+       ;;(put face 'customized-face new-specs)
+       (custom-push-theme 'theme-face face 'user 'set new-specs)
+       (put face 'face-modified nil))))
   (when (fboundp 'set-fontset-font)
     (let ((fn (doom-rpartial #'member (font-family-list))))
       (when-let (font (cl-find-if fn doom-symbol-fallback-font-families))
@@ -430,7 +430,6 @@ don't know why ranger's preview is not working
 #+END_SRC
 
 * Python
-
 ** auto-format
 flake8+autoflake+yapf
 #+BEGIN_SRC emacs-lisp
@@ -538,8 +537,8 @@ NOTE: need to disable ~read-only-mode~
       (let ((currbuff (current-buffer)))
         (shell)
         (switch-to-buffer currbuff)
-        (setq proc (get-process "vterm"))
-        ))
+        (setq proc (get-process "vterm"))))
+
     (setq pbuff (process-buffer proc))
     (if (use-region-p)
         (setq min (region-beginning)
@@ -550,14 +549,14 @@ NOTE: need to disable ~read-only-mode~
     (with-current-buffer pbuff
       (goto-char (process-mark proc))
       (insert command)
-      (move-marker (process-mark proc) (point))
-      ) ;;pop-to-buffer does not work with save-current-buffer -- bug?
+      (move-marker (process-mark proc) (point)))
+       ;;pop-to-buffer does not work with save-current-buffer -- bug?
     (process-send-string  proc command)
     (display-buffer (process-buffer proc) t)
     (when step
       (goto-char max)
-      (next-line))
-    ))
+      (next-line))))
+
 
 (defun sh-send-line-or-region-and-step ()
   (interactive)
@@ -874,11 +873,7 @@ workflow:
         orb-process-file-keyword t
         orb-file-field-extensions '("pdf"))
 )
-
 #+END_SRC
-
-#+RESULTS:
-: t
 
 #+BEGIN_SRC emacs-lisp
 (defun org-roam-capture-inbox ()
@@ -901,12 +896,54 @@ workflow:
 ** information processing
 1. taking plain text note with org-roam-bibtex
 2. taking note pinned to the associated PDF with org-noter
+*** annotate pdf: org-noter
+#+BEGIN_SRC emacs-lisp
+(use-package org-noter
+  :config
+  (add-hook! 'org-noter-doc-mode-hook (evil-local-mode))
+  (require 'org-noter-pdftools))
+
+(use-package org-pdftools
+  :hook (org-mode . org-pdftools-setup-link))
+(use-package org-noter-pdftools
+  :after org-noter
+  :config
+  ;; Add a function to ensure precise note is inserted
+  (defun org-noter-pdftools-insert-precise-note (&optional toggle-no-questions)
+    (interactive "P")
+    (org-noter--with-valid-session
+     (let ((org-noter-insert-note-no-questions (if toggle-no-questions
+                                                   (not org-noter-insert-note-no-questions)
+                                                 org-noter-insert-note-no-questions))
+           (org-pdftools-use-isearch-link t)
+           (org-pdftools-use-freepointer-annot t))
+       (org-noter-insert-note (org-noter--get-precise-info)))))
+
+  ;; fix https://github.com/weirdNox/org-noter/pull/93/commits/f8349ae7575e599f375de1be6be2d0d5de4e6cbf
+  (defun org-noter-set-start-location (&optional arg)
+    "When opening a session with this document, go to the current location.
+With a prefix ARG, remove start location."
+    (interactive "P")
+    (org-noter--with-valid-session
+     (let ((inhibit-read-only t)
+           (ast (org-noter--parse-root))
+           (location (org-noter--doc-approx-location (when (called-interactively-p 'any) 'interactive))))
+       (with-current-buffer (org-noter--session-notes-buffer session)
+         (org-with-wide-buffer
+          (goto-char (org-element-property :begin ast))
+          (if arg
+              (org-entry-delete nil org-noter-property-note-location)
+            (org-entry-put nil org-noter-property-note-location
+                           (org-noter--pretty-print-location location))))))))
+  (with-eval-after-load 'pdf-annot
+    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
+#+END_SRC
+
 *** writing notes: latex
 **** base config
 #+BEGIN_SRC emacs-lisp
 (add-hook! 'tex-mode-hook (laas-mode t))
 #+END_SRC
-
 ** keybinds
 *** elfeed keybinds (SPC n)
 #+BEGIN_SRC emacs-lisp
@@ -960,7 +997,6 @@ create a reading task from a citar entry:
                     )
               ))
 
-(add-hook! 'org-noter-doc-mode-hook (evil-local-mode))
 #+END_SRC
 
 *** bib keybinds (,)

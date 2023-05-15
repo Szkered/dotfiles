@@ -7,3 +7,6 @@
 [submodule "doom/zotra"]
 	path = doom/zotra
 	url = https://github.com/mpedramfar/zotra.git
+[submodule "doom/themes/zaiste-emacs-theme"]
+	path = doom/themes/zaiste-emacs-theme
+	url = https://github.com/zaiste/zaiste-emacs-theme.git

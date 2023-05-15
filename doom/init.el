@@ -22,11 +22,13 @@
 
        :completion
        (company
-        +childrame)                   ; the ultimate code completion backend
+        +childrame)              ; the ultimate code completion backend
        ;;helm                    ; the *other* search engine for love and life
        ;;ido                     ; the other *other* search engine...
        ;;ivy                     ; a search engine for love and life
-       (vertico +icons)          ; the search engine of the future
+       (vertico
+        +childrame
+        +icons)                  ; the search engine of the future
 
        :ui
        ;;deft                    ; notational velocity for Emacs
@@ -62,7 +64,7 @@
        ;;lispy                   ; vim for lisp, for people who don't like vim
        multiple-cursors          ; editing in many places at once
        ;;objed                   ; text object editing for the innocent
-       ;;parinfer                ; turn lisp into python, sort of
+       parinfer                ; turn lisp into python, sort of
        ;;rotate-text             ; cycle region at point between text candidates
        snippets                  ; my elves. They type so I don't have to
        ;;word-wrap               ; soft wrapping with language-aware indent
@@ -106,7 +108,7 @@
        pass                      ; password manager for nerds
        pdf                       ; pdf enhancements
        ;;prodigy                 ; FIXME managing external services & code builders
-       rgb                     ; creating color strings
+       rgb                       ; creating color strings
        ;;taskrunner              ; taskrunner for all your projects
        ;;terraform               ; infrastructure as code
        tmux                      ; an API for interacting with tmux
@@ -188,8 +190,7 @@
        ;;(scheme +guile)         ; a fully conniving family of lisps
        (sh
         +lsp
-        +tree-sitter
-        )                        ; she sells {ba,z,fi}sh shells on the C xor
+        +tree-sitter)            ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
        ;;solidity                ; do you need a blockchain? No.
        ;;swift                   ; who asked for emoji variables?

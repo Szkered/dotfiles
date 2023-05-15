@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ACTIVE=$(systemctl --user status emacs | rg Active | awk '{print $2}')
-STARTED=$(systemctl --user status emacs | rg "Started Emacs")
+STARTED=$(journalctl --user -xeu emacs.service | rg Started)
 if [[ $ACTIVE == "inactive" ]]; then # not running
     echo -ne $"emacs: \uf057 "
 elif [[ $ACTIVE == "failed" ]]; then # not running
