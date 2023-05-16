@@ -1,6 +1,6 @@
 #+TITLE: Configuration
 #+AUTHOR: Zekun Shi
-#+PROPERTY: header-args :emacs-lisp :tangle yes :comments link
+#+PROPERTY: header-args :emacs-lisp :comments link
 #+STARTUP: org-startup-folded: showall
 #+BEGIN_SRC emacs-lisp
 ;; -*- lexical-binding: t -*-
@@ -13,14 +13,19 @@
 #+END_SRC
 
 * Better Defaults
-** Shorten wait time
+** shorten wait time
 #+BEGIN_SRC emacs-lisp
 (setq auto-revert-interval 0.5)
 #+END_SRC
 
 * Visual Settings
-** Themes
-Use light / dark theme based on current time
+** themes
+
+*** Use light / dark theme based on current time: circadian
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+(package! circadian)
+#+END_SRC
+
 #+BEGIN_SRC emacs-lisp
 (use-package! circadian
   :ensure t
@@ -30,7 +35,14 @@ Use light / dark theme based on current time
   (circadian-setup))
 #+END_SRC
 
-** Fix for HiDPI monitors (see [[https://github.com/doomemacs/doomemacs/issues/6131][github issue]]).
+*** more themes
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+(package! autothemer)
+(package! doom-alabaster-theme :recipe (:host github :repo "agraul/doom-alabaster-theme"))
+#+END_SRC
+
+
+** fix for HiDPI monitors (see [[https://github.com/doomemacs/doomemacs/issues/6131][github issue]]).
 #+BEGIN_SRC emacs-lisp
 (defadvice! fix-doom-init-fonts-h (&optional reload)
   :override #'doom-init-fonts-h
@@ -62,7 +74,7 @@ Use light / dark theme based on current time
   (run-hooks 'after-setting-font-hook))
 #+END_SRC
 
-** Line number
+** line number
 No line number.
 #+BEGIN_SRC emacs-lisp
 (setq display-line-numbers-type nil)
@@ -75,7 +87,7 @@ No line number.
 #+END_SRC
 
 * File manager: Dired / Ranger
-** Image preview
+** image preview
 don't know why ranger's preview is not working
 #+BEGIN_SRC emacs-lisp
 (define-minor-mode dired-follow-mode
@@ -101,7 +113,11 @@ don't know why ranger's preview is not working
 (map! "C-c n" 'yank-buffer-file-name)
 #+END_SRC
 
-** load large file in chunks
+** load large file in chunks: vlf
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+(package! vlf)
+#+END_SRC
+
 #+BEGIN_SRC emacs-lisp
 (use-package! vlf
   :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
@@ -117,18 +133,22 @@ don't know why ranger's preview is not working
 #+END_SRC
 
 * Terminal: Vterm
-** Make auto-complete visible
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+(package! multi-vterm)                  ;; for multiple vterms
+(package! shell-pop)
+#+END_SRC
+
+** make auto-complete visible
 #+BEGIN_SRC emacs-lisp
 (setq shell-file-name "/bin/zsh")
 (custom-set-faces! '(vterm-color-black :background "#839496"))
 #+END_SRC
-
-** More scroll back
+** more scroll back
 #+BEGIN_SRC emacs-lisp
 (setq vterm-max-scrollback 100000)
 #+END_SRC
 
-** Send code
+** send code
 NOTE: need to disable ~read-only-mode~
 #+BEGIN_SRC emacs-lisp
 (defun sh-send-line-or-region (&optional step)
@@ -183,6 +203,10 @@ NOTE: need to disable ~read-only-mode~
 #+END_SRC
 
 * tldr: an awesome cli reference: [[https://github.com/tldr-pages/tldr][github]]
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+(package! tldr)
+#+END_SRC
+
 #+BEGIN_SRC emacs-lisp
 (use-package! tldr
   :commands (tldr)
@@ -191,6 +215,11 @@ NOTE: need to disable ~read-only-mode~
 #+END_SRC
 
 * Coding
+** Bazel
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+(package! bazel)
+#+END_SRC
+
 ** Python
 *** auto-format
 flake8+autoflake+yapf
@@ -272,6 +301,11 @@ flake8+autoflake+yapf
 #+END_SRC
 
 ** Copilot
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+(package! copilot
+  :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
+#+END_SRC
+
 #+begin_src emacs-lisp
 ;; accept completion from copilot and fallback to company
 (use-package! copilot
@@ -294,8 +328,16 @@ flake8+autoflake+yapf
 (setq all-org-files
       (seq-filter 'filter-org-file (directory-files-recursively "~/Dropbox/notes/" ".*")))
 #+end_src
+** org-download
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+(package! org-download)
+#+END_SRC
 
 ** roam-ui
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+(package! org-roam-ui)
+#+END_SRC
+
 #+BEGIN_SRC emacs-lisp
 (use-package! websocket
     :after org-roam)
@@ -321,6 +363,10 @@ flake8+autoflake+yapf
 #+end_src
 
 ** auto tangle
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+(package! org-auto-tangle)
+#+END_SRC
+
 #+begin_src emacs-lisp
 (use-package org-auto-tangle
   :defer t
@@ -328,6 +374,10 @@ flake8+autoflake+yapf
 #+end_src
 
 ** list appearances
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+(package! org-superstar)
+#+END_SRC
+
 #+begin_src emacs-lisp
 (setq org-hide-emphasis-markers nil)
 (setq org-superstar-headline-bullets-list '("⁖"))
@@ -664,6 +714,10 @@ I will use Dropbox as this provides integration with Overleaf.
 #+END_SRC
 
 **** feed scoring
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+(package! elfeed-score)
+#+END_SRC
+
 #+BEGIN_SRC emacs-lisp
 (use-package elfeed-score
   :after elfeed
@@ -725,6 +779,10 @@ I will use Dropbox as this provides integration with Overleaf.
 #+END_SRC
 
 *** offline PDF: biblio
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+(package! biblio)
+#+END_SRC
+
 #+BEGIN_SRC emacs-lisp
 (setq biblio-download-directory "~/Dropbox/Library/")
 (setq citar-bib "~/Dropbox/Apps/Overleaf/lib.bib")
@@ -779,7 +837,17 @@ add entry then put the attachment in the right place
 #+END_SRC
 
 ** information storage
+*** org-ref
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+(package! org-ref)
+#+END_SRC
+
 *** citar
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+(package! citar)
+(package! citar-embark)
+#+END_SRC
+
 #+BEGIN_SRC emacs-lisp
 (use-package! citar
   ;; :hook (doom-after-init-modules . citar-refresh)
@@ -825,7 +893,6 @@ add entry then put the attachment in the right place
   :no-require
   :config (citar-embark-mode))
 #+END_SRC
-
 *** for existing PDFs, add it to citar directly
 #+BEGIN_SRC emacs-lisp
 ;;;###autoload
@@ -852,14 +919,17 @@ URL."
     ))
 #+END_SRC
 
-*** Create reading task from citar entry: org-roam-bibtex
+*** create reading task from citar entry: org-roam-bibtex
 workflow:
 1. SPC C O: open an citar entry
 2. M-o: embark
 3. C: create reading task using the template below
-#+BEGIN_SRC emacs-lisp
-(add-hook! org-roam (org-roam-bibtex t))
 
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+(package! org-roam-bibtex)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
 (use-package! org-roam-bibtex
   :config
   (setq org-roam-capture-templates
@@ -885,6 +955,8 @@ workflow:
         orb-process-file-keyword t
         orb-file-field-extensions '("pdf"))
 )
+
+(add-hook! org-roam (org-roam-bibtex t))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -908,7 +980,12 @@ workflow:
 ** information processing
 1. taking plain text note with org-roam-bibtex
 2. taking note pinned to the associated PDF with org-noter
-*** annotate pdf: org-noter
+*** annotate pdf: org-noter + org-pdftools
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+(package! org-pdftools)
+(package! org-noter-pdftools)
+#+END_SRC
+
 #+BEGIN_SRC emacs-lisp
 (use-package org-noter
   :config
@@ -953,8 +1030,12 @@ With a prefix ARG, remove start location."
 
 *** writing notes: LaTeX
 **** powerful snippet: laas
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+(package! laas
+  :recipe (:host github :repo "tecosaur/LaTeX-auto-activating-snippets"))
+#+END_SRC
+
 #+BEGIN_SRC emacs-lisp
-(add-hook! 'tex-mode-hook (laas-mode t))
 (use-package laas
   :hook (LaTeX-mode . laas-mode)
   :config ; do whatever here
@@ -974,6 +1055,8 @@ With a prefix ARG, remove start location."
                     ;; add accent snippets
                     :cond #'laas-object-on-left-condition
                     "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))))
+
+(add-hook! 'tex-mode-hook (laas-mode t))
 #+END_SRC
 
 **** pdf should auto revert
@@ -1067,7 +1150,7 @@ create a reading task from a citar entry:
 : my-open-calendar
 
 * Other Keybinds
-** Cursor and window movements
+** cursor and window movements
 #+begin_src emacs-lisp
 (map!
 
@@ -1121,7 +1204,7 @@ create a reading task from a citar entry:
 (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
 #+end_src
 
-** Searching
+** searching
 #+BEGIN_SRC emacs-lisp
 (map!
  "C-s" 'consult-line
@@ -1130,7 +1213,7 @@ create a reading task from a citar entry:
 )
 #+END_SRC
 
-** Misc
+** misc
 #+BEGIN_SRC emacs-lisp
 (map! (:leader
   :n "es" 'flycheck-list-errors

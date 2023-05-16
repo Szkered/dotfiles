@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: package! block
+# key: elp
+# --
+
+#+BEGIN_SRC emacs-lisp :tangle packages.el
+$0
+#+END_SRC
