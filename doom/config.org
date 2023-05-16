@@ -41,39 +41,6 @@
 (package! doom-alabaster-theme :recipe (:host github :repo "agraul/doom-alabaster-theme"))
 #+END_SRC
 
-
-** fix for HiDPI monitors (see [[https://github.com/doomemacs/doomemacs/issues/6131][github issue]]).
-#+BEGIN_SRC emacs-lisp
-(defadvice! fix-doom-init-fonts-h (&optional reload)
-  :override #'doom-init-fonts-h
-  (dolist (map `((default . ,doom-font)
-                 (fixed-pitch . ,doom-font)
-                 (fixed-pitch-serif . ,doom-serif-font)
-                 (variable-pitch . ,doom-variable-pitch-font)))
-   (when-let* ((face (car map))
-               (font (cdr map)))
-     (dolist (frame (frame-list))
-       (when (display-multi-font-p frame)
-         (set-face-attribute face frame
-                             :width 'normal :weight 'normal
-                             :slant 'normal :font font)))
-     (let ((new-specs (doom--make-font-specs face font)))
-       ;; Don't save to `customized-face' so it's omitted from `custom-file'
-       ;;(put face 'customized-face new-specs)
-       (custom-push-theme 'theme-face face 'user 'set new-specs)
-       (put face 'face-modified nil))))
-  (when (fboundp 'set-fontset-font)
-    (let ((fn (doom-rpartial #'member (font-family-list))))
-      (when-let (font (cl-find-if fn doom-symbol-fallback-font-families))
-        (set-fontset-font t 'symbol font))
-      (when-let (font (cl-find-if fn doom-emoji-fallback-font-families))
-        (set-fontset-font t 'unicode font))
-      (when doom-unicode-font
-        (set-fontset-font t 'unicode doom-unicode-font))))
-  ;; Users should inject their own font logic in `after-setting-font-hook'
-  (run-hooks 'after-setting-font-hook))
-#+END_SRC
-
 ** line number
 No line number.
 #+BEGIN_SRC emacs-lisp
@@ -1231,31 +1198,26 @@ create a reading task from a citar entry:
 * Starting Screen
 ** agenda as starting page
 #+BEGIN_SRC emacs-lisp
-(defun emacs-startup-screen-server ()
-  "display the weekly org-agenda and all todos. used for server mode"
-  ;; NOTE: comment out these when modifying configs
-  (find-file "/home/zekun/Dropbox/notes/roam/20221016141411-research.org")
-  (setq org-agenda-sticky t)
-  (org-agenda nil "d")
-
-  ;; hiDPI hack
-  (add-to-list 'default-frame-alist '(font . "Iosevka Term-12"))
-)
-
 (defun emacs-startup-screen ()
   "display the weekly org-agenda and all todos. used for server mode"
   (find-file "/home/zekun/Dropbox/notes/roam/20221016141411-research.org")
   (setq org-agenda-sticky t)
   (org-agenda nil "d")
 
-  ;; for loDPI we still need to set the font
   (if (< (x-display-pixel-width) 3000)
-    (setq doom-font (font-spec :family "Iosevka Term" :size 20 :dpi 128)
-          doom-variable-pitch-font (font-spec :family "Iosevka" :dpi 128)
-          doom-unicode-font (font-spec :family "Iosevka Term" :dpi 128)
-          doom-big-font (font-spec :family "Iosevka Term" :size 26 :dpi 128))
-  )
-)
 
-(add-hook! 'emacs-startup-hook (emacs-startup-screen-server))
+    ;; laptop
+    (setq doom-font (font-spec :family "Iosevka Term SS04" :size 20 :dpi 116)
+          doom-variable-pitch-font (font-spec :family "Iosevka" :dpi 116)
+          doom-unicode-font (font-spec :family "Iosevka Term SS04" :dpi 116)
+          doom-big-font (font-spec :family "Iosevka Term SS04" :size 26 :dpi 116))
+
+    ;; monitor
+    (setq doom-font (font-spec :family "Iosevka Term SS04" :size 26 :dpi 163)
+          doom-variable-pitch-font (font-spec :family "Iosevka" :dpi 163)
+          doom-unicode-font (font-spec :family "Iosevka Term SS04" :dpi 163)
+          doom-big-font (font-spec :family "Iosevka Term SS04" :size 32 :dpi 163)))
+  (doom/reload-font))
+
+(add-hook! 'emacs-startup-hook (emacs-startup-screen))
 #+END_SRC
