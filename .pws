@@ -1,4 +1,4 @@
-personal_ws-1.1 en 127
+personal_ws-1.1 en 129
 Riesz
 Stiefel
 adjoint
@@ -82,6 +82,7 @@ lyapunov
 magit
 marginnotes
 millgram
+msmtp
 multipole
 netket
 noether
@@ -103,6 +104,7 @@ representable
 rescaled
 rofi
 schrodinger
+sg
 shi
 spacemacs
 spinors

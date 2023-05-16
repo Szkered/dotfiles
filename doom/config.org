@@ -246,7 +246,7 @@ flake8+autoflake+yapf
  (:after python
   :map  python-mode-map
     :localleader
-    "'"  #'+python/open-jupyter-repl
+    "'"  #'+python/open-ipython-repl
     "a"  #'pyvenv-activate
     "sb" #'python-shell-send-buffer
     "sr" #'python-shell-send-region
@@ -254,6 +254,7 @@ flake8+autoflake+yapf
     "db" #'python-toggle-breakpoint
     "if" #'python-fix-imports))
 #+end_src
+
 ** C/C++
 ** Debugger Adapter (DAP)
 *** keybinds
@@ -1096,8 +1097,23 @@ create a reading task from a citar entry:
 #+END_SRC
 
 * Email
+** mu4e
 #+BEGIN_SRC emacs-lisp
 (setq mu4e-update-interval 60)
+
+(set-popup-rule! "*mu4e-main*" :size 0.95 :side 'bottom :slot 1 :ttl nil :select nil :modeline nil :quit nil)
+(set-popup-rule! "*mu4e-headers*" :size 0.95 :side 'bottom :slot 1 :ttl nil :select nil :modeline nil :quit nil)
+#+END_SRC
+
+
+** msmtp
+#+BEGIN_SRC emacs-lisp
+(after! mu4e
+  (setq sendmail-program (executable-find "msmtp")
+        send-mail-function #'smtpmail-send-it
+        message-sendmail-f-is-evil t
+        message-sendmail-extra-arguments '("--read-envelope-from")
+        message-send-mail-function #'message-send-mail-with-sendmail))
 #+END_SRC
 
 * Calendar
@@ -1112,9 +1128,6 @@ create a reading task from a citar entry:
     (cfw:ical-create-source "gcal" sail-gcal "sea green")
     (cfw:ical-create-source "gcal" my-gcal "IndianRed")))) ; google calendar ICS
 #+END_SRC
-
-#+RESULTS:
-: my-open-calendar
 
 * Other Keybinds
 ** cursor and window movements

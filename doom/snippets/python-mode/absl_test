@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: absl_test
+# key: abt
+# --
+from absl.testing import absltest, parameterized
+
+
+class $1Test(parameterized.TestCase):
+
+  @parameterized.parameters()
+  def test_$2(self):
+    $0
+    self.assertTrue()
+
+
+if __name__ == "__main__":
+  absltest.main()
