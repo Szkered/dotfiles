@@ -36,7 +36,7 @@ myConfig =
                             \-file-browser-exclude workspace               \
                             \-file-browser-exclude '*.org'"
                         ),
-                        ("M-r", spawn "~/dotfiles/remap.sh"), -- remap keyboard
+                        ("M-r", spawn "~/dotfiles/remap.sh; xset r rate 250 60"), -- remap keyboard
                         ("M-S-e", spawn "~/dotfiles/reload_emacs.sh"),
                         ("M-x", spawn "emacsclient -r --eval \"(emacs-everywhere)\""), -- edit text using emacs
                         ("M-y", spawn "emacsclient -r --eval '(zotra-add-entry-and-pdf-from-url '\" $(printf '\"%s\"' \"$(xclip -o)\")\"' )'"), -- edit text using emacs

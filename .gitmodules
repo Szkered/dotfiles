@@ -10,3 +10,6 @@
 [submodule "doom/themes/zaiste-emacs-theme"]
 	path = doom/themes/zaiste-emacs-theme
 	url = https://github.com/zaiste/zaiste-emacs-theme.git
+[submodule "doom/themes/kanagawa.nvim"]
+	path = doom/themes/kanagawa.nvim
+	url = https://github.com/rebelot/kanagawa.nvim.git

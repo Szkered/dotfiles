@@ -11,6 +11,7 @@
 (setq user-full-name "Zekun Shi"
       user-mail-address "derek.zekun.shi@gmail.com")
 #+END_SRC
+
 * Better Defaults
 ** Shorten wait time
 #+BEGIN_SRC emacs-lisp
@@ -18,7 +19,6 @@
 #+END_SRC
 
 * Visual Settings
-
 ** Themes
 Use light / dark theme based on current time
 #+BEGIN_SRC emacs-lisp
@@ -68,6 +68,12 @@ No line number.
 (setq display-line-numbers-type nil)
 #+END_SRC
 
+** disable hl-line-mode in rainbow-mode
+#+BEGIN_SRC emacs-lisp
+(add-hook! 'rainbow-mode-hook
+  (hl-line-mode (if rainbow-mode -1 +1)))
+#+END_SRC
+
 * File manager: Dired / Ranger
 ** Image preview
 don't know why ranger's preview is not working
@@ -80,6 +86,7 @@ don't know why ranger's preview is not working
       (advice-add 'dired-next-line :after (lambda (arg) (dired-display-file)))
     (advice-remove 'dired-next-line (lambda (arg) (dired-display-file)))))
 #+END_SRC
+
 ** yank buffer name
 #+BEGIN_SRC emacs-lisp
 (defun yank-buffer-file-name ()
@@ -94,6 +101,12 @@ don't know why ranger's preview is not working
 (map! "C-c n" 'yank-buffer-file-name)
 #+END_SRC
 
+** load large file in chunks
+#+BEGIN_SRC emacs-lisp
+(use-package! vlf
+  :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
+#+END_SRC
+
 ** keybinds
 #+BEGIN_SRC emacs-lisp
 (map! :after ranger
@@ -102,6 +115,172 @@ don't know why ranger's preview is not working
           "C-c C-o" #'ranger-open-file-other-window
           ))
 #+END_SRC
+
+* Terminal: Vterm
+** Make auto-complete visible
+#+BEGIN_SRC emacs-lisp
+(setq shell-file-name "/bin/zsh")
+(custom-set-faces! '(vterm-color-black :background "#839496"))
+#+END_SRC
+
+** More scroll back
+#+BEGIN_SRC emacs-lisp
+(setq vterm-max-scrollback 100000)
+#+END_SRC
+
+** Send code
+NOTE: need to disable ~read-only-mode~
+#+BEGIN_SRC emacs-lisp
+(defun sh-send-line-or-region (&optional step)
+  (interactive ())
+  (let ((proc (get-process "vterm"))
+        pbuf min max command)
+    (unless proc
+      (let ((currbuff (current-buffer)))
+        (shell)
+        (switch-to-buffer currbuff)
+        (setq proc (get-process "vterm"))))
+
+    (setq pbuff (process-buffer proc))
+    (if (use-region-p)
+        (setq min (region-beginning)
+              max (region-end))
+      (setq min (point-at-bol)
+            max (point-at-eol)))
+    (setq command (concat (buffer-substring min max) "\n"))
+    (with-current-buffer pbuff
+      (goto-char (process-mark proc))
+      (insert command)
+      (move-marker (process-mark proc) (point)))
+       ;;pop-to-buffer does not work with save-current-buffer -- bug?
+    (process-send-string  proc command)
+    (display-buffer (process-buffer proc) t)
+    (when step
+      (goto-char max)
+      (next-line))))
+
+
+(defun sh-send-line-or-region-and-step ()
+  (interactive)
+  (sh-send-line-or-region t))
+
+(defun sh-switch-to-process-buffer ()
+  (interactive)
+  (pop-to-buffer (process-buffer (get-process "vterm")) t))
+#+END_SRC
+
+** keybinds
+#+BEGIN_SRC emacs-lisp
+(map!
+ :leader
+ :n "'" 'spacemacs/shell-pop-multi-vterm
+ (:after multi-vterm
+         (:map multi-vterm-mode-map
+          :leader
+          :n "mc" 'multi-vterm
+          :n "mp" 'multi-vterm-prev
+          :n "mn" 'multi-vterm-next)))
+#+END_SRC
+
+* tldr: an awesome cli reference: [[https://github.com/tldr-pages/tldr][github]]
+#+BEGIN_SRC emacs-lisp
+(use-package! tldr
+  :commands (tldr)
+  :config
+  (setq tldr-directory-path (concat doom-etc-dir "tldr/")))
+#+END_SRC
+
+* Coding
+** Python
+*** auto-format
+flake8+autoflake+yapf
+#+BEGIN_SRC emacs-lisp
+(set-formatter! 'yapf  "yapf " :modes '(python-mode))
+
+(add-hook! 'before-save-hook
+    (when (eq major-mode 'python-mode)
+      (+format/buffer)))
+#+END_SRC
+
+*** debugger
+#+BEGIN_SRC emacs-lisp
+(defun python-toggle-breakpoint ()
+  "Add an ipdb break point, highlight it."
+  (interactive)
+  (let ((trace (cond (t "breakpoint()")))
+        (line (thing-at-point 'line)))
+    (if (and line (string-match trace line))
+        (kill-whole-line)
+      (progn
+        ;; (back-to-indentation)
+        (insert trace)
+        (insert "\n")
+        (python-indent-line)))))
+#+END_SRC
+
+*** add extra syntax checker
+#+BEGIN_SRC emacs-lisp
+;; extra checkers after lsp
+(defvar-local my/flycheck-local-cache nil)
+
+(defun my/flycheck-checker-get (fn checker property)
+  (or (alist-get property (alist-get checker my/flycheck-local-cache))
+      (funcall fn checker property)))
+
+(advice-add 'flycheck-checker-get :around 'my/flycheck-checker-get)
+
+(add-hook 'lsp-managed-mode-hook
+          (lambda ()
+            (when (derived-mode-p 'python-mode)
+              (setq my/flycheck-local-cache '((lsp . ((next-checkers . (python-pylint python-mypy python-flake8))))))
+              (setq flycheck-pylintrc "~/.config/pylintrc"))))
+
+#+END_SRC
+
+*** ein
+#+BEGIN_SRC emacs-lisp
+(setq ein:output-area-inlined-images t)
+(setq ein:use-auto-complete t)
+(setq ein:use-smartrep t)
+#+END_SRC
+
+*** keybinds
+#+begin_src emacs-lisp
+(map!
+ (:after python
+  :map  python-mode-map
+    :localleader
+    "'"  #'+python/open-jupyter-repl
+    "a"  #'pyvenv-activate
+    "sb" #'python-shell-send-buffer
+    "sr" #'python-shell-send-region
+    "SR" #'sh-send-line-or-region
+    "db" #'python-toggle-breakpoint
+    "if" #'python-fix-imports))
+#+end_src
+** C/C++
+** Debugger Adapter (DAP)
+*** keybinds
+#+BEGIN_SRC emacs-lisp
+(map!
+ (:after dap-mode
+   (:map dap-mode-map
+    :leader
+    "dd" 'dap-debug
+    "de" 'dap-debug-edit-template
+    "d." 'dap-hydra)))
+#+END_SRC
+
+** Copilot
+#+begin_src emacs-lisp
+;; accept completion from copilot and fallback to company
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("C-e" . 'copilot-accept-completion)
+              ("M-f" . 'copilot-accept-completion-by-word)
+              ))
+#+end_src
 
 * Org-mode
 ** file location
@@ -425,164 +604,6 @@ don't know why ranger's preview is not working
 #+BEGIN_SRC emacs-lisp
 (map! :n "na" 'org-agenda)
 #+END_SRC
-
-* Python
-** auto-format
-flake8+autoflake+yapf
-#+BEGIN_SRC emacs-lisp
-(set-formatter! 'yapf  "yapf " :modes '(python-mode))
-
-(add-hook! 'before-save-hook
-    (when (eq major-mode 'python-mode)
-      (+format/buffer)))
-#+END_SRC
-
-** debugger
-#+BEGIN_SRC emacs-lisp
-(defun python-toggle-breakpoint ()
-  "Add an ipdb break point, highlight it."
-  (interactive)
-  (let ((trace (cond (t "breakpoint()")))
-        (line (thing-at-point 'line)))
-    (if (and line (string-match trace line))
-        (kill-whole-line)
-      (progn
-        ;; (back-to-indentation)
-        (insert trace)
-        (insert "\n")
-        (python-indent-line)))))
-#+END_SRC
-
-** add extra syntax checker
-#+BEGIN_SRC emacs-lisp
-;; extra checkers after lsp
-(defvar-local my/flycheck-local-cache nil)
-
-(defun my/flycheck-checker-get (fn checker property)
-  (or (alist-get property (alist-get checker my/flycheck-local-cache))
-      (funcall fn checker property)))
-
-(advice-add 'flycheck-checker-get :around 'my/flycheck-checker-get)
-
-(add-hook 'lsp-managed-mode-hook
-          (lambda ()
-            (when (derived-mode-p 'python-mode)
-              (setq my/flycheck-local-cache '((lsp . ((next-checkers . (python-pylint python-mypy python-flake8))))))
-              (setq flycheck-pylintrc "~/.config/pylintrc"))))
-
-#+END_SRC
-
-** ein
-#+BEGIN_SRC emacs-lisp
-(setq ein:output-area-inlined-images t)
-(setq ein:use-auto-complete t)
-(setq ein:use-smartrep t)
-#+END_SRC
-
-** keybinds
-#+begin_src emacs-lisp
-(map!
- (:after python
-  :map  python-mode-map
-    :localleader
-    "'"  #'+python/open-jupyter-repl
-    "a"  #'pyvenv-activate
-    "sb" #'python-shell-send-buffer
-    "sr" #'python-shell-send-region
-    "SR" #'sh-send-line-or-region
-    "db" #'python-toggle-breakpoint
-    "if" #'python-fix-imports))
-#+end_src
-
-* Debugger Adapter (DAP)
-** keybinds
-#+BEGIN_SRC emacs-lisp
-(map!
- (:after dap-mode
-   (:map dap-mode-map
-    :leader
-    "dd" 'dap-debug
-    "de" 'dap-debug-edit-template
-    "d." 'dap-hydra)))
-#+END_SRC
-
-* Vterm
-** Make auto-complete visible
-#+BEGIN_SRC emacs-lisp
-(setq shell-file-name "/bin/zsh")
-(custom-set-faces! '(vterm-color-black :background "#839496"))
-#+END_SRC
-
-** More scroll back
-#+BEGIN_SRC emacs-lisp
-(setq vterm-max-scrollback 100000)
-#+END_SRC
-
-** Send code
-NOTE: need to disable ~read-only-mode~
-#+BEGIN_SRC emacs-lisp
-(defun sh-send-line-or-region (&optional step)
-  (interactive ())
-  (let ((proc (get-process "vterm"))
-        pbuf min max command)
-    (unless proc
-      (let ((currbuff (current-buffer)))
-        (shell)
-        (switch-to-buffer currbuff)
-        (setq proc (get-process "vterm"))))
-
-    (setq pbuff (process-buffer proc))
-    (if (use-region-p)
-        (setq min (region-beginning)
-              max (region-end))
-      (setq min (point-at-bol)
-            max (point-at-eol)))
-    (setq command (concat (buffer-substring min max) "\n"))
-    (with-current-buffer pbuff
-      (goto-char (process-mark proc))
-      (insert command)
-      (move-marker (process-mark proc) (point)))
-       ;;pop-to-buffer does not work with save-current-buffer -- bug?
-    (process-send-string  proc command)
-    (display-buffer (process-buffer proc) t)
-    (when step
-      (goto-char max)
-      (next-line))))
-
-
-(defun sh-send-line-or-region-and-step ()
-  (interactive)
-  (sh-send-line-or-region t))
-
-(defun sh-switch-to-process-buffer ()
-  (interactive)
-  (pop-to-buffer (process-buffer (get-process "vterm")) t))
-#+END_SRC
-
-** keybinds
-#+BEGIN_SRC emacs-lisp
-(map!
- :leader
- :n "'" 'spacemacs/shell-pop-multi-vterm
- (:after multi-vterm
-         (:map multi-vterm-mode-map
-          :leader
-          :n "mc" 'multi-vterm
-          :n "mp" 'multi-vterm-prev
-          :n "mn" 'multi-vterm-next)))
-#+END_SRC
-
-* Copilot
-#+begin_src emacs-lisp
-;; accept completion from copilot and fallback to company
-(use-package! copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (:map copilot-completion-map
-              ("C-e" . 'copilot-accept-completion)
-              ("M-f" . 'copilot-accept-completion-by-word)
-              ))
-#+end_src
-
 * Research Workflow
 So what is =research= anyway? It is the =compression= of information by human brain. There are two kinds of =compression=:
 1. compression of inputs: people also call this =insight=.
@@ -606,7 +627,6 @@ I will use Dropbox as this provides integration with Overleaf.
 (setq citar-org-roam-subdir "research")
 (setq org-noter-notes-search-path '("~/Dropbox/notes/roam/research"))
 #+END_SRC
-
 
 ** information acquisition
 *** TODO twitter
@@ -931,13 +951,10 @@ With a prefix ARG, remove start location."
     (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
 #+END_SRC
 
-*** writing notes: latex
-**** base config
+*** writing notes: LaTeX
+**** powerful snippet: laas
 #+BEGIN_SRC emacs-lisp
 (add-hook! 'tex-mode-hook (laas-mode t))
-#+END_SRC
-**** laas
-#+BEGIN_SRC emacs-lisp
 (use-package laas
   :hook (LaTeX-mode . laas-mode)
   :config ; do whatever here
@@ -959,6 +976,10 @@ With a prefix ARG, remove start location."
                     "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))))
 #+END_SRC
 
+**** pdf should auto revert
+#+BEGIN_SRC emacs-lisp
+(add-hook 'pdf-view-mode-hook 'auto-revert-mode)
+#+END_SRC
 ** keybinds
 *** elfeed keybinds (SPC n)
 #+BEGIN_SRC emacs-lisp
@@ -1045,13 +1066,6 @@ create a reading task from a citar entry:
 #+RESULTS:
 : my-open-calendar
 
-* Misc
-** disable hl-line-mode in rainbow-mode
-#+BEGIN_SRC emacs-lisp
-(add-hook! 'rainbow-mode-hook
-  (hl-line-mode (if rainbow-mode -1 +1)))
-#+END_SRC
-
 * Other Keybinds
 ** Cursor and window movements
 #+begin_src emacs-lisp
@@ -1131,8 +1145,7 @@ create a reading task from a citar entry:
 (setq doom-localleader-key ",")
 #+END_SRC
 
-* Starting page
-
+* Starting Screen
 ** agenda as starting page
 #+BEGIN_SRC emacs-lisp
 (defun emacs-startup-screen-server ()

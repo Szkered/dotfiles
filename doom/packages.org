@@ -7,7 +7,10 @@
 #+begin_src emacs-lisp
 (package! org-auto-tangle)
 #+end_src
-
+* Large file
+#+BEGIN_SRC emacs-lisp
+(package! vlf)
+#+END_SRC
 * Org
 #+begin_src emacs-lisp
 (package! org-download)
@@ -53,10 +56,15 @@
 #+end_src
 ** more themes
 #+BEGIN_SRC emacs-lisp
-;; $DOOMDIR/packages.el
+(package! autothemer)
 (package! doom-alabaster-theme :recipe (:host github :repo "agraul/doom-alabaster-theme"))
 #+END_SRC
 * Bazel
 #+BEGIN_SRC emacs-lisp
 (package! bazel)
+#+END_SRC
+
+* tldr
+#+BEGIN_SRC emacs-lisp
+(package! tldr)
 #+END_SRC

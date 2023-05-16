@@ -1,0 +1,1 @@
+kanagawa.nvim/extras/kanagawa-theme.el
