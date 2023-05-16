@@ -4,12 +4,19 @@
 [submodule "doom/themes/catppuccin"]
 	path = doom/themes/catppuccin
 	url = https://github.com/catppuccin/emacs.git
+	shallow = true
 [submodule "doom/zotra"]
 	path = doom/zotra
 	url = https://github.com/mpedramfar/zotra.git
 [submodule "doom/themes/zaiste-emacs-theme"]
 	path = doom/themes/zaiste-emacs-theme
 	url = https://github.com/zaiste/zaiste-emacs-theme.git
+	shallow = true
 [submodule "doom/themes/kanagawa.nvim"]
 	path = doom/themes/kanagawa.nvim
 	url = https://github.com/rebelot/kanagawa.nvim.git
+	shallow = true
+[submodule "doom/themes/konrad1977"]
+	path = doom/themes/konrad1977
+	url = https://github.com/konrad1977/emacs.git
+	shallow = true
