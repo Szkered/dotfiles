@@ -53,6 +53,27 @@ No line number.
   (hl-line-mode (if rainbow-mode -1 +1)))
 #+END_SRC
 
+** set font sizes based on dpi
+We use the following shell command to get current dpi as ~x-display-pixel-width~ does not work in server mode.
+#+BEGIN_SRC emacs-lisp
+(defun get-current-dpi ()
+  (string-to-number (shell-command-to-string "xrdb -query | grep dpi | awk '{print $2}'")))
+
+(if (= (get-current-dpi) 116)
+
+  ;; laptop
+  (setq doom-font (font-spec :family "Iosevka Term SS04" :size 20 :dpi 116)
+        doom-variable-pitch-font (font-spec :family "Iosevka" :dpi 116)
+        doom-unicode-font (font-spec :family "Iosevka Term SS04" :dpi 116)
+        doom-big-font (font-spec :family "Iosevka Term SS04" :size 26 :dpi 116))
+
+  ;; monitor
+  (setq doom-font (font-spec :family "Iosevka Term SS04" :size 26 :dpi 163)
+        doom-variable-pitch-font (font-spec :family "Iosevka" :dpi 163)
+        doom-unicode-font (font-spec :family "Iosevka Term SS04" :dpi 163)
+        doom-big-font (font-spec :family "Iosevka Term SS04" :size 32 :dpi 163)))
+#+END_SRC
+
 * File manager: Dired / Ranger
 ** image preview
 don't know why ranger's preview is not working
@@ -240,6 +261,11 @@ flake8+autoflake+yapf
 (setq ein:use-smartrep t)
 #+END_SRC
 
+*** make repl popup nicer
+#+BEGIN_SRC emacs-lisp
+(set-popup-rule! "*Python*" :size 0.5 :side 'right :slot 1 :ttl nil :select nil :modeline nil :quit nil)
+#+END_SRC
+
 *** keybinds
 #+begin_src emacs-lisp
 (map!
@@ -248,6 +274,7 @@ flake8+autoflake+yapf
     :localleader
     "'"  #'+python/open-ipython-repl
     "a"  #'pyvenv-activate
+    "D"  #'pyvenv-deactivate
     "sb" #'python-shell-send-buffer
     "sr" #'python-shell-send-region
     "SR" #'sh-send-line-or-region
@@ -1101,10 +1128,10 @@ create a reading task from a citar entry:
 #+BEGIN_SRC emacs-lisp
 (setq mu4e-update-interval 60)
 
-(set-popup-rule! "*mu4e-main*" :size 0.95 :side 'bottom :slot 1 :ttl nil :select nil :modeline nil :quit nil)
-(set-popup-rule! "*mu4e-headers*" :size 0.95 :side 'bottom :slot 1 :ttl nil :select nil :modeline nil :quit nil)
+(set-popup-rule! "*mu4e-main*" :size 0.95 :side 'bottom :vslot 1 :ttl nil :select nil :modeline nil :quit nil)
+(set-popup-rule! "*mu4e-headers*" :size 0.95 :side 'bottom :vslot 1 :ttl nil :select nil :modeline nil :quit nil)
+(set-popup-rule! "*mu4e-article*" :size 0.75 :side 'bottom :vslot 2 :ttl nil :select nil :modeline nil :quit nil)
 #+END_SRC
-
 
 ** msmtp
 #+BEGIN_SRC emacs-lisp
@@ -1114,6 +1141,11 @@ create a reading task from a citar entry:
         message-sendmail-f-is-evil t
         message-sendmail-extra-arguments '("--read-envelope-from")
         message-send-mail-function #'message-send-mail-with-sendmail))
+#+END_SRC
+
+** keybinds
+#+BEGIN_SRC emacs-lisp
+(map! :leader "EE" 'mu4e)
 #+END_SRC
 
 * Calendar
@@ -1173,8 +1205,6 @@ create a reading task from a citar entry:
 
 )
 
-;; (after! evil (evil-escape-mode nil))
-
 ;; Make evil-mode up/down operate in screen lines instead of logical lines
 (define-key evil-motion-state-map "j" 'evil-next-visual-line)
 (define-key evil-motion-state-map "k" 'evil-previous-visual-line)
@@ -1208,29 +1238,11 @@ create a reading task from a citar entry:
 (setq doom-localleader-key ",")
 #+END_SRC
 
-* Starting Screen
-** agenda as starting page
+* Org agenda as starting page for emacs client
 #+BEGIN_SRC emacs-lisp
 (defun emacs-startup-screen ()
-  "display the weekly org-agenda and all todos. used for server mode"
-  (find-file "/home/zekun/Dropbox/notes/roam/20221016141411-research.org")
+  "display the weekly org-agenda and all todos. used for client mode"
+  (find-file "~/Dropbox/notes/roam/20221016141411-research.org")
   (setq org-agenda-sticky t)
-  (org-agenda nil "d")
-
-  (if (< (x-display-pixel-width) 3000)
-
-    ;; laptop
-    (setq doom-font (font-spec :family "Iosevka Term SS04" :size 20 :dpi 116)
-          doom-variable-pitch-font (font-spec :family "Iosevka" :dpi 116)
-          doom-unicode-font (font-spec :family "Iosevka Term SS04" :dpi 116)
-          doom-big-font (font-spec :family "Iosevka Term SS04" :size 26 :dpi 116))
-
-    ;; monitor
-    (setq doom-font (font-spec :family "Iosevka Term SS04" :size 26 :dpi 163)
-          doom-variable-pitch-font (font-spec :family "Iosevka" :dpi 163)
-          doom-unicode-font (font-spec :family "Iosevka Term SS04" :dpi 163)
-          doom-big-font (font-spec :family "Iosevka Term SS04" :size 32 :dpi 163)))
-  (doom/reload-font))
-
-(add-hook! 'emacs-startup-hook (emacs-startup-screen))
+  (org-agenda nil "d"))
 #+END_SRC
