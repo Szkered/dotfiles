@@ -22,7 +22,7 @@
 ** themes
 
 *** Use light / dark theme based on current time: circadian
-#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! circadian)
 #+END_SRC
 
@@ -36,7 +36,7 @@
 #+END_SRC
 
 *** more themes
-#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! autothemer)
 (package! doom-alabaster-theme :recipe (:host github :repo "agraul/doom-alabaster-theme"))
 #+END_SRC
@@ -102,7 +102,7 @@ don't know why ranger's preview is not working
 #+END_SRC
 
 ** load large file in chunks: vlf
-#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! vlf)
 #+END_SRC
 
@@ -121,7 +121,7 @@ don't know why ranger's preview is not working
 #+END_SRC
 
 * Terminal: Vterm
-#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! multi-vterm)                  ;; for multiple vterms
 (package! shell-pop)
 #+END_SRC
@@ -191,7 +191,7 @@ NOTE: need to disable ~read-only-mode~
 #+END_SRC
 
 * tldr: an awesome cli reference: [[https://github.com/tldr-pages/tldr][github]]
-#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! tldr)
 #+END_SRC
 
@@ -204,7 +204,7 @@ NOTE: need to disable ~read-only-mode~
 
 * Coding
 ** Bazel
-#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! bazel)
 #+END_SRC
 
@@ -296,7 +296,7 @@ flake8+autoflake+yapf
 #+END_SRC
 
 ** Copilot
-#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! copilot
   :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
 #+END_SRC
@@ -324,12 +324,17 @@ flake8+autoflake+yapf
       (seq-filter 'filter-org-file (directory-files-recursively "~/Dropbox/notes/" ".*")))
 #+end_src
 ** org-download
-#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! org-download)
 #+END_SRC
 
+** org-analyzer
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
+(package! org-analyzer)
+#+END_SRC
+
 ** roam-ui
-#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! org-roam-ui)
 #+END_SRC
 
@@ -358,7 +363,7 @@ flake8+autoflake+yapf
 #+end_src
 
 ** auto tangle
-#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! org-auto-tangle)
 #+END_SRC
 
@@ -369,7 +374,7 @@ flake8+autoflake+yapf
 #+end_src
 
 ** list appearances
-#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! org-superstar)
 #+END_SRC
 
@@ -709,7 +714,7 @@ I will use Dropbox as this provides integration with Overleaf.
 #+END_SRC
 
 **** feed scoring
-#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! elfeed-score)
 #+END_SRC
 
@@ -774,7 +779,7 @@ I will use Dropbox as this provides integration with Overleaf.
 #+END_SRC
 
 *** offline PDF: biblio
-#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! biblio)
 #+END_SRC
 
@@ -833,12 +838,12 @@ add entry then put the attachment in the right place
 
 ** information storage
 *** org-ref
-#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! org-ref)
 #+END_SRC
 
 *** citar
-#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! citar)
 (package! citar-embark)
 #+END_SRC
@@ -920,7 +925,7 @@ workflow:
 2. M-o: embark
 3. C: create reading task using the template below
 
-#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! org-roam-bibtex)
 #+END_SRC
 
@@ -976,7 +981,7 @@ workflow:
 1. taking plain text note with org-roam-bibtex
 2. taking note pinned to the associated PDF with org-noter
 *** annotate pdf: org-noter + org-pdftools
-#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! org-pdftools)
 (package! org-noter-pdftools)
 #+END_SRC
@@ -1025,7 +1030,7 @@ With a prefix ARG, remove start location."
 
 *** writing notes: LaTeX
 **** powerful snippet: laas
-#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "package.el") "no")
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! laas
   :recipe (:host github :repo "tecosaur/LaTeX-auto-activating-snippets"))
 #+END_SRC

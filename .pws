@@ -1,4 +1,4 @@
-personal_ws-1.1 en 129
+personal_ws-1.1 en 130
 Riesz
 Stiefel
 adjoint
@@ -82,6 +82,7 @@ lyapunov
 magit
 marginnotes
 millgram
+minibatch
 msmtp
 multipole
 netket

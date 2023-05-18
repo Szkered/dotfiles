@@ -24,4 +24,6 @@ picom -f &
 # Input method
 fcitx5 &
 
+# Startup Apps
 google-chrome-stable &
+emacsclient -r --eval "(emacs-startup-screen)"
