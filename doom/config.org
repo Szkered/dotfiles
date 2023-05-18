@@ -18,7 +18,7 @@
 (setq auto-revert-interval 0.5)
 #+END_SRC
 
-* Visual Settings
+* Global Visual Settings
 ** themes
 
 *** Use light / dark theme based on current time: circadian
@@ -316,6 +316,7 @@ flake8+autoflake+yapf
 #+begin_src emacs-lisp
 (setq org-directory "~/Dropbox/notes/")
 (setq org-roam-directory "~/Dropbox/notes/roam")
+(setq org-agenda-files (directory-files-recursively "~/Dropbox/notes/" "\\.org$"))
 
 (defun filter-org-file (file)
   (equal (car (last (split-string file "\\."))) "org"))
@@ -332,6 +333,17 @@ flake8+autoflake+yapf
 #+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! org-analyzer)
 #+END_SRC
+
+** auto tangle
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
+(package! org-auto-tangle)
+#+END_SRC
+
+#+begin_src emacs-lisp
+(use-package org-auto-tangle
+  :defer t
+  :hook (org-mode . org-auto-tangle-mode))
+#+end_src
 
 ** roam-ui
 #+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
@@ -354,26 +366,7 @@ flake8+autoflake+yapf
           org-roam-ui-update-on-save t
           org-roam-ui-open-on-start t))
 #+END_SRC
-
-** priorities
-#+begin_src emacs-lisp
-(setq org-default-priority ?C)
-(setq org-lowest-priority ?D)
-(setq org-highest-priority ?A)
-#+end_src
-
-** auto tangle
-#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
-(package! org-auto-tangle)
-#+END_SRC
-
-#+begin_src emacs-lisp
-(use-package org-auto-tangle
-  :defer t
-  :hook (org-mode . org-auto-tangle-mode))
-#+end_src
-
-** list appearances
+** visual settings
 #+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! org-superstar)
 #+END_SRC
@@ -382,18 +375,25 @@ flake8+autoflake+yapf
 (setq org-hide-emphasis-markers nil)
 (setq org-superstar-headline-bullets-list '("⁖"))
 (setq org-ellipsis " ... ")
+(add-hook! 'org-mode-hook (org-superstar-mode))
 #+end_src
 
-** keybind and some hooks
+Mixed pitch is great. As is ~+org-pretty-mode~, let's use them.
 #+begin_src emacs-lisp
-(add-hook! 'org-mode-hook
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode
-    "I" 'org-clock-in
-    "O" 'org-clock-out
-    "R" 'org-refile)
+(add-hook 'org-mode-hook #'+org-pretty-mode)
+#+end_src
 
-  (org-superstar-mode)
-  (setq org-agenda-files (directory-files-recursively "~/Dropbox/notes/" "\\.org$")))
+Let's make headings a bit bigger
+#+begin_src emacs-lisp
+(custom-set-faces!
+  '(outline-1 :weight extra-bold :height 1.25)
+  '(outline-2 :weight bold :height 1.15)
+  '(outline-3 :weight bold :height 1.12)
+  '(outline-4 :weight semi-bold :height 1.09)
+  '(outline-5 :weight semi-bold :height 1.06)
+  '(outline-6 :weight semi-bold :height 1.03)
+  '(outline-8 :weight semi-bold)
+  '(outline-9 :weight semi-bold))
 #+end_src
 
 ** refile
@@ -404,7 +404,23 @@ flake8+autoflake+yapf
         (all-org-files :maxlevel . 3)))
 #+END_SRC
 
-** agenda helpers
+** journal
+#+begin_src emacs-lisp
+(setq org-journal-file-type 'monthly)
+(setq org-journal-enable-agenda-integration t)
+(setq org-capture-templates '(("j" "Journal entry" entry (function org-journal-find-location)
+                               "* %(format-time-string org-journal-time-format)%^{Title}\n%i%?")))
+#+end_src
+
+** agenda and gtd system
+*** priorities
+#+begin_src emacs-lisp
+(setq org-default-priority ?C)
+(setq org-lowest-priority ?D)
+(setq org-highest-priority ?A)
+#+end_src
+
+*** agenda helpers
 #+BEGIN_SRC emacs-lisp
 (defun air-org-skip-subtree-if-habit ()
   "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
@@ -429,7 +445,7 @@ flake8+autoflake+yapf
     (org-toggle-archive-tag)))
 #+END_SRC
 
-** agenda appearances
+*** agenda appearances
 #+BEGIN_SRC emacs-lisp
 (setq org-agenda-clockreport-parameter-plist
       (quote (:link t :maxlevel 3 :fileskip0 t :narrow 80 :formula %)))
@@ -441,7 +457,7 @@ flake8+autoflake+yapf
 (setq my-org-agenda-prefix-format " %-2i %b %t%s")
 #+END_SRC
 
-** todo-keywords
+*** todo-keywords
 #+BEGIN_SRC emacs-lisp
 (setq org-todo-keywords
 '((sequence "TODO(t)" "PROJ(p)" "LOOP(r)" "STRT(s)" "WAIT(w)" "HOLD(h)" "IDEA(i)" "|" "DONE(d)" "KILL(k)")
@@ -450,7 +466,7 @@ flake8+autoflake+yapf
 )
 #+END_SRC
 
-** speed up agenda
+*** speed up agenda
 #+BEGIN_SRC emacs-lisp
 (setq org-agenda-inhibit-startup t)
 (defadvice! fix-exclude-agenda-buffers-from-recentf-advice (orig-fn file)
@@ -460,7 +476,7 @@ flake8+autoflake+yapf
     (funcall orig-fn file)))
 #+END_SRC
 
-** daily/weekly agenda format
+*** daily/weekly agenda format
 #+begin_src emacs-lisp
 (setq org-agenda-custom-commands
       '(
@@ -553,15 +569,7 @@ flake8+autoflake+yapf
           ))))
 #+end_src
 
-** journal
-#+begin_src emacs-lisp
-(setq org-journal-file-type 'monthly)
-(setq org-journal-enable-agenda-integration t)
-(setq org-capture-templates '(("j" "Journal entry" entry (function org-journal-find-location)
-                               "* %(format-time-string org-journal-time-format)%^{Title}\n%i%?")))
-#+end_src
-
-** weekly time report review mode
+*** weekly time report review mode
 #+begin_src emacs-lisp
 (defun my-org-agenda-time-grid-spacing ()
   "Set different line spacing w.r.t. time duration."
@@ -583,7 +591,7 @@ flake8+autoflake+yapf
             (overlay-put ov 'line-spacing (1- line-height))))))))
 #+end_src
 
-** agenda category icon list
+*** agenda category icon list
 #+begin_src emacs-lisp
 (setq org-agenda-category-icon-alist
       `(
@@ -650,10 +658,18 @@ flake8+autoflake+yapf
 
 (add-hook 'before-save-hook #'my-org-beamer-sync-hook)
 #+end_src
+
 ** keybinds
 #+BEGIN_SRC emacs-lisp
+(add-hook! 'org-mode-hook
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode
+    "I" 'org-clock-in
+    "O" 'org-clock-out
+    "R" 'org-refile))
+
 (map! :n "na" 'org-agenda)
 #+END_SRC
+
 * Research Workflow
 So what is =research= anyway? It is the =compression= of information by human brain. There are two kinds of =compression=:
 1. compression of inputs: people also call this =insight=.
@@ -1219,7 +1235,7 @@ create a reading task from a citar entry:
 (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
 #+end_src
 
-** searching
+** searching and completion
 #+BEGIN_SRC emacs-lisp
 (map!
  "C-s" 'consult-line

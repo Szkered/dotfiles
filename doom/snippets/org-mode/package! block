@@ -3,6 +3,6 @@
 # key: elp
 # --
 
-#+BEGIN_SRC emacs-lisp :tangle packages.el
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 $0
 #+END_SRC

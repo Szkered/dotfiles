@@ -14,7 +14,7 @@
 	shallow = true
 [submodule "doom/themes/kanagawa.nvim"]
 	path = doom/themes/kanagawa.nvim
-	url = https://github.com/rebelot/kanagawa.nvim.git
+	url = git@github.com:Szkered/kanagawa.nvim.git
 	shallow = true
 [submodule "doom/themes/konrad1977"]
 	path = doom/themes/konrad1977

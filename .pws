@@ -1,4 +1,4 @@
-personal_ws-1.1 en 130
+personal_ws-1.1 en 134
 Riesz
 Stiefel
 adjoint
@@ -17,6 +17,7 @@ auth
 autoflake
 automorphisms
 autoregressive
+backend
 basis
 bazel
 beamer
@@ -36,6 +37,7 @@ config
 coord
 coplanar
 cpufreq
+customizable
 degeneracies
 dired
 discretisation
@@ -57,6 +59,7 @@ fermions
 flyspell
 fock
 gcal
+gmail
 googleusercontent
 gtd
 hartree
@@ -71,6 +74,7 @@ i've
 jacobian
 jax
 jerzy
+kanagawa
 ket
 kets
 keybind
