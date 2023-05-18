@@ -899,16 +899,14 @@ add entry then put the attachment in the right place
         '((main . "${author editor:55}     ${date year issued:4}     ${title:55}")
           (suffix . "  ${tags keywords keywords:40}")
           (preview . "${author editor} ${title}, ${journal publisher container-title collection-title booktitle} ${volume} (${year issued date}).\n")
-          (note . "#+title: Notes on ${author editor}, ${title}")))
-
-  ;; use consult-completing-read for enhanced interface
-  (advice-add #'completing-read-multiple :override #'consult-completing-read-multiple))
+          (note . "#+title: Notes on ${author editor}, ${title}"))))
 
 (use-package citar-embark
   :after citar embark
   :no-require
   :config (citar-embark-mode))
 #+END_SRC
+
 *** for existing PDFs, add it to citar directly
 #+BEGIN_SRC emacs-lisp
 ;;;###autoload
