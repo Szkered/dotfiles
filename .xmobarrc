@@ -153,6 +153,6 @@ Config {
        \<box color=#0d1017 mb=2><fc=#bfbdb6><action=`alacritty -e htop`>%memory%</action></fc></box>   \
        \<box color=#0d1017 mb=2>%disku%</box>   \
        \<box color=#0d1017 mb=2><action=`pavucontrol`>%volume%</action></box>   \
-       \<box color=#0d1017 mb=2><action=`google-chrome-stable https://www.icloud.com/calendar/`>%appleicon%  </action></box>\
-       \<box color=#0d1017 mb=2><action=`google-chrome-stable https://calendar.google.com/calendar/u/1/r`>%date%</action></box> "
+       \<box color=#0d1017 mb=2><action=`min https://www.icloud.com/calendar/`>%appleicon%  </action></box>\
+       \<box color=#0d1017 mb=2><action=`min https://calendar.google.com/calendar/u/1/r`>%date%</action></box> "
        }

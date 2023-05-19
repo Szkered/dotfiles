@@ -1,4 +1,4 @@
-personal_ws-1.1 en 134
+personal_ws-1.1 en 138
 Riesz
 Stiefel
 adjoint
@@ -93,6 +93,7 @@ netket
 noether
 nondimensionalize
 noter
+obara
 org
 orthonormal
 pdfs
@@ -104,12 +105,15 @@ quadric
 quadrics
 quantized
 quaternion
+repl
 repo
 representable
 rescaled
 rofi
+saika
 schrodinger
 sg
+sgd
 shi
 spacemacs
 spinors

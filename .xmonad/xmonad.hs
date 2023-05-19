@@ -21,26 +21,28 @@ myConfig =
     }
     `additionalKeysP` [ ("M-e", spawn "emacsclient -r --eval \"(emacs-startup-screen)\""), -- run emacsclient
                         ("M-/", spawn "rofi -show combi -dpi 1"), --run rofi combined mode
-                        ( "M-'",
-                          spawn
-                            "rofi -dpi 1 -modi file-browser-extended -show file-browser-extended \
-                            \-file-browser-dir '/home/zekun'               \
-                            \-file-browser-depth 6                         \
-                            \-file-browser-open-multi-key 'kb-accept-alt'  \
-                            \-file-browser-open-custom-key 'kb-custom-11'  \
-                            \-file-browser-hide-hidden-symbol ''           \
-                            \-file-browser-path-sep '/'                    \
-                            \-file-browser-up-text 'up'                    \
-                            \-file-browser-up-icon 'go-previous'           \
-                            \-file-browser-oc-search-path                  \
-                            \-file-browser-exclude workspace               \
-                            \-file-browser-exclude '*.org'"
-                        ),
+                        ("M-'", spawn "rofi -show calc -dpi 1 -no-show-match -no-sort"), --run rofi calc mode
+                        ("M-w", spawn "~/dotfiles/rofi-wifi-menu.sh"), --run rofi calc mode
+                        -- ( "M-'",
+                        --   spawn
+                        --     "rofi -dpi 1 -modi file-browser-extended -show file-browser-extended \
+                        --     \-file-browser-dir '/home/zekun'               \
+                        --     \-file-browser-depth 6                         \
+                        --     \-file-browser-open-multi-key 'kb-accept-alt'  \
+                        --     \-file-browser-open-custom-key 'kb-custom-11'  \
+                        --     \-file-browser-hide-hidden-symbol ''           \
+                        --     \-file-browser-path-sep '/'                    \
+                        --     \-file-browser-up-text 'up'                    \
+                        --     \-file-browser-up-icon 'go-previous'           \
+                        --     \-file-browser-oc-search-path                  \
+                        --     \-file-browser-exclude workspace               \
+                        --     \-file-browser-exclude '*.org'"
+                        -- ),
                         ("M-r", spawn "~/dotfiles/remap.sh; xset r rate 250 60"), -- remap keyboard
                         ("M-S-e", spawn "~/dotfiles/reload_emacs.sh"),
                         ("M-x", spawn "emacsclient -r --eval \"(emacs-everywhere)\""), -- edit text using emacs
                         ("M-y", spawn "emacsclient -r --eval '(zotra-add-entry-and-pdf-from-url '\" $(printf '\"%s\"' \"$(xclip -o)\")\"' )'"), -- edit text using emacs
-                        ("M-c", spawn "google-chrome-stable"), -- chrome
+                        ("M-c", spawn "min"), -- chrome
                         ("M-C-x", unGrab *> spawn "maim -s ~/Pictures/Screenshots/$(date +%s).png"), -- screenshot
                         ("M-o", spawn "~/dotfiles/monitor_screen.sh"), -- external display
                         ("M-S-o", spawn "~/dotfiles/laptop_screen.sh"), -- interal display
