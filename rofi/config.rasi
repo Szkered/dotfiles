@@ -4,8 +4,8 @@ configuration {
   display-window: "Windows:";
   drun-display-format: "{name}";
   font: "Fira Code 14";
-  modi: "window,drun,emoji,combi,filebrowser,calc";
-  combi-modi: "window,drun,emoji,filebrowser,calc";
+  modi: "drun,emoji,combi,file-browser-extended,calc";
+  combi-modi: "drun,emoji,file-browser-extended,calc";
   icon-theme: "Papirus";
   show-icons: true;
 }

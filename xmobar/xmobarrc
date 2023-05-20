@@ -1,10 +1,3 @@
--- Dependencies:
-   -- otf-font-awesome
-   -- ttf-mononoki
-   -- ttf-ubuntu-font-family
-   -- htop
-   -- trayer
-
 Config {
 
        -- appearance
@@ -13,7 +6,7 @@ Config {
                            , "Font Awesome 6 Free Solid 12"
                            , "Font Awesome 6 Brands 12"
                            ]
-       , dpi=116
+       , dpi=163
        -- Color scheme: Ayu Dark
        , bgColor      = "#0d1017"
        , fgColor      = "#bfbdb6"
@@ -51,7 +44,7 @@ Config {
        , commands = [
 
                     -- network activity monitor (dynamic interface resolution)
-                    Run DynNetwork     [ "--template" , "<fn=2>\xf6ff</fn> <dev>: <tx>kB/s|<rx>kB/s"
+                    Run DynNetwork     [ "--template" , "<fn=2>\xeaa0</fn> <tx>kB/s |<fn=2>\xea9d</fn> <rx>kB/s"
                                          , "--Low"      , "1000"       -- units: B/s
                                          , "--High"     , "5000"       -- units: B/s
                                          , "--low"      , "#91b362"
@@ -66,12 +59,15 @@ Config {
                     -- Volume
                     , Run Com "bash"     ["/home/zekun/dotfiles/get_volume.sh"] "volume" 1
 
+                    -- Bluetooth
+                    , Run Com "bash"     ["/home/zekun/dotfiles/get_bluetooth.sh"] "bluetooth" 1
+
                     -- Gpu usage
                     , Run Com "echo"     ["<fn=2>\xf2db</fn>"] "gpuicon" 3600
                     , Run Com "bash"     ["/home/zekun/dotfiles/gpustats.sh"] "gpuusage" 20
 
                     -- Cpu usage in percent
-                    , Run MultiCpu       [ "--template" , "<fn=2>\xf2db</fn> cpu: <total0>%|<total1>%"
+                    , Run MultiCpu       [ "--template" , "cpu: <total0>%"
                                          , "--Low"      , "50"         -- units: %
                                          , "--High"     , "85"         -- units: %
                                          , "--low"      , "#91b362"
@@ -80,7 +76,7 @@ Config {
                                          ] 20
                       
                     -- cpu core temperature monitor
-                    , Run CoreTemp       [ "--template" , "<fn=2>\xf2c8</fn> core: <core0>°C|<core1>°C"
+                    , Run CoreTemp       [ "--template" , "core: <core0>°C"
                                          , "--Low"      , "70"        -- units: °C
                                          , "--High"     , "80"        -- units: °C
                                          , "--low"      , "#91b362"
@@ -89,7 +85,7 @@ Config {
                                          ] 50
                     
                     -- memory usage monitor
-                    , Run Memory         ["--template"  , "<fn=2>\xf233</fn>  mem: <used>M (<usedratio>%)"
+                    , Run Memory         ["--template"  , "mem: <usedratio>%"
                                          , "--Low"      , "20"        -- units: %
                                          , "--High"     , "90"        -- units: %
                                          , "--low"      , "#91b362"
@@ -100,9 +96,9 @@ Config {
                     -- Disk space free
                     , Run DiskU          [("/", "<fn=2>\xf0c7</fn>  hdd: <free> free")
                                          ] [] 60
-                      
+
                     -- Battery
-                    , Run Battery        [ "--template" , "<acstatus> [<watts>W] (<left>)"
+                    , Run Battery        [ "--template" , "<acstatus> <left>"
                                          , "--Low"      , "10"        -- units: %
                                          , "--High"     , "80"        -- units: %
                                          , "--low"      , "#ea6c73"
@@ -128,7 +124,7 @@ Config {
                                          ] 50
 
                      -- Time and date
-                    , Run Date "|  %b %d %Y - %H:%M " "date" 10
+                    , Run Date "%b %d %Y - %H:%M " "date" 10
 
                     -- apple icon
                     , Run Com "echo"     ["<fn=2>\xf179</fn>"] "appleicon" 3600
@@ -143,16 +139,15 @@ Config {
        -- layout
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %UnsafeStdinReader% |  \
-       \<box color=#0d1017 mb=2>%battery%</box>   \
-       \<box color=#0d1017 mb=2>%wifiicon%  %wifi%   %dynnetwork%</box>  }{  \
+       , template = " %UnsafeStdinReader% }  \
        \<box color=#0d1017 mb=2>%emacs%</box>   \
-       \<box color=#0d1017 mb=2><fc=#bfbdb6><action=`alacritty -e nvtop`>%gpuicon%  %gpuusage%</action></fc></box>   \
+       \<box color=#0d1017 mb=2><action=`min https://calendar.google.com/calendar/u/1/r`>%date%</action></box> { \
+       \<box color=#0d1017 mb=2>%wifiicon%  %wifi%   %dynnetwork%</box>    \
+       \<box color=#0d1017 mb=2><fc=#bfbdb6><action=`alacritty -e nvtop`>%gpuusage%</action></fc></box>   \
        \<box color=#0d1017 mb=2><fc=#bfbdb6><action=`alacritty -e glances`>%multicpu%</action></fc></box>   \
        \<box color=#0d1017 mb=2>%coretemp%</box>   \
        \<box color=#0d1017 mb=2><fc=#bfbdb6><action=`alacritty -e htop`>%memory%</action></fc></box>   \
-       \<box color=#0d1017 mb=2>%disku%</box>   \
        \<box color=#0d1017 mb=2><action=`pavucontrol`>%volume%</action></box>   \
-       \<box color=#0d1017 mb=2><action=`min https://www.icloud.com/calendar/`>%appleicon%  </action></box>\
-       \<box color=#0d1017 mb=2><action=`min https://calendar.google.com/calendar/u/1/r`>%date%</action></box> "
+       \<box color=#0d1017 mb=2>%bluetooth%</box>   \
+       \<box color=#0d1017 mb=2>%battery%</box>     "
        }

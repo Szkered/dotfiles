@@ -62,7 +62,7 @@ We use the following shell command to get current dpi as ~x-display-pixel-width~
 (if (= (get-current-dpi) 116)
 
   ;; laptop
-  (setq doom-font (font-spec :family "Iosevka Term SS04" :size 20 :dpi 116)
+  (setq doom-font (font-spec :family "Iosevka Term SS04" :size 18 :dpi 116)
         doom-variable-pitch-font (font-spec :family "Iosevka" :dpi 116)
         doom-unicode-font (font-spec :family "Iosevka Term SS04" :dpi 116)
         doom-big-font (font-spec :family "Iosevka Term SS04" :size 26 :dpi 116))
@@ -113,11 +113,11 @@ don't know why ranger's preview is not working
 
 ** keybinds
 #+BEGIN_SRC emacs-lisp
-(map! :after ranger
-      (:map ranger-mode-map
-          "i" 'dired-follow-mode
-          "C-c C-o" #'ranger-open-file-other-window
-          ))
+(map!
+  (:map dired-mode-map
+    "f" 'dired-follow-mode
+    "h" 'dired-up-directory
+    "l" 'dired-display-file))
 #+END_SRC
 
 * Terminal: Vterm
