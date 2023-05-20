@@ -44,7 +44,7 @@ Config {
        , commands = [
 
                     -- network activity monitor (dynamic interface resolution)
-                    Run DynNetwork     [ "--template" , "<fn=2>\xeaa0</fn> <tx>kB/s |<fn=2>\xea9d</fn> <rx>kB/s"
+                    Run DynNetwork     [ "--template" , "<fn=2>\xeaa0</fn> <tx>kB/s <fn=2>\xea9d</fn> <rx>kB/s"
                                          , "--Low"      , "1000"       -- units: B/s
                                          , "--High"     , "5000"       -- units: B/s
                                          , "--low"      , "#91b362"
@@ -53,7 +53,6 @@ Config {
                                          ] 10
 
                     -- Wi-Fi
-                    , Run Com "echo"     ["<fn=2>\xf1eb</fn>"] "wifiicon" 3600
                     , Run Com "bash"     ["/home/zekun/dotfiles/get_wifi_name.sh"] "wifi" 60
 
                     -- Volume
@@ -142,7 +141,8 @@ Config {
        , template = " %UnsafeStdinReader% }  \
        \<box color=#0d1017 mb=2>%emacs%</box>   \
        \<box color=#0d1017 mb=2><action=`min https://calendar.google.com/calendar/u/1/r`>%date%</action></box> { \
-       \<box color=#0d1017 mb=2>%wifiicon%  %wifi%   %dynnetwork%</box>    \
+       \<box color=#0d1017 mb=2>    %wifi%</box>    \
+       \<box color=#0d1017 mb=2>%dynnetwork%</box>    \
        \<box color=#0d1017 mb=2><fc=#bfbdb6><action=`alacritty -e nvtop`>%gpuusage%</action></fc></box>   \
        \<box color=#0d1017 mb=2><fc=#bfbdb6><action=`alacritty -e glances`>%multicpu%</action></fc></box>   \
        \<box color=#0d1017 mb=2>%coretemp%</box>   \

@@ -1,4 +1,4 @@
-personal_ws-1.1 en 138
+personal_ws-1.1 en 144
 Riesz
 Stiefel
 adjoint
@@ -39,6 +39,7 @@ coplanar
 cpufreq
 customizable
 degeneracies
+dimensionality
 dired
 discretisation
 discretization
@@ -82,6 +83,7 @@ keybinds
 keywords
 let's
 lindenstrauss
+lipschitz
 lyapunov
 magit
 marginnotes
@@ -105,18 +107,22 @@ quadric
 quadrics
 quantized
 quaternion
+rademacher
 repl
 repo
 representable
 rescaled
 rofi
 saika
+scalable
 schrodinger
 sg
 sgd
 shi
+sobolev
 spacemacs
 spinors
+supremum
 thouless
 tldr
 todo

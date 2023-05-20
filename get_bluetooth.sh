@@ -2,16 +2,18 @@
 
 regex="([0-9A-Z]*:)+"
 DEVICES=$(bluetoothctl devices)
-ICON=""
-COLOR="#bfbdb6"
+ICON=""
+NAME=""
+COLOR="#686868"
 for DEVICE in $DEVICES; do
     if [[ $DEVICE =~ $regex ]]; then
         STATUS=$(bluetoothctl info $DEVICE | grep "Connected" | awk '{print $2}')
         if [ $STATUS = "yes" ]; then
-            ICON=""
-            COLOR="#DFDFDF"
+            NAME=$(bluetoothctl info $DEVICE | grep "Name" | awk '{print $2}')
+            ICON=""
+            COLOR="#bfbdb6"
         fi
     fi
 done
 
-echo "<fc=$COLOR><fn=2>$ICON</fn></fc>"
+echo "<fc=$COLOR><fn=2>$ICON</fn>  $NAME</fc>"

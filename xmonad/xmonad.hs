@@ -24,9 +24,7 @@ myAdditionalKeys =
     ("M-C-s", spawn "systemctl poweroff"),
     ("<F10>", spawn "playerctl play-pause"),
     ("<F11>", spawn "amixer -c 0 -q set Master 2dB-"),
-    ("<F12>", spawn "amixer -c 0 -q set Master 2dB+"),
-    ("<XF86AudioNext>", spawn "playerctl next"),
-    ("<XF86AudioPrev>", spawn "playerctl prev")
+    ("<F12>", spawn "amixer -c 0 -q set Master 2dB+")
   ]
 
 myConfig =
