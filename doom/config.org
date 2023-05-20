@@ -948,16 +948,15 @@ workflow:
 (use-package! org-roam-bibtex
   :config
   (setq org-roam-capture-templates
-        '(
-          ("i" "inbox" entry
-           "* TODO %?\n"
-           :target (node "3b5d0d92-c6bb-4832-ae7a-cdc2e473ff58")
-           :unnarrowed t
-           :empty-lines-before 1
-           :empty-lines-after 1
-           :prepend t)
-          ("r" "reading task" entry
-           "* TODO [cite:@%^{citekey}]\n%?"
+        '(("d" "default" plain "%?"
+               :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+               :unnarrowed t)
+          ("r" "research" entry
+           "* What %?\n* Why \n* How \n"
+           :target (file+head "research/${slug}.org" "#+title: ${title}\n")
+           :unnarrowed t)
+          ("p" "paper" entry
+           "* TODO [cite:@%^{citekey}] :paper:\n%? "
            :target (node "3b5d0d92-c6bb-4832-ae7a-cdc2e473ff58")
            :unnarrowed t
            :empty-lines-before 1
@@ -986,7 +985,7 @@ workflow:
   "Capture using the reading task template."
   (interactive)
   (org-roam-capture- :goto nil
-                     :keys "r"
+                     :keys "p"
                      :node (org-roam-node-from-id "3b5d0d92-c6bb-4832-ae7a-cdc2e473ff58")))
 
 (map! (:after citar (:map citar-map "C" #'org-roam-capture-bib)))
@@ -1262,7 +1261,7 @@ create a reading task from a citar entry:
 #+BEGIN_SRC emacs-lisp
 (defun emacs-startup-screen ()
   "display the weekly org-agenda and all todos. used for client mode"
-  (find-file "~/Dropbox/notes/roam/research/20221016141411-research.org")
+  (find-file "~/Dropbox/notes/roam/research/research.org")
   (setq org-agenda-sticky t)
   (org-agenda nil "d"))
 #+END_SRC
