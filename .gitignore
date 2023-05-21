@@ -10,3 +10,6 @@ tmp/
 /xmonad/xmonad-x86_64-linux
 /xmonad/build-x86_64-linux/
 /doom/secret.el
+/xmobar/xmobar.o
+/xmobar/xmobar
+/xmobar/xmobar.hi
