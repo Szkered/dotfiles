@@ -1116,7 +1116,7 @@ create a reading task from a citar entry:
                :localleader
                "b" #'biblio-lookup
                "N" #'org-noter
-               "S" #'org-noter-create-skeleton
+               "S" #'org-noter-pdftools-create-skeleton
                "q" #'org-noter-kill-session
                     )
 
@@ -1261,7 +1261,7 @@ create a reading task from a citar entry:
 #+BEGIN_SRC emacs-lisp
 (defun emacs-startup-screen ()
   "display the weekly org-agenda and all todos. used for client mode"
-  (find-file "~/Dropbox/notes/roam/research/research.org")
+  (find-file "~/Dropbox/notes/roam/research/entry_point.org")
   (setq org-agenda-sticky t)
   (org-agenda nil "d"))
 #+END_SRC

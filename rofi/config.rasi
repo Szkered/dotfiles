@@ -8,6 +8,7 @@ configuration {
   combi-modi: "drun,emoji,file-browser-extended,calc";
   icon-theme: "Papirus";
   show-icons: true;
+  dpi: 1;
 }
 
 @theme "/dev/null"

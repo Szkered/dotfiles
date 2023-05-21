@@ -1,4 +1,4 @@
-personal_ws-1.1 en 144
+personal_ws-1.1 en 146
 Riesz
 Stiefel
 adjoint
@@ -81,6 +81,7 @@ kets
 keybind
 keybinds
 keywords
+langlands
 let's
 lindenstrauss
 lipschitz
@@ -123,6 +124,7 @@ sobolev
 spacemacs
 spinors
 supremum
+symmetries
 thouless
 tldr
 todo

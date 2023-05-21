@@ -9,14 +9,14 @@ import XMonad.Util.Ungrab
 myAdditionalKeys :: [(String, X ())]
 myAdditionalKeys =
   [ ("M-e", spawn "emacsclient -r --eval \"(emacs-startup-screen)\""), -- run emacsclient
-    ("M-/", spawn "rofi -show combi -dpi 1"), --run rofi combined mode
-    ("M-'", spawn "rofi -show calc -dpi 1 -no-show-match -no-sort"), --run rofi calc mode
-    ("M-w", spawn "~/dotfiles/rofi-wifi-menu.sh"), --run rofi calc mode
+    ("M-/", spawn "rofi -show combi"),
+    ("M-'", spawn "rofi-pass"),
+    ("M-w", spawn "~/dotfiles/rofi-wifi-menu.sh"),
     ("M-r", spawn "~/dotfiles/remap.sh; xset r rate 250 60"), -- remap keyboard
     ("M-S-e", spawn "~/dotfiles/reload_emacs.sh"),
     ("M-x", spawn "emacsclient -r --eval \"(emacs-everywhere)\""), -- edit text using emacs
     ("M-y", spawn "emacsclient -r --eval '(zotra-add-entry-and-pdf-from-url '\" $(printf '\"%s\"' \"$(xclip -o)\")\"' )'"), -- edit text using emacs
-    ("M-c", spawn "min"),
+    ("M-c", spawn "prime-run min"), -- browser
     ("M-C-x", unGrab *> spawn "maim -s ~/Pictures/Screenshots/$(date +%s).png"), -- screenshot
     ("M-o", spawn "~/dotfiles/monitor_screen.sh"), -- external display
     ("M-S-o", spawn "~/dotfiles/laptop_screen.sh"), -- interal display
