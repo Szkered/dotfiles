@@ -108,12 +108,12 @@ don't know why ranger's preview is not working
 
 ** load large file in chunks: vlf
 #+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
-(package! vlf)
+;;(package! vlf)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(use-package! vlf
-  :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
+;;(use-package! vlf
+;;  :defer-incrementally vlf-tune vlf-base vlf-write vlf-search vlf-occur vlf-follow vlf-ediff vlf)
 #+END_SRC
 
 ** keybinds
@@ -957,7 +957,7 @@ workflow:
                :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
                :unnarrowed t)
           ("r" "research" entry
-           "* What %?\n* Why \n* How \n"
+           "* What %?\n* Why \n* How \n* Reading List\n* Ideas"
            :target (file+head "research/${slug}.org" "#+title: ${title}\n")
            :unnarrowed t)
           ("p" "paper" entry

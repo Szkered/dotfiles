@@ -6,6 +6,8 @@
   (:text "type erasure" :value 500 :type s))
  ("title-or-content"
   (:text "diffusion" :title-value 150 :content-value 100 :type s)
+  (:text "geometry" :title-value 150 :content-value 100 :type s)
+  (:text "geometric" :title-value 150 :content-value 100 :type s)
   (:text "monte carlo" :title-value 150 :content-value 100 :type s)
   (:text "quantum" :title-value 150 :content-value 100 :type s)
   (:text "density functional theory" :title-value 150 :content-value 100 :type w)

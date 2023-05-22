@@ -6,6 +6,41 @@ import XMonad.Layout.NoBorders (smartBorders)
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.Ungrab
 
+-- Color scheme: Ayu Dark
+commonBg = "#0d1017"
+
+commonFg = "#bfbdb6"
+
+red = "#d95757"
+
+red2 = "#f07178"
+
+red3 = "#f26d78"
+
+orange = "#ff8f40"
+
+orange2 = "#f29668"
+
+yellow = "#ffb454"
+
+yellow2 = "#e6b673"
+
+green = "#7fd962"
+
+green2 = "#aad94c"
+
+blue = "#73b8ff"
+
+blue3 = "#59c2ff"
+
+cyan = "#39bae6"
+
+teal = "#95e6cb"
+
+purple = "#d2a6ff"
+
+grey = "#475266"
+
 myAdditionalKeys :: [(String, X ())]
 myAdditionalKeys =
   [ ("M-e", spawn "emacsclient -r --eval \"(emacs-startup-screen)\""), -- run emacsclient
@@ -50,7 +85,10 @@ myBar = "xmobar"
 
 -- Custom PP, configure it as you like. It determines what is being written to the bar.
 myPP =
-  xmobarPP {ppCurrent = xmobarColor "white" "" . wrap "[" "]" . shorten 68}
+  xmobarPP
+    { ppCurrent = xmobarColor purple "" . wrap "[" "]" . shorten 68,
+      ppTitle = xmobarColor commonFg "" . shorten 68
+    }
 
 -- Key binding to toggle the gap for the bar.
 toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)

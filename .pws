@@ -1,4 +1,4 @@
-personal_ws-1.1 en 156
+personal_ws-1.1 en 160
 Riesz
 Stiefel
 adjoint
@@ -57,6 +57,7 @@ ein
 el
 elfeed
 env
+equidensity
 extremal
 ferminet
 fermion
@@ -64,6 +65,7 @@ fermionic
 fermions
 flyspell
 fock
+functors
 gcal
 gmail
 googleusercontent
@@ -82,6 +84,7 @@ i've
 jacobian
 jax
 jerzy
+jupyter
 kanagawa
 ket
 kets
@@ -100,6 +103,7 @@ minibatch
 monads
 msmtp
 multipole
+multiscale
 netket
 noether
 nondimensionalize

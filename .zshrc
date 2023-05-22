@@ -17,6 +17,9 @@ export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 
+# nvm
+source /usr/share/nvm/init-nvm.sh
+
 # zsh history
 ZSH_HISTORY_FILE_NAME=".zsh_history"
 ZSH_HISTORY_FILE="${HOME}/${ZSH_HISTORY_FILE_NAME}"
