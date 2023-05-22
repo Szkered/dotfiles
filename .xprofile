@@ -23,3 +23,9 @@ picom -f &
 
 # Input method
 fcitx5 &
+
+# Fire up screensaver
+xscreensaver -no-splash &
+
+# Power Management
+xfce4-power-manager &

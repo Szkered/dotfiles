@@ -1,12 +1,14 @@
 import Xmobar
 
 -- helper function to make template less verbose
-wrap strs left right = foldr (\s acc -> [left, s, right] ++ acc) [] strs
+wrapStrs strs left right = foldr (\s acc -> [left, s, right] ++ acc) [] strs
 
 -- Color scheme: Ayu Dark
 commonBg = "#0d1017"
 
 commonFg = "#bfbdb6"
+
+white = "#f8f8f2"
 
 red = "#d95757"
 
@@ -22,6 +24,8 @@ yellow = "#ffb454"
 
 yellow2 = "#e6b673"
 
+yellow3 = "#f1fa8c"
+
 green = "#7fd962"
 
 green2 = "#aad94c"
@@ -34,7 +38,13 @@ cyan = "#39bae6"
 
 teal = "#95e6cb"
 
+teal2 = "#8be9fd"
+
 purple = "#d2a6ff"
+
+purple2 = "#bd93f9"
+
+magenta = "#ff79c6"
 
 grey = "#475266"
 
@@ -44,15 +54,17 @@ config =
       colorCodingInv = ["--low", red, "--normal", orange, "--high", green]
       sepLeft = "<box color=" ++ commonBg ++ " mb=2>"
       sepRight = "</box>   "
-      templateLeft = ["%UnsafeStdinReader%"]
+      -- sepDot = "<fc=" ++ magenta ++ ">•</fc>"
+      sepDot = "•"
+      templateLeft = ["%XMonadLog%"]
       templateMid = ["%emacs%", "<action=`min https://calendar.google.com/calendar/u/1/r`>%date%</action>"]
       templateRight =
         [ "%dynnetwork%",
           "%wifi%",
           "<action=`alacritty -e nvtop`>%gpuusage%</action>",
-          "<action=`alacritty -e glances`>%multicpu%</action>",
-          "%coretemp%",
-          "<action=`alacritty -e htop`>%memory%</action>",
+          "<action=`alacritty -e glances`>cpu: %coretemp% " ++ sepDot ++ " %memory% " ++ sepDot ++ " %multicpu%</action>",
+          -- "%coretemp%",
+          -- "<action=`alacritty -e htop`>%memory%</action>",
           "<action=`pavucontrol`>%volume%</action>",
           "%bluetooth%",
           "%battery%"
@@ -61,7 +73,7 @@ config =
         { -- layout
           sepChar = "%",
           alignSep = "}{",
-          template = concat $ templateLeft ++ ["}"] ++ wrap templateMid sepLeft sepRight ++ ["{"] ++ wrap templateRight sepLeft sepRight,
+          template = concat $ templateLeft ++ ["}"] ++ wrapStrs templateMid sepLeft sepRight ++ ["{"] ++ wrapStrs templateRight sepLeft sepRight,
           -- appearance
           font = "Ubuntu Bold 9",
           additionalFonts =
@@ -113,7 +125,7 @@ config =
                       "--High",
                       "5000", -- units: B/s
                       "--width",
-                      "4"
+                      "6"
                     ]
                       ++ colorCodingInv
                   )
@@ -131,7 +143,7 @@ config =
               Run $
                 MultiCpu
                   ( [ "--template",
-                      "cpu: <total0>%",
+                      "<total0>%",
                       "--Low",
                       "50", -- units: %
                       "--High",
@@ -146,7 +158,7 @@ config =
               Run $
                 CoreTemp
                   ( [ "--template",
-                      "core: <core0>°C",
+                      "<core0>°C",
                       "--Low",
                       "70", -- units: °C
                       "--High",
@@ -159,7 +171,7 @@ config =
               Run $
                 Memory
                   ( [ "--template",
-                      "mem: <usedratio>%",
+                      "<usedratio>%",
                       "--Low",
                       "20", -- units: %
                       "--High",
@@ -215,7 +227,7 @@ config =
               -- Emacs server
               Run $ Com "bash" ["/home/zekun/dotfiles/check_emacs_server.sh"] "emacs" 10,
               -- Prints out the left side items such as workspaces, layout, etc.
-              Run UnsafeStdinReader
+              Run XMonadLog
             ]
         }
 

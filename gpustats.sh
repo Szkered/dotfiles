@@ -9,13 +9,13 @@ echo -n "gpu: "
 for part in "${parts[@]}"; do
     case $counter in
         1) # temp
-            echo -n "$part°C |"
+            echo -n "$part°C •"
             ;;
         2) # mem used
             echo -n "$part/"
             ;;
         3) # mem total
-            echo -n "$part MiB |"
+            echo -n "$part MiB •"
             ;;
         4) # mem total
             echo -n "$part%"
