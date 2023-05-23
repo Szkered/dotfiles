@@ -1,4 +1,4 @@
-personal_ws-1.1 en 162
+personal_ws-1.1 en 167
 Riesz
 Stiefel
 adjoint
@@ -64,6 +64,7 @@ fermion
 fermionic
 fermions
 flyspell
+fmap
 fock
 functors
 gcal
@@ -83,6 +84,7 @@ invertible
 i've
 jacobian
 jax
+jaxpr
 jerzy
 jupyter
 kanagawa
@@ -101,6 +103,8 @@ magit
 marginnotes
 millgram
 minibatch
+minmax
+monadic
 monads
 msmtp
 multipole
@@ -144,6 +148,7 @@ tldr
 todo
 traversable
 trifocal
+typeclass
 ui
 variational
 vterm

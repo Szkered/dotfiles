@@ -120,8 +120,8 @@ myXmobarPP =
       ppExtras = [logTitles formatFocused formatUnfocused]
     }
   where
-    formatFocused = wrap (whiteFg "[") (whiteFg "]") . whiteFg . ppWindow
-    formatUnfocused = wrap (greyFg "[") (greyFg "]") . greyFg . ppWindow
+    formatFocused = wrap " " "" . xmobarBorder "Top" teal2 2 . whiteFg . ppWindow
+    formatUnfocused = wrap " " "" . lowWhiteFg . ppWindow
 
     ppWindow :: String -> String
     ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 15
@@ -134,7 +134,6 @@ myXmobarPP =
     lowWhiteFg = xmobarColor commonFg ""
     greyFg = xmobarColor grey ""
 
--- main = xmonad . ewmh =<< myBar toggleStrutsKey myConfig
 main =
   xmonad
     . ewmh

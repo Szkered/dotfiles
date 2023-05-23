@@ -67,6 +67,7 @@ config =
           -- "<action=`alacritty -e htop`>%memory%</action>",
           "<action=`pavucontrol`>%volume%</action>",
           "%bluetooth%",
+          "%inputmethod%",
           "%battery%"
         ]
    in defaultConfig
@@ -227,7 +228,9 @@ config =
               -- Emacs server
               Run $ Com "bash" ["/home/zekun/dotfiles/check_emacs_server.sh"] "emacs" 10,
               -- Prints out the left side items such as workspaces, layout, etc.
-              Run XMonadLog
+              Run XMonadLog,
+              -- Get current input method
+              Run $ Com "bash" ["/home/zekun/dotfiles/get_inputmethod.sh"] "inputmethod" 10
             ]
         }
 
