@@ -49,48 +49,28 @@ import XMonad.Util.Loggers
 import XMonad.Util.Ungrab (unGrab)
 
 -- Color scheme: Ayu Dark
+commonBg, commonFg, white, red, red2, red3, orange, orange2, yellow, yellow2, yellow3, green, green2, blue, blue2, cyan, teal, teal2, purple, purple2, magenta, grey :: String
 commonBg = "#0d1017"
-
 commonFg = "#bfbdb6"
-
 white = "#f8f8f2"
-
 red = "#d95757"
-
 red2 = "#f07178"
-
 red3 = "#f26d78"
-
 orange = "#ff8f40"
-
 orange2 = "#f29668"
-
 yellow = "#ffb454"
-
 yellow2 = "#e6b673"
-
 yellow3 = "#f1fa8c"
-
 green = "#7fd962"
-
 green2 = "#aad94c"
-
 blue = "#73b8ff"
-
-blue3 = "#59c2ff"
-
+blue2 = "#59c2ff"
 cyan = "#39bae6"
-
 teal = "#95e6cb"
-
 teal2 = "#8be9fd"
-
 purple = "#d2a6ff"
-
 purple2 = "#bd93f9"
-
 magenta = "#ff79c6"
-
 grey = "#475266"
 
 -- keybinds
@@ -114,7 +94,7 @@ myAdditionalKeys =
       spawn
         "emacsclient -c --eval '(zotra-add-entry-and-pdf-from-url '\" $(printf '\"%s\"' \"$(xclip -o)\")\"' )'"
     ),
-    ("M-c", spawn "prime-run min"),
+    ("M-c", spawn "prime-run qutebrowser"),
     -- browser
     ("M-C-x", unGrab *> spawn "maim -s ~/Pictures/Screenshots/$(date +%s).png"),
     -- screenshot

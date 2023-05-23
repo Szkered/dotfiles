@@ -17,10 +17,11 @@
 #+BEGIN_SRC emacs-lisp
 (setq auto-revert-interval 0.5)
 #+END_SRC
+
 ** browser
 #+BEGIN_SRC emacs-lisp
 (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "min")
+      browse-url-generic-program "qutebrowser")
 #+END_SRC
 
 * Global Visual Settings
