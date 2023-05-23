@@ -1,2 +1,6 @@
 #!/usr/bin/env bash
-doom sync && systemctl --user restart emacs && emacsclient -r --eval "(emacs-startup-screen)"
+systemctl --user stop emacs &&
+    doom sync &&
+    rm ~/.config/emacs/.local/cache/save* &&
+    systemctl --user start emacs &&
+    emacsclient -r --eval "(emacs-startup-screen)"

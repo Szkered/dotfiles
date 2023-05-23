@@ -1,19 +1,50 @@
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.ManageDocks (avoidStruts, manageDocks)
-import XMonad.Hooks.ManageHelpers (doFullFloat, isDialog, isFullscreen)
+import XMonad.Hooks.ManageDocks
+  ( avoidStruts,
+    manageDocks,
+  )
+import XMonad.Hooks.ManageHelpers
+  ( doFullFloat,
+    isDialog,
+    isFullscreen,
+  )
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Layout.Accordion
+import XMonad.Layout.Gaps
+  ( Direction2D (D, L, R, U),
+    GapMessage
+      ( DecGap,
+        IncGap,
+        ToggleGaps
+      ),
+    GapSpec,
+    gaps,
+    setGaps,
+  )
 import XMonad.Layout.GridVariants (Grid (Grid))
 import XMonad.Layout.MultiToggle
-import XMonad.Layout.MultiToggle.Instances (StdTransformers (NBFULL))
+import XMonad.Layout.MultiToggle.Instances
+  ( StdTransformers (NBFULL),
+  )
 import XMonad.Layout.NoBorders (smartBorders)
 import XMonad.Layout.ResizableTile
+import XMonad.Layout.Spacing
+  ( Border (Border),
+    Spacing (smartBorder),
+    setScreenSpacing,
+    setScreenSpacingEnabled,
+    setSmartSpacing,
+    setWindowSpacing,
+    setWindowSpacingEnabled,
+    spacingRaw,
+  )
 import XMonad.Layout.Spiral
 import XMonad.Layout.ThreeColumns (ThreeCol (ThreeColMid))
 import XMonad.Util.EZConfig (additionalKeysP)
+import qualified XMonad.Util.ExtensibleState as XS
 import XMonad.Util.Loggers
 import XMonad.Util.Ungrab (unGrab)
 
@@ -74,40 +105,81 @@ myAdditionalKeys =
     -- edit text using emacs
     ("M-x", spawn "emacsclient -r --eval \"(emacs-everywhere)\""),
     -- add arxiv article using the existing emacsclient window
-    ("M-y", spawn "emacsclient -r --eval '(zotra-add-entry-and-pdf-from-url '\" $(printf '\"%s\"' \"$(xclip -o)\")\"' )'"),
+    ( "M-y",
+      spawn
+        "emacsclient -r --eval '(zotra-add-entry-and-pdf-from-url '\" $(printf '\"%s\"' \"$(xclip -o)\")\"' )'"
+    ),
     -- add arxiv article using a new emacsclient window
-    ("M-S-y", spawn "emacsclient -c --eval '(zotra-add-entry-and-pdf-from-url '\" $(printf '\"%s\"' \"$(xclip -o)\")\"' )'"),
-    ("M-c", spawn "prime-run min"), -- browser
-    ("M-C-x", unGrab *> spawn "maim -s ~/Pictures/Screenshots/$(date +%s).png"), -- screenshot
-    ("M-o", spawn "~/dotfiles/monitor_screen.sh"), -- external display
-    ("M-S-o", spawn "~/dotfiles/laptop_screen.sh"), -- interal display
+    ( "M-S-y",
+      spawn
+        "emacsclient -c --eval '(zotra-add-entry-and-pdf-from-url '\" $(printf '\"%s\"' \"$(xclip -o)\")\"' )'"
+    ),
+    ("M-c", spawn "prime-run min"),
+    -- browser
+    ("M-C-x", unGrab *> spawn "maim -s ~/Pictures/Screenshots/$(date +%s).png"),
+    -- screenshot
+    ("M-o", spawn "~/dotfiles/monitor_screen.sh"),
+    -- external display
+    ("M-S-o", spawn "~/dotfiles/laptop_screen.sh"),
+    -- interal display
     ("M-C-r", spawn "systemctl reboot"),
     ("M-C-s", spawn "systemctl poweroff"),
     ("<F10>", spawn "playerctl play-pause"),
     ("M-0", spawn "amixer set Master toggle"),
     ("M--", spawn "amixer set Master 5%- umute"),
     ("M-=", spawn "amixer set Master 5%+ umute"),
-    ("M-m", sendMessage $ Toggle NBFULL)
+    ("M-m", sendMessage $ Toggle NBFULL),
+    ("M-g", cycleGapBorders),
+    ("M-f", spawn "pcmanfm")
   ]
 
-myLayoutHook =
-  mkToggle
-    (NBFULL ?? EOT)
-    ( tiled
-        ||| Mirror tiled
-        ||| Full
-        ||| threeCol
-        ||| grid
-        ||| spiral (6 / 7)
-        ||| Accordion
-    )
+myLayout = tiled ||| Mirror tiled
   where
-    grid = Grid (16 / 10)
-    threeCol = ThreeColMid nmaster delta ratio
+    -- grid = Grid (16 / 10)
+    -- threeCol = ThreeColMid nmaster delta ratio
     tiled = Tall nmaster delta ratio
     nmaster = 1 -- Default number of windows in the master pane
     ratio = 1 / 2 -- Default proportion of screen occupied by master pane
     delta = 3 / 100 -- Percent of screen to increment by when resizing panes
+
+myGaps :: [GapSpec]
+myGaps =
+  [ [(L, 0), (R, 0), (U, 0), (D, 0)],
+    [(L, 30), (R, 30), (U, 40), (D, 60)]
+  ]
+
+myBorders :: [Border]
+myBorders = [Border 0 0 0 0, Border 10 10 10 10]
+
+newtype GapState = GapIndex Int deriving (Show)
+
+instance ExtensionClass GapState where
+  initialValue = GapIndex 0
+
+newtype GapBorderState = GapBorderEnabled Bool deriving (Show)
+
+instance ExtensionClass GapBorderState where
+  initialValue = GapBorderEnabled False
+
+cycleGapBorders :: X ()
+cycleGapBorders = do
+  enabled <- XS.gets $ \(GapBorderEnabled enabled) -> not enabled
+  idx <- XS.gets $ \(GapBorderEnabled enabled) -> if enabled then 0 else 1
+  XS.put $ GapBorderEnabled $ enabled
+  setSmartSpacing enabled
+  setScreenSpacing $ myBorders !! idx
+  setScreenSpacingEnabled enabled
+  setWindowSpacing $ myBorders !! idx
+  setWindowSpacingEnabled enabled
+  sendMessage (setGaps $ myGaps !! idx)
+
+myLayoutGap =
+  gaps (head myGaps) $
+    spacingRaw False (head myBorders) False (head myBorders) False $
+      smartBorders $
+        myLayout
+
+myLayoutHook = mkToggle (NBFULL ?? EOT) $ myLayoutGap
 
 myManageHook =
   composeAll
@@ -118,10 +190,14 @@ myManageHook =
 
 myBorderWidth = 3
 
+myWorkspaces = map show [1 .. 9]
+
 myConfig =
   def
     { manageHook = myManageHook <+> manageDocks <+> manageHook def,
+      -- layoutHook = myLayout,
       layoutHook = myLayoutHook,
+      workspaces = myWorkspaces,
       terminal = "alacritty",
       borderWidth = myBorderWidth,
       focusedBorderColor = commonFg,
@@ -136,8 +212,8 @@ myXmobarPP =
   def
     { ppSep = magentaFg " • ",
       ppTitleSanitize = xmobarStrip,
-      ppCurrent = whiteFg . wrap " " "" . xmobarBorder "Top" teal2 2,
-      ppHidden = greyFg . wrap " " "",
+      ppCurrent = whiteFg . wrap "  " "  " . xmobarBorder "Top" teal2 2,
+      ppHidden = greyFg . wrap "  " "  ",
       -- ppHiddenNoWindows = lowWhiteFg . wrap " " "",
       ppUrgent = redFg . wrap (yellowFg "!") (yellowFg "!"),
       ppOrder = \[ws, l, _, wins] -> [ws, l, wins],

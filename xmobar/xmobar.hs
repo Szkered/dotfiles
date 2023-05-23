@@ -89,7 +89,7 @@ config =
           --   an integer for the percentage width, so 100 would be 100%.
           --   an integer for the minimum pixel height for xmobar, so 24 would force a height of at least 24 pixels.
           --   NOTE: The height should be the same as the trayer (system tray) height.
-          position = TopSize L 100 30,
+          position = TopSize L 100 40,
           -- general behavior
           lowerOnStart = True, -- send to bottom of window stack on start
           hideOnStart = False, -- start with window unmapped (hidden)

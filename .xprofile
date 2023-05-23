@@ -19,7 +19,7 @@ xrandr -r 60
 nitrogen --restore &
 
 # Compositor
-picom -f &
+picom -b &
 
 # Input method
 fcitx5 &
