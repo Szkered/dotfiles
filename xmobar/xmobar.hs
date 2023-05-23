@@ -60,15 +60,13 @@ config =
       templateMid = ["%emacs%", "<action=`min https://calendar.google.com/calendar/u/1/r`>%date%</action>"]
       templateRight =
         [ "%dynnetwork%",
-          "%wifi%",
+          "<action=`./dotfiles/rofi-wifi-menu.sh`>%wifi%</action>",
           "<action=`alacritty -e nvtop`>%gpuusage%</action>",
           "<action=`alacritty -e glances`>cpu: %coretemp% " ++ sepDot ++ " %memory% " ++ sepDot ++ " %multicpu%</action>",
-          -- "%coretemp%",
-          -- "<action=`alacritty -e htop`>%memory%</action>",
           "<action=`pavucontrol`>%volume%</action>",
-          "%bluetooth%",
-          "%inputmethod%",
-          "%battery%"
+          "<action=`blueman-manager`>%bluetooth%</action>",
+          "<action=`fcitx5-configtool`>%inputmethod%</action>",
+          "<action=`xfce4-power-manager-settings`>%battery%</action>"
         ]
    in defaultConfig
         { -- layout

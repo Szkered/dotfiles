@@ -5,8 +5,13 @@ import XMonad.Hooks.ManageDocks (avoidStruts, manageDocks)
 import XMonad.Hooks.ManageHelpers (doFullFloat, isDialog, isFullscreen)
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
-import XMonad.Layout.Magnifier
+import XMonad.Layout.Accordion
+import XMonad.Layout.GridVariants (Grid (Grid))
+import XMonad.Layout.MultiToggle
+import XMonad.Layout.MultiToggle.Instances (StdTransformers (NBFULL))
 import XMonad.Layout.NoBorders (smartBorders)
+import XMonad.Layout.ResizableTile
+import XMonad.Layout.Spiral
 import XMonad.Layout.ThreeColumns (ThreeCol (ThreeColMid))
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.Loggers
@@ -60,14 +65,18 @@ grey = "#475266"
 -- keybinds
 myAdditionalKeys :: [(String, X ())]
 myAdditionalKeys =
-  [ ("M-e", spawn "emacsclient -r --eval \"(emacs-startup-screen)\""), -- run emacsclient
+  [ ("M-e", spawn "emacsclient -r --eval \"(emacs-startup-screen)\""),
     ("M-/", spawn "rofi -show combi"),
     ("M-'", spawn "rofi-pass"),
     ("M-w", spawn "~/dotfiles/rofi-wifi-menu.sh"),
-    ("M-r", spawn "~/dotfiles/remap.sh; xset r rate 250 60"), -- remap keyboard
+    ("M-r", spawn "~/dotfiles/remap.sh; xset r rate 250 60"),
     ("M-S-e", spawn "~/dotfiles/reload_emacs.sh"),
-    ("M-x", spawn "emacsclient -r --eval \"(emacs-everywhere)\""), -- edit text using emacs
-    ("M-y", spawn "emacsclient -r --eval '(zotra-add-entry-and-pdf-from-url '\" $(printf '\"%s\"' \"$(xclip -o)\")\"' )'"), -- edit text using emacs
+    -- edit text using emacs
+    ("M-x", spawn "emacsclient -r --eval \"(emacs-everywhere)\""),
+    -- add arxiv article using the existing emacsclient window
+    ("M-y", spawn "emacsclient -r --eval '(zotra-add-entry-and-pdf-from-url '\" $(printf '\"%s\"' \"$(xclip -o)\")\"' )'"),
+    -- add arxiv article using a new emacsclient window
+    ("M-S-y", spawn "emacsclient -c --eval '(zotra-add-entry-and-pdf-from-url '\" $(printf '\"%s\"' \"$(xclip -o)\")\"' )'"),
     ("M-c", spawn "prime-run min"), -- browser
     ("M-C-x", unGrab *> spawn "maim -s ~/Pictures/Screenshots/$(date +%s).png"), -- screenshot
     ("M-o", spawn "~/dotfiles/monitor_screen.sh"), -- external display
@@ -75,12 +84,25 @@ myAdditionalKeys =
     ("M-C-r", spawn "systemctl reboot"),
     ("M-C-s", spawn "systemctl poweroff"),
     ("<F10>", spawn "playerctl play-pause"),
-    ("<F11>", spawn "amixer -c 0 -q set Master 2dB-"),
-    ("<F12>", spawn "amixer -c 0 -q set Master 2dB+")
+    ("M-0", spawn "amixer set Master toggle"),
+    ("M--", spawn "amixer set Master 5%- umute"),
+    ("M-=", spawn "amixer set Master 5%+ umute"),
+    ("M-m", sendMessage $ Toggle NBFULL)
   ]
 
-myLayout = tiled ||| Mirror tiled ||| Full ||| threeCol
+myLayoutHook =
+  mkToggle
+    (NBFULL ?? EOT)
+    ( tiled
+        ||| Mirror tiled
+        ||| Full
+        ||| threeCol
+        ||| grid
+        ||| spiral (6 / 7)
+        ||| Accordion
+    )
   where
+    grid = Grid (16 / 10)
     threeCol = ThreeColMid nmaster delta ratio
     tiled = Tall nmaster delta ratio
     nmaster = 1 -- Default number of windows in the master pane
@@ -94,14 +116,16 @@ myManageHook =
       isDialog --> doFloat
     ]
 
+myBorderWidth = 3
+
 myConfig =
   def
     { manageHook = myManageHook <+> manageDocks <+> manageHook def,
-      layoutHook = myLayout,
+      layoutHook = myLayoutHook,
       terminal = "alacritty",
-      borderWidth = 3,
-      focusedBorderColor = "#bfbdb6",
-      normalBorderColor = "#0d1017",
+      borderWidth = myBorderWidth,
+      focusedBorderColor = commonFg,
+      normalBorderColor = commonBg,
       modMask = mod4Mask
     }
     `additionalKeysP` myAdditionalKeys
