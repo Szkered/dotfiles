@@ -689,7 +689,7 @@ c.auto_save.session = True
 
 ## Enable the ad/host blocker
 ## Type: Bool
-# c.content.blocking.enabled = True
+c.content.blocking.enabled = True
 
 ## Block subdomains of blocked hosts. Note: If only a single subdomain is
 ## blocked but should be allowed, consider using
@@ -899,7 +899,7 @@ c.content.blocking.method = 'both'
 ##   - none: Disable access to clipboard.
 ##   - access: Allow reading from and writing to the clipboard.
 ##   - access-paste: Allow accessing the clipboard and pasting clipboard content.
-# c.content.javascript.clipboard = 'none'
+c.content.javascript.clipboard = 'access'
 
 ## Enable JavaScript.
 ## Type: Bool
@@ -947,7 +947,7 @@ c.content.blocking.method = 'both'
 
 ## Allow locally loaded documents to access remote URLs.
 ## Type: Bool
-# c.content.local_content_can_access_remote_urls = False
+c.content.local_content_can_access_remote_urls = False
 
 ## Enable support for HTML 5 local storage and Web SQL.
 ## Type: Bool
@@ -1047,7 +1047,7 @@ c.content.blocking.method = 'both'
 
 ## Enable plugins in Web pages.
 ## Type: Bool
-# c.content.plugins = False
+c.content.plugins = True
 
 ## Request websites to minimize non-essentials animations and motion.
 ## This results in the `prefers-reduced-motion` CSS media query to
@@ -1209,7 +1209,7 @@ c.content.blocking.method = 'both'
 ## `{line0}`: Same as `{line}`, but starting from index 0. * `{column0}`:
 ## Same as `{column}`, but starting from index 0.
 ## Type: ShellCommand
-# c.editor.command = ['gvim', '-f', '{file}', '-c', 'normal {line}G{column0}l']
+c.editor.command = ['emacsclient', '-c', '{file}']
 
 ## Encoding to use for the editor.
 ## Type: Encoding
@@ -1217,7 +1217,7 @@ c.content.blocking.method = 'both'
 
 ## Delete the temporary file upon closing the editor.
 ## Type: Bool
-# c.editor.remove_file = True
+c.editor.remove_file = True
 
 ## Command (and arguments) to use for selecting a single folder in forms.
 ## The command should write the selected folder path to the specified
@@ -1479,7 +1479,7 @@ c.fonts.default_family = ["Iosevka Term"]
 ## Automatically enter insert mode if an editable element is focused
 ## after loading the page.
 ## Type: Bool
-# c.input.insert_mode.auto_load = False
+c.input.insert_mode.auto_load = True
 
 ## Leave insert mode when starting a new page load. Patterns may be
 ## unreliable on this setting, and they may match the url you are
@@ -2194,6 +2194,7 @@ c.zoom.default = '80%'
 # config.bind('<Ctrl-Alt-p>', 'print')
 # config.bind('<Ctrl-B>', 'scroll-page 0 -1')
 # config.bind('<Ctrl-D>', 'scroll-page 0 0.5')
+config.bind('d', 'scroll-page 0 0.5')
 # config.bind('<Ctrl-F5>', 'reload -f')
 # config.bind('<Ctrl-F>', 'scroll-page 0 1')
 # config.bind('<Ctrl-N>', 'open -w')
@@ -2208,6 +2209,7 @@ c.zoom.default = '80%'
 # config.bind('<Ctrl-T>', 'open -t')
 # config.bind('<Ctrl-Tab>', 'tab-focus last')
 # config.bind('<Ctrl-U>', 'scroll-page 0 -0.5')
+config.bind('u', 'scroll-page 0 -0.5')
 # config.bind('<Ctrl-V>', 'mode-enter passthrough')
 # config.bind('<Ctrl-W>', 'tab-close')
 # config.bind('<Ctrl-X>', 'navigate decrement')
@@ -2231,6 +2233,8 @@ c.zoom.default = '80%'
 # config.bind('H', 'back')
 # config.bind('J', 'tab-next')
 # config.bind('K', 'tab-prev')
+config.bind('K', 'tab-next')
+config.bind('J', 'tab-prev')
 # config.bind('L', 'forward')
 # config.bind('M', 'bookmark-add')
 # config.bind('N', 'search-prev')
@@ -2255,6 +2259,7 @@ c.zoom.default = '80%'
 # config.bind('cd', 'download-clear')
 # config.bind('co', 'tab-only')
 # config.bind('d', 'tab-close')
+config.bind('d', 'scroll-page 0 0.5')
 # config.bind('f', 'hint')
 # config.bind('g$', 'tab-focus -1')
 # config.bind('g0', 'tab-focus 1')
@@ -2319,6 +2324,7 @@ c.zoom.default = '80%'
 # config.bind('tsh', 'config-cycle -p -t -u *://{url:host}/* content.javascript.enabled ;; reload')
 # config.bind('tsu', 'config-cycle -p -t -u {url} content.javascript.enabled ;; reload')
 # config.bind('u', 'undo')
+config.bind('X', 'undo')
 # config.bind('v', 'mode-enter caret')
 # config.bind('wB', 'set-cmd-text -s :bookmark-load -w')
 # config.bind('wIf', 'devtools-focus')

@@ -39,7 +39,7 @@ config =
       templateLeft = ["%XMonadLog%", "  " ++ sepDotColored ++ " %emacs%"]
       templateMid = ["<action=`qutebrowser https://calendar.google.com/calendar/u/1/r`>%date%</action>"]
       templateRight =
-        [ "%dynnetwork%",
+        [ "<action=`stacer`>%dynnetwork%</action>",
           "<action=`./dotfiles/rofi-wifi-menu.sh`>%wifi%</action>",
           "<action=`alacritty -e nvtop`>%gpuusage%</action>",
           "<action=`alacritty -e glances`>cpu: %coretemp% " ++ sepDot ++ " %memory% " ++ sepDot ++ " %multicpu%</action>",

@@ -461,6 +461,7 @@ Let's make headings a bit bigger
 (setq org-agenda-breadcrumbs-separator " 🡒 ")
 ;; (setq my-org-agenda-prefix-format " %-2i %(concat \"[\" (car (last(split-string (or (org-agenda-get-category) \"\") \"-\"))) \"]\") %b %t%s")
 (setq my-org-agenda-prefix-format " %-2i %b %t%s")
+(setq org-agenda-sticky t)
 #+END_SRC
 
 *** todo-keywords
@@ -957,6 +958,12 @@ workflow:
         '(("d" "default" plain "%?"
                :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
                :unnarrowed t)
+          ("i" "research-quick" entry
+           "* TODO %?"
+           :target (node "3b5d0d92-c6bb-4832-ae7a-cdc2e473ff58")
+           :empty-lines-before 1
+           :prepend t
+           :unnarrowed t)
           ("r" "research" entry
            "* What %?\n* Why \n* How \n* Reading List\n* Ideas"
            :target (file+head "research/${slug}.org" "#+title: ${title}\n")
@@ -980,7 +987,7 @@ workflow:
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(defun org-roam-capture-inbox ()
+(defun org-roam-capture-research-quick ()
     "Capture a TODO straight to the inbox."
     (interactive)
     (org-roam-capture- :goto nil
@@ -1107,7 +1114,7 @@ create a reading task from a citar entry:
 #+BEGIN_SRC emacs-lisp
 (map! (:after citar
 (:leader
- :n "CC" #'org-roam-capture-inbox
+ :n "CC" #'org-roam-capture-research-quick
  :n "CO" #'citar-open
  :n "CA" #'citar-add-current-buffer-to-library
  :n "CP" #'paste-to-citar-lib
@@ -1268,6 +1275,5 @@ create a reading task from a citar entry:
 (defun emacs-startup-screen ()
   "display the weekly org-agenda and all todos. used for client mode"
   (find-file "~/Dropbox/notes/roam/research/entry_point.org")
-  (setq org-agenda-sticky t)
   (org-agenda nil "d"))
 #+END_SRC

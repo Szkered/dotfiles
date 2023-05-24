@@ -76,7 +76,9 @@ grey = "#475266"
 -- keybinds
 myAdditionalKeys :: [(String, X ())]
 myAdditionalKeys =
-  [ ("M-e", spawn "emacsclient -r --eval \"(emacs-startup-screen)\""),
+  [ ("M-e", spawn "emacsclient -r --eval '(emacs-startup-screen)'"),
+    ("M-n", spawn "emacsclient -c --eval '(+vterm/here nil)'"),
+    ("M-s", spawn "emacsclient -c --eval '(org-roam-capture-research-quick)'"),
     ("M-/", spawn "rofi -show combi"),
     ("M-'", spawn "rofi-pass"),
     ("M-w", spawn "~/dotfiles/rofi-wifi-menu.sh"),
@@ -109,7 +111,7 @@ myAdditionalKeys =
     ("M--", spawn "amixer set Master 5%- umute"),
     ("M-=", spawn "amixer set Master 5%+ umute"),
     ("M-m", sendMessage $ Toggle NBFULL),
-    ("M-g", cycleGapBorders),
+    ("M-g", sequence_ [cycleGapBorders, spawn "~/dotfiles/toggle_picom_style.sh"]),
     ("M-f", spawn "pcmanfm")
   ]
 
@@ -180,8 +182,8 @@ myConfig =
       workspaces = myWorkspaces,
       terminal = "alacritty",
       borderWidth = myBorderWidth,
-      focusedBorderColor = commonFg,
-      normalBorderColor = commonBg,
+      focusedBorderColor = yellow2,
+      normalBorderColor = commonFg,
       modMask = mod4Mask
     }
     `additionalKeysP` myAdditionalKeys
