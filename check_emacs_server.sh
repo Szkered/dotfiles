@@ -1,31 +1,17 @@
 #!/usr/bin/env bash
-ACTIVE=$(systemctl --user status emacs | rg Active | awk '{print $2}')
-# check log to see if emacs is starting, compare the timestamp of the last Starting line
-STARTING=$(journalctl --user -xeu emacs.service | rg Starting | tail -n 1 | awk -F' ' '{
-    datetime_str = $1 " " $2 " " $3
-    cmd = "date -d \"" datetime_str "\" +%s"
-    cmd | getline datetime
-    close(cmd)
-
-    current_time = strftime("%s")
-
-    if (current_time - datetime <= 120) {
-        print "True"
-    } else {
-        print "False"
-    }
-}')
-STARTED=$(journalctl --user -xeu emacs.service | rg Started)
+ACTIVE=$(systemctl --user status emacs | rg Active | head -n 1 | awk '{print $2}')
+STARTING=$(journalctl --user --since "1 minute ago" -xeu emacs.service | rg -c --include-zero Starting)
+STARTED=$(journalctl --user --since "1 minute ago" -xeu emacs.service | rg -c --include-zero Started)
 if [[ $ACTIVE == "inactive" ]]; then # not running
-    echo -ne $"\uf057 "
+    echo -ne $"\uf057 "              # cross
 elif [[ $ACTIVE == "failed" ]]; then # not running
-    echo -ne $"\uf057 "
+    echo -ne $"\uf057 "              # cross
 else
-    if [[ -z "$STARTED" ]]; then # started
-        echo -ne $"\ue632 "
-    elif [[ "$STARTING" == "True" ]]; then # starting
-        echo -ne $"\uf110 "
-    else # started
-        echo -ne $"\ue632 "
+    if [[ "$STARTED" != "0" ]]; then     # recent "Started" in logs, so still starting
+        echo -ne $"\uf110 "              # spin
+    elif [[ "$STARTING" != "0" ]]; then  # recent "Started" in logs, so started
+        echo -ne $"\ue632 "              # emacs icon
+    elif [[ $ACTIVE == "active" ]]; then # no recent "Started" in logs, but service is up, so started
+        echo -ne $"\ue632 "              # emacs icon
     fi
 fi

@@ -20,3 +20,6 @@
 	path = doom/themes/konrad1977
 	url = https://github.com/konrad1977/emacs.git
 	shallow = true
+[submodule "doom/org-auctex"]
+	path = doom/org-auctex
+	url = https://github.com/karthink/org-auctex.git

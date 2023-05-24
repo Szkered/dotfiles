@@ -1,4 +1,4 @@
-personal_ws-1.1 en 167
+personal_ws-1.1 en 170
 Riesz
 Stiefel
 adjoint
@@ -29,8 +29,10 @@ bosonic
 bosons
 broglie
 cayley
+chatgpt
 citar
 cli
+codebase
 collinear
 collinearity
 composable
@@ -143,6 +145,7 @@ spacemacs
 spinors
 supremum
 symmetries
+tfd
 thouless
 tldr
 todo

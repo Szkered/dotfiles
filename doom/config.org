@@ -10,6 +10,8 @@
 #+BEGIN_SRC emacs-lisp
 (setq user-full-name "Zekun Shi"
       user-mail-address "derek.zekun.shi@gmail.com")
+
+(load! "secret")
 #+END_SRC
 
 * Better Defaults
@@ -206,6 +208,16 @@ NOTE: need to disable ~read-only-mode~
   :commands (tldr)
   :config
   (setq tldr-directory-path (concat doom-etc-dir "tldr/")))
+#+END_SRC
+* ChatGPT
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
+(package! gptel)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package! gptel
+ :config
+ (setq! gptel-api-key chatgpt-api-key))
 #+END_SRC
 
 * Coding
@@ -1065,6 +1077,7 @@ With a prefix ARG, remove start location."
 #+BEGIN_SRC emacs-lisp
 (use-package laas
   :hook (LaTeX-mode . laas-mode)
+        (org-auctex-mode . laas-mode)
   :config ; do whatever here
   (aas-set-snippets 'laas-mode
                     ;; set condition!
@@ -1090,6 +1103,24 @@ With a prefix ARG, remove start location."
 #+BEGIN_SRC emacs-lisp
 (add-hook 'pdf-view-mode-hook 'auto-revert-mode)
 #+END_SRC
+
+**** fast latex preview in org
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
+(package! auctex)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/dotfiles/doom/org-auctex")
+(require 'org-auctex)
+#+END_SRC
+
+reload preview when saved
+#+BEGIN_SRC emacs-lisp
+(add-hook! 'after-save-hook
+    (when (bound-and-true-p org-auctex-mode)
+      (org-auctex-preview-dwim)))
+#+END_SRC
+
 ** keybinds
 *** elfeed keybinds (SPC n)
 #+BEGIN_SRC emacs-lisp
@@ -1182,7 +1213,6 @@ create a reading task from a citar entry:
 
 * Calendar
 #+BEGIN_SRC emacs-lisp
-(load! "secret")
 (defun my-open-calendar ()
   (interactive)
   (cfw:open-calendar-buffer
@@ -1191,6 +1221,16 @@ create a reading task from a citar entry:
     (cfw:org-create-source "steel blue")  ; orgmode source
     (cfw:ical-create-source "gcal" sail-gcal "sea green")
     (cfw:ical-create-source "gcal" my-gcal "IndianRed")))) ; google calendar ICS
+
+(defun my--cfw:open-calendar-buffer-view (orig-func &rest args &allow-other-keys)
+  (apply orig-func :view 'two-weeks :allow-other-keys t args)
+  )
+(advice-add 'cfw:open-calendar-buffer :around #'my--cfw:open-calendar-buffer-view)
+#+END_SRC
+
+** keybind
+#+BEGIN_SRC emacs-lisp
+(map! (:leader :n "W" 'my-open-calendar))
 #+END_SRC
 
 * Other Keybinds
