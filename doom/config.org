@@ -71,7 +71,7 @@ We use the following shell command to get current dpi as ~x-display-pixel-width~
 
   ;; laptop
   (setq doom-font (font-spec :family "Iosevka Term SS04" :size 18 :dpi 116)
-        doom-variable-pitch-font (font-spec :family "Iosevka" :dpi 116)
+        doom-variable-pitch-font (font-spec :family "CMU Classical Serif" :dpi 116)
         doom-unicode-font (font-spec :family "Iosevka Term SS04" :dpi 116)
         doom-big-font (font-spec :family "Iosevka Term SS04" :size 26 :dpi 116))
 
@@ -1232,7 +1232,6 @@ create a reading task from a citar entry:
 #+BEGIN_SRC emacs-lisp
 (map! (:leader :n "W" 'my-open-calendar))
 #+END_SRC
-
 * Other Keybinds
 ** cursor and window movements
 #+begin_src emacs-lisp

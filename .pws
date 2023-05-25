@@ -1,4 +1,4 @@
-personal_ws-1.1 en 170
+personal_ws-1.1 en 174
 Riesz
 Stiefel
 adjoint
@@ -10,6 +10,7 @@ anticommutes
 antisymmetric
 antisymmetrization
 antisymmetry
+aperiodic
 applicative
 approximator
 arxiv
@@ -120,6 +121,7 @@ obara
 org
 orthonormal
 pdfs
+periodization
 prefactor
 projective
 projectivity
@@ -133,6 +135,7 @@ repl
 repo
 representable
 rescaled
+resummation
 rofi
 saika
 scalable
@@ -154,6 +157,7 @@ trifocal
 typeclass
 ui
 variational
+vibrational
 vterm
 wavefunction
 wavefunctions

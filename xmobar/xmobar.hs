@@ -1,3 +1,4 @@
+import Data.List
 import Xmobar
 
 -- helper function to make template less verbose
@@ -34,15 +35,15 @@ config =
       colorCodingInv = ["--low", red, "--normal", orange, "--high", green]
       sepLeft = "<box color=" ++ commonBg ++ " mb=2>"
       sepRight = "</box>   "
-      sepDotColored = "<fc=" ++ magenta ++ ">•</fc>"
+      sepDotColored = "<fc=" ++ magenta ++ "> • </fc>"
       sepDot = "•"
-      templateLeft = ["%XMonadLog%", "  " ++ sepDotColored ++ " %emacs%"]
+      templateLeft = intersperse sepDotColored ["%XMonadLog%", "%emacs%", "%playicon%   %curplaying%"]
       templateMid = ["<action=`qutebrowser https://calendar.google.com/calendar/u/1/r`>%date%</action>"]
       templateRight =
         [ "<action=`stacer`>%dynnetwork%</action>",
           "<action=`./dotfiles/rofi-wifi-menu.sh`>%wifi%</action>",
           "<action=`alacritty -e nvtop`>%gpuusage%</action>",
-          "<action=`alacritty -e glances`>cpu: %coretemp% " ++ sepDot ++ " %memory% " ++ sepDot ++ " %multicpu%</action>",
+          intercalate sepDot ["<action=`alacritty -e glances`>cpu: %coretemp% ", " %memory% ", " %multicpu%</action>"],
           "<action=`pavucontrol`>%volume%</action>",
           "<action=`blueman-manager`>%bluetooth%</action>",
           "<action=`fcitx5-configtool`>%inputmethod%</action>",
@@ -208,7 +209,10 @@ config =
               -- Prints out the left side items such as workspaces, layout, etc.
               Run XMonadLog,
               -- Get current input method
-              Run $ Com "bash" ["/home/zekun/dotfiles/get_inputmethod.sh"] "inputmethod" 10
+              Run $ Com "bash" ["/home/zekun/dotfiles/get_inputmethod.sh"] "inputmethod" 10,
+              -- Get currently playing info
+              Run $ Com "echo" ["<fn=2>\xf075a</fn>"] "playicon" 3600,
+              Run $ Com "bash" ["/home/zekun/dotfiles/get_currently_playing.sh"] "curplaying" 10
             ]
         }
 
