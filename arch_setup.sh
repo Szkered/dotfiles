@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # desktop
 sudo pacman -Syy xorg lightdm lightdm-mini-greeter xmonad xmonad-contrib xmobar dmenu picom nitrogen google-chrome-stable alacritty rofi rofi-emoji papirus-icon-theme intel-ucode ufw
 
@@ -26,7 +27,7 @@ paru pandoc ghostscript
 sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip xdotool xorg-xprop xorg-xwininfo acpi zsh xcape maim feh libpng zlib poppler-glib htop nvtop aspell aspell-en npm cronie brightnessctl xautolock python
 
 # latex
-sudo pacman -S texlive-most biber rebiber
+sudo pacman -S texlive-most
 
 # power management
 paru auto-cpufreq-git
@@ -81,16 +82,6 @@ sudo pacman -S openssl mu mbsync
 sudo pacman -S fcitx5-im fcitx5-rime fcitx5-table-extra fcitx5-chinese-addons fcitx5-pinyin-zhwiki adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts noto-fonts
 
 # install files
-ln -s alacritty.yaml $HOME/.config/alacritty/alacritty.yml
-ln -s .antigenrc $HOME/.antigenrc
-ln -s dunstrc $HOME/.config/dunst/dunstrc
-ln -s isyncrc $HOME/.config/isyncrc
-mkdir -p $HOME/.config/emacs/.local/etc/ispell
-ln -s .pws $HOME/.config/emacs/.local/etc/ispell/.pws # local dictionary
-ln -s .xmobarrc $HOME/.xmobarrc
-ln -s .xprofile $HOME/.xprofile
-ln -s .zshrc $HOME/.zshrc
-
 gpg2 --decrypt networks/trojan-config.json.gpg | sudo tee /etc/trojan/config.json
 
 # Todos after installation:
@@ -98,3 +89,5 @@ gpg2 --decrypt networks/trojan-config.json.gpg | sudo tee /etc/trojan/config.jso
 # 2. for laptop install xf86-video-intel
 # 3. git clone git@github.com:Szkered/.zsh_history.git $HOME/.zsh_history_proj
 # 4. git clone git@github.com:Szkered/pass-store.git $HOME/.password-store
+# 5. link files
+# 5. run install_pkgs.sh
