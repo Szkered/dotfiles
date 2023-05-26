@@ -26,6 +26,11 @@
       browse-url-generic-program "qutebrowser")
 #+END_SRC
 
+** disable writegood
+#+BEGIN_SRC emacs-lisp
+(remove-hook 'org-mode-hook #'writegood-mode)
+#+END_SRC
+
 * Global Visual Settings
 ** themes
 
@@ -413,6 +418,17 @@ Let's make headings a bit bigger
   '(outline-8 :weight semi-bold)
   '(outline-9 :weight semi-bold))
 #+end_src
+
+
+** extra nice visual: org-modern
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
+(package! org-modern)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'org-mode-hook #'org-modern-mode)
+(add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
+#+END_SRC
 
 ** refile
 #+BEGIN_SRC emacs-lisp
@@ -1104,7 +1120,7 @@ With a prefix ARG, remove start location."
 (add-hook 'pdf-view-mode-hook 'auto-revert-mode)
 #+END_SRC
 
-**** fast latex preview in org
+**** fast latex preview in org: org-auctex
 #+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! auctex)
 #+END_SRC
@@ -1121,6 +1137,15 @@ reload preview when saved
       (org-auctex-preview-dwim)))
 #+END_SRC
 
+hooks for nice visual
+#+BEGIN_SRC emacs-lisp
+(add-hook! org-auctex-mode
+  (variable-pitch-mode t)
+  (visual-fill-column-mode t)
+  (setq visual-fill-column-width 130)
+  (org-auctex-preview-buffer))
+#+END_SRC
+
 ** keybinds
 *** elfeed keybinds (SPC n)
 #+BEGIN_SRC emacs-lisp
@@ -1133,6 +1158,8 @@ reload preview when saved
 (map! :leader
       :desc "arXiv paper to library" "n x" #'arxiv-get-pdf-add-bibtex-entry
       :desc "Elfeed" "n e" #'elfeed)
+
+(map! :leader "A" #'org-auctex-mode)
 #+END_SRC
 
 
