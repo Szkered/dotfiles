@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
-ln -s alacritty.yaml $HOME/.config/alacritty/alacritty.yml
-ln -s .antigenrc $HOME/.antigenrc
-ln -s dunstrc $HOME/.config/dunst/dunstrc
-ln -s isyncrc $HOME/.config/isyncrc
-mkdir -p $HOME/.config/emacs/.local/etc/ispell
-ln -s .pws $HOME/.config/emacs/.local/etc/ispell/.pws # local dictionary
-ln -s .xmobarrc $HOME/.xmobarrc
-ln -s .xprofile $HOME/.xprofile
-ln -s .zshrc $HOME/.zshrc
+ln -s $HOME/dotfiles/.antigenrc $HOME/.antigenrc
+ln -s $HOME/dotfiles/dunstrc $HOME/.config/dunst/dunstrc
+ln -s $HOME/dotfiles/isyncrc $HOME/.config/isyncrc
+ln -s $HOME/dotfiles/.msmtprc $HOME/.msmtprc
+ln -s $HOME/dotfiles/ispell $HOME/.config/emacs/.local/etc
+ln -s $HOME/dotfiles/.xprofile $HOME/.xprofile
+ln -s $HOME/dotfiles/.Xresources $HOME/.Xresources
+ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
+ln -s $HOME/dotfiles/alacritty $HOME/.config
+ln -s $HOME/dotfiles/picom $HOME/.config
+ln -s $HOME/dotfiles/rofi $HOME/.config
+ln -s $HOME/dotfiles/xmobar $HOME/.config
+ln -s $HOME/dotfiles/xmonad $HOME/.config

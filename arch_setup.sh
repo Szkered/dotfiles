@@ -52,7 +52,7 @@ paru --skipreview -S --noconfirm --needed emacs-gtk3-native-comp-git-stable
 systemctl --user enable emacs
 
 # doom emacs
-ln -s doom $HOME/.config/doom
+ln -s $HOME/dotfiles/doom $HOME/.config
 git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.config/emacs
 ~/.config/emacs/bin/doom install
 
