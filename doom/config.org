@@ -36,7 +36,6 @@
 
 #+BEGIN_SRC emacs-lisp
 (use-package! circadian
-  :ensure t
   :config
   (setq circadian-themes '(("8:00" . doom-flatwhite)
                            ("18:30" . kanagawa)))
@@ -47,6 +46,7 @@
 #+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! autothemer)
 (package! doom-alabaster-theme :recipe (:host github :repo "agraul/doom-alabaster-theme"))
+(package! ef-themes)
 #+END_SRC
 
 ** line number
@@ -71,13 +71,13 @@ We use the following shell command to get current dpi as ~x-display-pixel-width~
 
   ;; laptop
   (setq doom-font (font-spec :family "Iosevka Term SS04" :size 18 :dpi 116)
-        doom-variable-pitch-font (font-spec :family "CMU Classical Serif" :dpi 116)
+        doom-variable-pitch-font (font-spec :family "CMU Serif" :size 24 :dpi 116)
         doom-unicode-font (font-spec :family "Iosevka Term SS04" :dpi 116)
         doom-big-font (font-spec :family "Iosevka Term SS04" :size 26 :dpi 116))
 
   ;; monitor
   (setq doom-font (font-spec :family "Iosevka Term SS04" :size 26 :dpi 163)
-        doom-variable-pitch-font (font-spec :family "Iosevka" :dpi 163)
+        doom-variable-pitch-font (font-spec :family "CMU Serif" :size 30 :dpi 163)
         doom-unicode-font (font-spec :family "Iosevka Term SS04" :dpi 163)
         doom-big-font (font-spec :family "Iosevka Term SS04" :size 32 :dpi 163)))
 #+END_SRC
@@ -391,7 +391,7 @@ flake8+autoflake+yapf
 
 #+begin_src emacs-lisp
 (setq org-hide-emphasis-markers nil)
-(setq org-superstar-headline-bullets-list '("⁖"))
+;; (setq org-superstar-headline-bullets-list '("⁖"))
 (setq org-ellipsis " ... ")
 (add-hook! 'org-mode-hook (org-superstar-mode))
 #+end_src

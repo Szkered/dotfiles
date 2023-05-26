@@ -515,6 +515,14 @@ c.auto_save.session = True
 ## Type: Bool
 # c.colors.webpage.darkmode.enabled = False
 
+## Lower contrast darkmode
+# c.colors.webpage.darkmode.algorithm = 'lightness-hsl'
+# c.colors.webpage.darkmode.contrast = -.022
+# c.colors.webpage.darkmode.threshold.text = 150
+# c.colors.webpage.darkmode.threshold.background = 100
+# c.colors.webpage.darkmode.policy.images = 'smart'
+# c.colors.webpage.darkmode.grayscale.images = 0.35
+
 ## Render all colors as grayscale. This only has an effect when
 ## `colors.webpage.darkmode.algorithm` is set to `lightness-hsl` or
 ## `brightness-rgb`.

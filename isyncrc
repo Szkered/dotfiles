@@ -19,7 +19,7 @@ Inbox ~/Maildir/emperorview@gmail.com/inbox
 Channel emperorview@gmail.com-inbox
 Far :emperorview@gmail.com-remote:
 Near :emperorview@gmail.com-local:
-Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
 Create Both
 SyncState *
 MaxMessages 100
@@ -46,7 +46,7 @@ Inbox ~/Maildir/derek.zekun.shi@gmail.com/inbox
 Channel derek.zekun.shi@gmail.com-inbox
 Far :derek.zekun.shi@gmail.com-remote:
 Near :derek.zekun.shi@gmail.com-local:
-Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
 Create Both
 SyncState *
 MaxMessages 100
@@ -73,7 +73,7 @@ Inbox ~/Maildir/shizk@sea.com/inbox
 Channel shizk@sea.com-inbox
 Far :shizk@sea.com-remote:
 Near :shizk@sea.com-local:
-Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
 Create Both
 SyncState *
 MaxMessages 100
@@ -99,7 +99,7 @@ Inbox ~/Maildir/qvintvszk@gmail.com/inbox
 Channel qvintvszk@gmail.com-inbox
 Far :qvintvszk@gmail.com-remote:
 Near :qvintvszk@gmail.com-local:
-Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
+Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
 Create Both
 SyncState *
 MaxMessages 100
