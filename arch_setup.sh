@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # desktop
-sudo pacman -Syy xorg lightdm lightdm-mini-greeter xmonad xmonad-contrib xmobar dmenu picom nitrogen google-chrome-stable alacritty rofi rofi-emoji papirus-icon-theme intel-ucode ufw
+sudo pacman -Syy xorg lightdm xmonad xmonad-contrib xmobar dmenu picom nitrogen alacritty rofi rofi-emoji papirus-icon-theme intel-ucode ufw
 
 # lightdm
 sudo systemctl enable lightdm
@@ -11,17 +11,23 @@ sudo systemctl enable ufw.service
 
 # paru
 sudo pacman -S --needed base-devel
-git clone https://aur.archlinux.org/paru.git
-pushd paru
-makepkg -si
-popd
-rm -r paru
+
+if ! command -v paru &>/dev/null; then
+    echo "Installing paru..."
+    git clone https://aur.archlinux.org/paru.git
+    pushd paru
+    makepkg -si
+    popd
+    rm -r paru
+fi
+
+paru -S lightdm-mini-greeter google-chrome-stable
 
 # media
 sudo pacman -S bluez blueman bluez-utils alsa-utils vlc playerctl
 
 # PDF
-paru pandoc ghostscript
+paru -S pandoc ghostscript
 
 # tools & system
 sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip xdotool xorg-xprop xorg-xwininfo acpi zsh xcape maim feh libpng zlib poppler-glib htop nvtop aspell aspell-en npm cronie brightnessctl xautolock python
@@ -30,7 +36,7 @@ sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip xdotool xorg-xprop xorg-xwin
 sudo pacman -S texlive-most
 
 # power management
-paru auto-cpufreq-git
+paru -S auto-cpufreq-git
 sudo systemctl enable --now auto-cpufreq.service
 
 # CUDA
@@ -40,7 +46,7 @@ sudo pacman -S nvidia nvidia-settings nvidia-utils cudnn
 sudo pacman -S ttc-iosevka ttc-iosevka-ss04 ttf-fira-code powerline-fonts
 
 # emacs
-paru emacs-pgtk-native-comp-git
+paru emacs-gtk3-native-comp-git-stable
 
 # emacs server
 systemctl --user enable emacs

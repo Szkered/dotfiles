@@ -31,6 +31,11 @@
 (remove-hook 'org-mode-hook #'writegood-mode)
 #+END_SRC
 
+** don't use variable pitch font in treemacs
+#+BEGIN_SRC emacs-lisp
+(setq doom-themes-treemacs-enable-variable-pitch nil)
+#+END_SRC
+
 * Global Visual Settings
 ** themes
 
@@ -395,9 +400,7 @@ flake8+autoflake+yapf
 #+END_SRC
 
 #+begin_src emacs-lisp
-(setq org-hide-emphasis-markers nil)
-;; (setq org-superstar-headline-bullets-list '("⁖"))
-(setq org-ellipsis " ... ")
+(setq org-ellipsis "…")
 (add-hook! 'org-mode-hook (org-superstar-mode))
 #+end_src
 
@@ -419,7 +422,6 @@ Let's make headings a bit bigger
   '(outline-9 :weight semi-bold))
 #+end_src
 
-
 ** extra nice visual: org-modern
 #+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! org-modern)
@@ -428,6 +430,22 @@ Let's make headings a bit bigger
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-mode-hook #'org-modern-mode)
 (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+;; Minimal UI
+(after! org-modern
+  (setq
+   ;; Edit settings
+   org-auto-align-tags nil
+   org-tags-column 0
+   org-catch-invisible-edits 'show-and-error
+   org-special-ctrl-a/e t
+   org-insert-heading-respect-content t
+
+   ;; Org styling, hide markup etc.
+   org-hide-emphasis-markers t
+   org-pretty-entities t))
 #+END_SRC
 
 ** refile
@@ -485,7 +503,7 @@ Let's make headings a bit bigger
       (quote (:link t :maxlevel 3 :fileskip0 t :narrow 80 :formula %)))
 (setq org-agenda-log-mode-items '(closed state clock))
 (setq org-clock-idle-time 5)
-(setq org-agenda-block-separator (string-to-char " "))
+(setq org-agenda-block-separator ?─)
 (setq org-agenda-breadcrumbs-separator " 🡒 ")
 ;; (setq my-org-agenda-prefix-format " %-2i %(concat \"[\" (car (last(split-string (or (org-agenda-get-category) \"\") \"-\"))) \"]\") %b %t%s")
 (setq my-org-agenda-prefix-format " %-2i %b %t%s")
@@ -551,11 +569,11 @@ Let's make headings a bit bigger
                       (org-agenda-prefix-format   "  %-2i %t %s  ")
                       ;; (org-agenda-prefix-format " %-2i %b %t%s")
                       ;; (org-agenda-todo-keyword-format " ☐ ")
-                      (org-agenda-current-time-string "⮜┈┈┈┈┈┈┈ now")
+                      (org-agenda-current-time-string "⭠ now ─────────────────────────────────────────────────")
                       (org-agenda-scheduled-leaders '("" ""))
-                      (org-agenda-time-grid (quote ((daily today remove-match)
-                                                    (0900 1200 1500 1800 2100)
-                                                    "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))))
+                      (org-agenda-time-grid  '((daily today remove-match)
+                                               (800 1000 1200 1400 1600 1800 2000)
+                                               " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄"))))
 
           (todo "TODO"
                 ((org-agenda-prefix-format my-org-agenda-prefix-format)
@@ -567,8 +585,8 @@ Let's make headings a bit bigger
           (todo "WAIT"
                 ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
                                                 (air-org-skip-subtree-if-priority ?A)
-                                                (org-agenda-skip-if nil '(scheduled deadline))
-                                                ))
+                                                (org-agenda-skip-if nil '(scheduled deadline))))
+                                                
                  (org-agenda-prefix-format my-org-agenda-prefix-format)
                  (org-agenda-todo-keyword-format "")
                  (org-agenda-remove-tags t)
@@ -577,14 +595,14 @@ Let's make headings a bit bigger
           (todo "HOLD"
                 ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
                                                 (air-org-skip-subtree-if-priority ?A)
-                                                (org-agenda-skip-if nil '(scheduled deadline))
-                                                ))
+                                                (org-agenda-skip-if nil '(scheduled deadline))))
+                                                
                  (org-agenda-prefix-format my-org-agenda-prefix-format)
                  (org-agenda-todo-keyword-format "")
                  (org-agenda-remove-tags t)
-                 (org-agenda-overriding-header "📒 Archive:\n⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺")))
+                 (org-agenda-overriding-header "📒 Archive:\n⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺"))))
 
-          )
+          
 
 
          ((org-agenda-compact-blocks nil)
@@ -600,9 +618,10 @@ Let's make headings a bit bigger
           (org-agenda-start-with-log-mode t)
           (org-agenda-start-with-clockreport-mode t)
           (org-agenda-archives-mode t)
-          (org-agenda-prefix-format " %-2i %t %s %b ")
-          ))))
+          (org-agenda-prefix-format " %-2i %t %s %b ")))))
+          
 #+end_src
+
 
 *** weekly time report review mode
 #+begin_src emacs-lisp
@@ -1215,12 +1234,18 @@ create a reading task from a citar entry:
 
 * Email
 ** mu4e
+make popup nicer
 #+BEGIN_SRC emacs-lisp
-(setq mu4e-update-interval 60)
-
-(set-popup-rule! "*mu4e-main*" :size 0.95 :side 'bottom :vslot 1 :ttl nil :select nil :modeline nil :quit nil)
-(set-popup-rule! "*mu4e-headers*" :size 0.95 :side 'bottom :vslot 1 :ttl nil :select nil :modeline nil :quit nil)
+(set-popup-rule! "*mu4e-main*" :size 0.95 :side 'bottom :vslot 1 :ttl nil :select t :modeline nil :quit nil)
+(set-popup-rule! "*mu4e-headers*" :size 0.95 :side 'bottom :vslot 1 :ttl nil :select t :modeline nil :quit nil)
 (set-popup-rule! "*mu4e-article*" :size 0.75 :side 'bottom :vslot 2 :ttl nil :select nil :modeline nil :quit nil)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package mu4e
+  :defer t
+  :config
+  (setq mu4e-update-interval (* 5 60)))
 #+END_SRC
 
 ** msmtp
