@@ -62,13 +62,6 @@ curl -L git.io/antigen >$HOME/antigen.zsh                                       
 git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh/zsh-autosuggestions # plugin
 git clone git@github.com:wulfgarpro/history-sync.git $HOME/.zsh/history-sync              # plugin
 
-# xmonad
-mkdir "$HOME/.xmonad"
-cp -r .xmonad "$HOME/.xmonad/"
-
-# xprofile
-cp .xprofile "$HOME/.xprofile"
-
 # vpn
 sudo pacman -S --noconfirm --needed trojan
 paru --skipreview -S --noconfirm --needed cisco-anyconnect

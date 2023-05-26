@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 ln -s $HOME/dotfiles/.antigenrc $HOME/.antigenrc
-ln -s $HOME/dotfiles/dunstrc $HOME/.config/dunst/dunstrc
 ln -s $HOME/dotfiles/isyncrc $HOME/.config/isyncrc
 ln -s $HOME/dotfiles/.msmtprc $HOME/.msmtprc
 ln -s $HOME/dotfiles/ispell $HOME/.config/emacs/.local/etc
@@ -12,3 +11,4 @@ ln -s $HOME/dotfiles/picom $HOME/.config
 ln -s $HOME/dotfiles/rofi $HOME/.config
 ln -s $HOME/dotfiles/xmobar $HOME/.config
 ln -s $HOME/dotfiles/xmonad $HOME/.config
+ln -s $HOME/dotfiles/dunst $HOME/.config
