@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # desktop
-sudo pacman -Syy xorg lightdm xmonad xmonad-contrib xmobar dmenu picom nitrogen alacritty rofi rofi-emoji papirus-icon-theme intel-ucode ufw
+sudo pacman -Syy --needed xorg lightdm xmonad xmonad-contrib xmobar dmenu picom nitrogen alacritty rofi rofi-emoji papirus-icon-theme intel-ucode ufw
 
 # lightdm
 sudo systemctl enable lightdm
@@ -10,7 +10,7 @@ sudo ufw enable
 sudo systemctl enable ufw.service
 
 # paru
-sudo pacman -S --needed base-devel
+sudo pacman -Syy --needed base-devel
 
 if ! command -v paru &>/dev/null; then
     echo "Installing paru..."
@@ -21,32 +21,32 @@ if ! command -v paru &>/dev/null; then
     rm -r paru
 fi
 
-paru -S lightdm-mini-greeter google-chrome-stable
+paru -Syy --needed lightdm-mini-greeter google-chrome-stable
 
 # media
-sudo pacman -S bluez blueman bluez-utils alsa-utils vlc playerctl
+sudo pacman -Syy --needed bluez blueman bluez-utils alsa-utils vlc playerctl
 
 # PDF
-paru -S pandoc ghostscript
+paru -Syy --needed pandoc ghostscript
 
 # tools & system
-sudo pacman -S cmake ntfs-3g rsync ripgrep jq xclip xdotool xorg-xprop xorg-xwininfo acpi zsh xcape maim feh libpng zlib poppler-glib htop nvtop aspell aspell-en npm cronie brightnessctl xautolock python
+sudo pacman -Syy --needed cmake ntfs-3g rsync ripgrep jq xclip xdotool xorg-xprop xorg-xwininfo acpi zsh xcape maim feh libpng zlib poppler-glib htop nvtop aspell aspell-en npm cronie brightnessctl xautolock python
 
 # latex
-sudo pacman -S texlive-most
+sudo pacman -Syy --needed texlive-most
 
 # power management
-paru -S auto-cpufreq-git
+paru -Syy --needed auto-cpufreq-git
 sudo systemctl enable --now auto-cpufreq.service
 
 # CUDA
-sudo pacman -S nvidia nvidia-settings nvidia-utils cudnn
+sudo pacman -Syy --needed nvidia nvidia-settings nvidia-utils cudnn
 
 # fonts
-sudo pacman -S ttc-iosevka ttc-iosevka-ss04 ttf-fira-code powerline-fonts
+sudo pacman -Syy --needed ttc-iosevka ttc-iosevka-ss04 ttf-fira-code powerline-fonts
 
 # emacs
-paru emacs-gtk3-native-comp-git-stable
+paru -Syy --needed emacs-gtk3-native-comp-git-stable
 
 # emacs server
 systemctl --user enable emacs
@@ -70,22 +70,20 @@ cp -r .xmonad "$HOME/.xmonad/"
 cp .xprofile "$HOME/.xprofile"
 
 # vpn
-sudo pacman -S networkmanager-openvpn network-manager-applet openvpn trojan
-paru cisco-anyconnect
-sudo cp vpnagentd.service /etc/systemd
-sudo systemctl enable vpnagentd.service
+sudo pacman -Syy --needed trojan
+paru -Syy --needed cisco-anyconnect
 
 # dropbox
-sudo pacman -S python-gpgme
-paru dropbox
+sudo pacman -Syy --needed python-gpgme
+paru -Syy --needed dropbox
 sudo cp dropbox.service /etc/systemd/system
 sudo systemctl enable dropbox.service
 
 # email
-sudo pacman -S openssl mu mbsync
+sudo pacman -Syy --needed openssl mu mbsync
 
 # chinese
-sudo pacman -S fcitx5-im fcitx5-rime fcitx5-table-extra fcitx5-chinese-addons fcitx5-pinyin-zhwiki adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts noto-fonts
+sudo pacman -Syy --needed fcitx5-im fcitx5-rime fcitx5-table-extra fcitx5-chinese-addons fcitx5-pinyin-zhwiki adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts noto-fonts
 
 # install files
 gpg2 --decrypt networks/trojan-config.json.gpg | sudo tee /etc/trojan/config.json
