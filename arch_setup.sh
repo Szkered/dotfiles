@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # desktop
-sudo pacman -S --noconfirm --needed xorg lightdm xmonad xmonad-contrib xmobar dmenu picom nitrogen alacritty rofi rofi-emoji papirus-icon-theme intel-ucode ufw
+sudo pacman -S --noconfirm --needed xorg lightdm xmonad xmonad-contrib xmobar dmenu picom nitrogen alacritty rofi rofi-emoji papirus-icon-theme intel-ucode ufw xscreensaver xfce4-power-manager
 
 # lightdm
 sudo systemctl enable lightdm
@@ -21,7 +21,7 @@ if ! command -v paru &>/dev/null; then
     rm -r paru
 fi
 
-paru --skipreview -S --noconfirm --needed lightdm-mini-greeter google-chrome-stable
+paru --skipreview -S --noconfirm --needed lightdm-mini-greeter google-chrome
 
 # media
 sudo pacman -S --noconfirm --needed bluez blueman bluez-utils alsa-utils vlc playerctl
@@ -61,6 +61,8 @@ chsh -s /usr/bin/zsh
 curl -L git.io/antigen >$HOME/antigen.zsh                                                 # install antigen
 git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh/zsh-autosuggestions # plugin
 git clone git@github.com:wulfgarpro/history-sync.git $HOME/.zsh/history-sync              # plugin
+git clone git@github.com:Szkered/.zsh_history.git $HOME/.zsh_history_proj
+git clone git@github.com:Szkered/pass-store.git $HOME/.password-store
 
 # vpn
 sudo pacman -S --noconfirm --needed trojan
@@ -70,7 +72,7 @@ paru --skipreview -S --noconfirm --needed cisco-anyconnect
 sudo pacman -S --noconfirm --needed python-gpgme
 paru --skipreview -S --noconfirm --needed dropbox
 sudo cp dropbox.service /etc/systemd/system
-sudo systemctl enable dropbox.service
+systemctl --user enable dropbox.service
 
 # email
 sudo pacman -S --noconfirm --needed openssl mu mbsync
@@ -84,7 +86,5 @@ gpg2 --decrypt networks/trojan-config.json.gpg | sudo tee /etc/trojan/config.jso
 # Todos after installation:
 # 1. change /etc/makepkg.conf to enable multi thread build
 # 2. for laptop install xf86-video-intel
-# 3. git clone git@github.com:Szkered/.zsh_history.git $HOME/.zsh_history_proj
-# 4. git clone git@github.com:Szkered/pass-store.git $HOME/.password-store
 # 5. link files
 # 5. run install_pkgs.sh
