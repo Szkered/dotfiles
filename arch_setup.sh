@@ -21,10 +21,14 @@ if ! command -v paru &>/dev/null; then
     rm -r paru
 fi
 
-paru --skipreview -S --noconfirm --needed lightdm-mini-greeter google-chrome
+
+# browser & greeter
+paru --skipreview -S --noconfirm --needed lightdm-mini-greeter google-chrome qutebrowser-git
+git clone https://github.com/dracula/qutebrowser-dracula-theme.git $HOME/.config/qutebrowser/dracula
+sudo pacman -S --noconfirm --needed python-adblock
 
 # media
-sudo pacman -S --noconfirm --needed bluez blueman bluez-utils alsa-utils vlc playerctl
+sudo pacman -S --noconfirm --needed bluez blueman bluez-utils vlc playerctl
 
 # PDF
 paru --skipreview -S --noconfirm --needed pandoc ghostscript

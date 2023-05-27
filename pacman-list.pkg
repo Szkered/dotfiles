@@ -51,14 +51,10 @@ haskell-language-server
 hoogle
 htop
 imagemagick
-intel-ucode
 iotop
 iw
 iwd
 jq
-lib32-nvidia-utils
-lib32-opencl-nvidia
-lib32-systemd
 libreoffice-fresh
 libxcrypt-compat
 lightdm
@@ -79,7 +75,6 @@ noto-fonts
 npm
 ntfs-3g
 nvidia
-nvidia-prime
 nvidia-settings
 nvidia-utils
 nvtop
@@ -119,7 +114,6 @@ scrot
 shellcheck
 shfmt
 stack
-steam
 sudo
 texlive-bibtexextra
 texlive-core
@@ -155,8 +149,6 @@ xautolock
 xcape
 xclip
 xdotool
-xf86-video-intel
-xf86-video-vesa
 xfce4-power-manager
 xmobar
 xmonad
