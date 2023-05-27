@@ -80,11 +80,8 @@ sudo pacman -S --noconfirm --needed openssl mu mbsync
 # chinese
 sudo pacman -S --noconfirm --needed fcitx5-im fcitx5-rime fcitx5-table-extra fcitx5-chinese-addons fcitx5-pinyin-zhwiki adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts noto-fonts
 
-# install files
-gpg2 --decrypt networks/trojan-config.json.gpg | sudo tee /etc/trojan/config.json
-
 # Todos after installation:
-# 1. change /etc/makepkg.conf to enable multi thread build
-# 2. for laptop install xf86-video-intel
-# 5. link files
-# 5. run install_pkgs.sh
+# 0. import secrets from dropbox, then gpg2 --decrypt networks/trojan-config.json.gpg | sudo tee /etc/trojan/config.json
+# 1. follow arch wiki and https://github.com/korvahannu/arch-nvidia-drivers-installation-guide to install gpu driver
+# 2. link files
+# 3. run install_pkgs.sh
