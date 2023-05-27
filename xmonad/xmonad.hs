@@ -112,7 +112,21 @@ myAdditionalKeys =
     ("M-=", spawn "amixer set Master 5%+ umute"),
     ("M-m", sendMessage $ Toggle NBFULL),
     ("M-g", sequence_ [cycleGapBorders, spawn "~/dotfiles/toggle_picom_style.sh"]),
-    ("M-f", spawn "pcmanfm")
+    ("M-f", spawn "pcmanfm"),
+    ( "M-S-f",
+      spawn
+        "rofi -dpi 1 -modi file-browser-extended -show file-browser-extended \
+        \-file-browser-dir '/home/zekun'               \
+        \-file-browser-depth 6                         \
+        \-file-browser-hide-hidden-symbol ''           \
+        \-file-browser-path-sep '/'                    \
+        \-file-browser-up-text 'up'                    \
+        \-file-browser-up-icon 'go-previous'           \
+        \-file-browser-oc-search-path                  \
+        \-file-browser-exclude workspace               \
+        \-file-browser-exclude '*.org'"
+    ),
+    ("M-z", spawn "rofi -show calc -no-show-match -no-sort")
   ]
 
 myLayout = tiled ||| Mirror tiled

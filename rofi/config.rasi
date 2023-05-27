@@ -5,7 +5,7 @@ configuration {
   drun-display-format: "{name}";
   font: "Fira Code 14";
   modi: "drun,emoji,combi,file-browser-extended,calc";
-  combi-modi: "drun,emoji,file-browser-extended,calc";
+  combi-modi: "drun,emoji";
   icon-theme: "Papirus";
   show-icons: true;
   dpi: 1;

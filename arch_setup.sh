@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # desktop
-sudo pacman -S --noconfirm --needed xorg lightdm xmonad xmonad-contrib xmobar dmenu picom nitrogen alacritty rofi rofi-emoji papirus-icon-theme intel-ucode ufw xscreensaver xfce4-power-manager
+sudo pacman -S --noconfirm --needed xorg lightdm xmonad xmonad-contrib xmobar dmenu picom nitrogen alacritty rofi rofi-emoji papirus-icon-theme ufw xscreensaver xfce4-power-manager
 
 # lightdm
 sudo systemctl enable lightdm
