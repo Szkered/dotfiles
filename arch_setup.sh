@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # desktop
-sudo pacman -S --noconfirm --needed xorg lightdm xmonad xmonad-contrib xmobar dmenu picom nitrogen alacritty rofi rofi-emoji papirus-icon-theme ufw xscreensaver xfce4-power-manager
+sudo pacman -S --noconfirm --needed xorg lightdm xmonad xmonad-contrib xmobar dmenu picom nitrogen alacritty rofi rofi-emoji papirus-icon-theme ufw xfce4-power-manager
 
 # lightdm
 sudo systemctl enable lightdm
@@ -22,12 +22,13 @@ if ! command -v paru &>/dev/null; then
 fi
 
 # browser & greeter
-paru --skipreview -S --noconfirm --needed lightdm-mini-greeter google-chrome qutebrowser-git
+paru --skipreview -S --noconfirm --needed lightdm-mini-greeter google-chrome qutebrowser-git betterlockscreen
 git clone https://github.com/dracula/qutebrowser-dracula-theme.git $HOME/.config/qutebrowser/dracula
 sudo pacman -S --noconfirm --needed python-adblock
 
 # media
 sudo pacman -S --noconfirm --needed bluez blueman bluez-utils vlc playerctl
+sudo systemctl enable bluetooth
 
 # PDF
 paru --skipreview -S --noconfirm --needed pandoc ghostscript
