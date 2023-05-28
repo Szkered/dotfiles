@@ -13,3 +13,4 @@ tmp/
 /xmobar/xmobar.o
 /xmobar/xmobar
 /xmobar/xmobar.hi
+/mailctl/services.yaml

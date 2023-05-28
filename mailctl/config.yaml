@@ -1,0 +1,13 @@
+services_file: /home/zekun/.config/mailctl/services.yaml
+oauth2_dir: /home/zekun/.local/var/mailctl
+encrypt_cmd:
+  exec: gpg2
+  args:
+    - --encrypt
+    - --recipient
+    - derek.zekun.shi@gmail.com
+    - -o
+decrypt_cmd:
+  exec: gpg2
+  args:
+    - --decrypt

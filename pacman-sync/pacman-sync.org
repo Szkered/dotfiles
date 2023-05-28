@@ -3,11 +3,12 @@
 
 This is a tool to synchronize pacman packages across different machines
 
-* first we need to exclude hardware specific packages
-
+* first we need to exclude packages
+either hardware specific or is exception
 #+begin_src bash :tangle "exclude.pkg"
 amd-ucode
 intel-ucode
+steamcmd
 xf86-video-vesa
 #+end_src
 

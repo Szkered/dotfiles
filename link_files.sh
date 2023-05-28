@@ -13,3 +13,4 @@ ln -s $HOME/dotfiles/xmobar $HOME/.config
 ln -s $HOME/dotfiles/xmonad $HOME/.config
 ln -s $HOME/dotfiles/dunst $HOME/.config
 ln -s $HOME/dotfiles/qutebrowser/config.py $HOME/.config/qutebrowser/config.py
+ln -s $HOME/dotfiles/mailctl $HOME/.config
