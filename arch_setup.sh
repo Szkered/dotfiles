@@ -21,7 +21,6 @@ if ! command -v paru &>/dev/null; then
     rm -r paru
 fi
 
-
 # browser & greeter
 paru --skipreview -S --noconfirm --needed lightdm-mini-greeter google-chrome qutebrowser-git
 git clone https://github.com/dracula/qutebrowser-dracula-theme.git $HOME/.config/qutebrowser/dracula
@@ -42,9 +41,6 @@ sudo pacman -S --noconfirm --needed texlive-most
 # power management
 paru --skipreview -S --noconfirm --needed auto-cpufreq-git
 sudo systemctl enable --now auto-cpufreq.service
-
-# CUDA
-sudo pacman -S --noconfirm --needed nvidia nvidia-settings nvidia-utils cudnn
 
 # fonts
 sudo pacman -S --noconfirm --needed ttc-iosevka ttc-iosevka-ss04 ttf-fira-code powerline-fonts
@@ -83,6 +79,9 @@ sudo pacman -S --noconfirm --needed openssl mu mbsync
 
 # chinese
 sudo pacman -S --noconfirm --needed fcitx5-im fcitx5-rime fcitx5-table-extra fcitx5-chinese-addons fcitx5-pinyin-zhwiki adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts noto-fonts
+echo "GTK_IM_MODULE=fcitx" | sudo tee -a /etc/environment
+echo "QT_IM_MODULE=fcitx" | sudo tee -a /etc/environment
+echo "XMODIFIERS=@im=fcitx" | sudo tee -a /etc/environment
 
 # Todos after installation:
 # 0. import secrets from dropbox, then gpg2 --decrypt networks/trojan-config.json.gpg | sudo tee /etc/trojan/config.json
