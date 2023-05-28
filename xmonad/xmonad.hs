@@ -46,6 +46,7 @@ import XMonad.Layout.ThreeColumns (ThreeCol (ThreeColMid))
 import XMonad.Util.EZConfig (additionalKeysP)
 import qualified XMonad.Util.ExtensibleState as XS
 import XMonad.Util.Loggers
+import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.Ungrab (unGrab)
 
 -- Color scheme: Ayu Dark
@@ -189,6 +190,13 @@ myBorderWidth = 3
 
 myWorkspaces = map show [1 .. 9]
 
+myStartupHook = do
+  spawn "exec ~/dotfiles/lock.sh"
+  spawnOnce "nitrogen --restore"
+  spawnOnce "picom -b"
+  spawnOnce "fcitx5"
+  spawnOnce "xfce4-power-manager"
+
 myConfig =
   def
     { manageHook = myManageHook <+> manageDocks <+> manageHook def,
@@ -199,6 +207,7 @@ myConfig =
       borderWidth = myBorderWidth,
       focusedBorderColor = yellow2,
       normalBorderColor = commonFg,
+      startupHook = myStartupHook,
       modMask = mod4Mask
     }
     `additionalKeysP` myAdditionalKeys
