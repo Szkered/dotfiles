@@ -1,4 +1,4 @@
-personal_ws-1.1 en 177
+personal_ws-1.1 en 179
 Riesz
 Stiefel
 adjoint
@@ -51,6 +51,7 @@ dired
 discretisation
 discretization
 dmenu
+dotfiles
 dunst
 eigenfunction
 eigenfunctions
@@ -121,6 +122,7 @@ noter
 obara
 org
 orthonormal
+pacman
 pdfs
 periodization
 prefactor

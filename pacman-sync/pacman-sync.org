@@ -1,0 +1,51 @@
+#+title: pacman-sync
+#+auto_tangle: t
+
+This is a tool to synchronize pacman packages across different machines
+
+* first we need to exclude hardware specific packages
+
+#+begin_src bash :tangle "exclude.pkg"
+amd-ucode
+intel-ucode
+xf86-video-vesa
+#+end_src
+
+* pull: After pulling the ~dotfiles~ repo, overwrite local with updated pkg lists
+first set up the directories
+#+begin_src bash :tangle "pkg_pull.sh"
+#!/usr/bin/env bash
+PKG_DIR=$HOME/dotfiles/pacman-sync
+TMP_DIR=/tmp
+#+end_src
+
+get the package list of local machine, then calculate the package to remove and the package to install
+#+begin_src bash :tangle "pkg_pull.sh"
+pacman -Qen | awk '{print $1}' | sort | comm -23 - "$PKG_DIR/exclude.pkg" >"$TMP_DIR/my_native.pkg"
+pacman -Qem | awk '{print $1}' | sort | comm -23 - "$PKG_DIR/exclude.pkg" >"$TMP_DIR/my_foreign.pkg"
+
+sort -u "$PKG_DIR/native.pkg" | comm -23 - "$TMP_DIR/my_native.pkg" >"$TMP_DIR/native_toinstall.pkg"
+sort -u "$PKG_DIR/foreign.pkg" | comm -23 - "$TMP_DIR/my_foreign.pkg" >"$TMP_DIR/foreign_toinstall.pkg"
+
+sort -u "$PKG_DIR/native.pkg" | comm -13 - "$TMP_DIR/my_native.pkg" >"$TMP_DIR/native_toremove.pkg"
+sort -u "$PKG_DIR/foreign.pkg" | comm -13 - "$TMP_DIR/my_foreign.pkg" >"$TMP_DIR/foreign_toremove.pkg"
+#+end_src
+
+remove packages not found in the pkg list
+#+begin_src bash :tangle "pkg_pull.sh"
+sudo pacman -R - <"$TMP_DIR/native_toremove.pkg"
+paru -R - <"$TMP_DIR/foreign_toremove.pkg"
+#+end_src
+
+install new packages
+#+begin_src bash :tangle "pkg_pull.sh"
+sudo pacman -S --needed - <"$TMP_DIR/native_toinstall.pkg"
+paru --skipreview -S --needed - <"$TMP_DIR/foreign_toinstall.pkg"
+#+end_src
+
+* push: overwrite pkg lists with local
+
+#+begin_src bash :tangle "pkg_push.sh"
+pacman -Qen | awk '{print $1}' | sort | comm -23 - "$PKG_DIR/exclude.pkg" >"$PKG_DIR/native.pkg"
+pacman -Qem | awk '{print $1}' | sort | comm -23 - "$PKG_DIR/exclude.pkg" >"$PKG_DIR/foreign.pkg"
+#+end_src

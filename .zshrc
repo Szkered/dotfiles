@@ -9,6 +9,8 @@ export PATH="$PATH:$HOME/go/bin"
 # quick command
 alias remap="~/dotfiles/remap.sh; xset r rate 250 60"
 alias vpn="~/dotfiles/vpn.sh"
+alias pkg_pull="~/dotfiles/pacman-sync/pkg_pull.sh"
+alias pkg_push="~/dotfiles/pacman-sync/pkg_push.sh"
 
 # python ipdb
 export PYTHONBREAKPOINT=ipdb.set_trace

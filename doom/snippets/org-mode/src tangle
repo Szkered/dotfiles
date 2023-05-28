@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: src tangle
+# key: <st
+# --
+
+#+begin_src $1 :tangle $2
+$0
+#+end_src
