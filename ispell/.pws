@@ -1,4 +1,4 @@
-personal_ws-1.1 en 179
+personal_ws-1.1 en 183
 Riesz
 Stiefel
 adjoint
@@ -40,6 +40,7 @@ composable
 compositionality
 computable
 config
+configs
 coord
 coplanar
 cpufreq
@@ -109,6 +110,8 @@ marginnotes
 millgram
 minibatch
 minmax
+mins
+mirrorlist
 monadic
 monads
 msmtp
@@ -160,6 +163,7 @@ treemacs
 trifocal
 typeclass
 ui
+uncomment
 variational
 vibrational
 vterm
