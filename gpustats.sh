@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+
+if ! command -v nvidia-smi &>/dev/null; then
+    exit
+fi
+
 string=$(nvidia-smi --format=csv,noheader,nounits --query-gpu=temperature.gpu,memory.used,memory.total,utilization.gpu)
 delimiter=","
 counter=1
