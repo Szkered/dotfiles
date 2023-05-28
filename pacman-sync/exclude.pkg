@@ -1,5 +1,12 @@
 amd-ucode
+gnome-themes-extra
 intel-ucode
-mailctl-bin
+lib32-nvidia-utils
+lib32-opencl-nvidia
+lib32-systemd
+nvidia-prime
+steam
 steamcmd
+wpa_supplicant
+xf86-video-intel
 xf86-video-vesa

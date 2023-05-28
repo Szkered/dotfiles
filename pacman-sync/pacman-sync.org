@@ -7,8 +7,16 @@ This is a tool to synchronize pacman packages across different machines
 either hardware specific or is exception
 #+begin_src bash :tangle "exclude.pkg"
 amd-ucode
+gnome-themes-extra
 intel-ucode
+lib32-nvidia-utils
+lib32-opencl-nvidia
+lib32-systemd
+nvidia-prime
+steam
 steamcmd
+wpa_supplicant
+xf86-video-intel
 xf86-video-vesa
 #+end_src
 
