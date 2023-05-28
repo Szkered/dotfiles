@@ -56,11 +56,7 @@ config =
           template = concat $ templateLeft ++ ["}"] ++ wrapStrs templateMid sepLeft sepRight ++ ["{"] ++ wrapStrs templateRight sepLeft sepRight,
           -- appearance
           font = "Ubuntu Bold 9",
-          additionalFonts =
-            [ "Mononoki 11",
-              "Font Awesome 6 Free Solid 12",
-              "Font Awesome 6 Brands 12"
-            ],
+          additionalFonts = ["Font Awesome 6 Free Solid 12"],
           dpi = 163,
           -- Color scheme: Ayu Dark
           bgColor = commonBg,
@@ -99,7 +95,7 @@ config =
               Run $
                 DynNetwork
                   ( [ "--template",
-                      "<fn=2>\xeaa0</fn> <tx>kB/s <fn=2>\xea9d</fn> <rx>kB/s",
+                      "<fn=1>\xeaa0</fn> <tx>kB/s <fn=1>\xea9d</fn> <rx>kB/s",
                       "--Low",
                       "1000", -- units: B/s
                       "--High",
@@ -117,7 +113,7 @@ config =
               -- Bluetooth
               Run $ Com "bash" ["/home/zekun/dotfiles/get_bluetooth.sh"] "bluetooth" 1,
               -- Gpu usage
-              Run $ Com "echo" ["<fn=2>\xf2db</fn>"] "gpuicon" 3600,
+              Run $ Com "echo" ["<fn=1>\xf2db</fn>"] "gpuicon" 3600,
               Run $ Com "bash" ["/home/zekun/dotfiles/gpustats.sh"] "gpuusage" 20,
               -- Cpu usage in percent
               Run $
@@ -161,7 +157,7 @@ config =
                   )
                   20,
               -- Disk space free
-              Run $ DiskU [("/", "<fn=2>\xf0c7</fn>  hdd: <free> free")] [] 60,
+              Run $ DiskU [("/", "<fn=1>\xf0c7</fn>  hdd: <free> free")] [] 60,
               -- Battery
               Run $
                 Battery
@@ -186,24 +182,24 @@ config =
                            "(<timeleft>)",
                            -- AC "on" status
                            "-O",
-                           "<fc=" ++ green ++ "><fn=2>\xf1e6</fn></fc>",
+                           "<fc=" ++ green ++ "><fn=1>\xf1e6</fn></fc>",
                            -- charged status
                            "-i",
-                           "<fc=" ++ commonFg ++ "><fn=2>\xf240</fn></fc>",
+                           "<fc=" ++ commonFg ++ "><fn=1>\xf240</fn></fc>",
                            -- percentages
                            "--highs",
-                           "<fn=2>\xf241</fn> ",
+                           "<fn=1>\xf241</fn> ",
                            "--mediums",
-                           "<fn=2>\xf242</fn> ",
+                           "<fn=1>\xf242</fn> ",
                            "--lows",
-                           "<fn=2>\xf243</fn> "
+                           "<fn=1>\xf243</fn> "
                          ]
                   )
                   50,
               -- Time and date
               Run $ Date "%a %m/%d %H:%M " "date" 10,
               -- apple icon
-              Run $ Com "echo" ["<fn=2>\xf179</fn>"] "appleicon" 3600,
+              Run $ Com "echo" ["<fn=1>\xf179</fn>"] "appleicon" 3600,
               -- Emacs server
               Run $ Com "bash" ["/home/zekun/dotfiles/check_emacs_server.sh"] "emacs" 10,
               -- Prints out the left side items such as workspaces, layout, etc.
@@ -211,7 +207,7 @@ config =
               -- Get current input method
               Run $ Com "bash" ["/home/zekun/dotfiles/get_inputmethod.sh"] "inputmethod" 10,
               -- Get currently playing info
-              Run $ Com "echo" ["<fn=2>\xf075a</fn>"] "playicon" 3600,
+              Run $ Com "echo" ["<fn=1>\xf075a</fn>"] "playicon" 3600,
               Run $ Com "bash" ["/home/zekun/dotfiles/get_currently_playing.sh"] "curplaying" 10
             ]
         }

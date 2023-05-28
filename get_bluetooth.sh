@@ -2,7 +2,7 @@
 
 regex="([0-9A-Z]*:)+"
 DEVICES=$(bluetoothctl devices)
-ICON=""
+ICON=""
 NAME=""
 COLOR="#686868"
 for DEVICE in $DEVICES; do
@@ -16,4 +16,4 @@ for DEVICE in $DEVICES; do
     fi
 done
 
-echo "<fc=$COLOR><fn=2>$ICON</fn>  $NAME</fc>"
+echo "<fc=$COLOR><fn=1>$ICON</fn>  $NAME</fc>"

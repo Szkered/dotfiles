@@ -127,7 +127,7 @@ myAdditionalKeys =
         \-file-browser-exclude '*.org'"
     ),
     ("M-z", spawn "rofi -show calc -no-show-match -no-sort"),
-    ("M-C-l", spawn "betterlockscreen -lock")
+    ("M-C-l", spawn "betterlockscreen -l")
   ]
 
 myLayout = tiled ||| Mirror tiled
