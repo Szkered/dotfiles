@@ -19,8 +19,12 @@ export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 
-# nvm
-source /usr/share/nvm/init-nvm.sh
+
+if ! command -v brew &>/dev/null; then # not mac
+    source /usr/share/nvm/init-nvm.sh
+else  # is mac
+    export PATH="$PATH:/Applications/Emacs.app/Contents/MacOS/bin"
+fi
 
 # zsh history
 ZSH_HISTORY_FILE_NAME=".zsh_history"
