@@ -47,8 +47,10 @@
 #+BEGIN_SRC emacs-lisp
 (use-package! circadian
   :config
-  (setq circadian-themes '(("8:00" . doom-flatwhite)
-                           ("18:30" . kanagawa)))
+  (setq circadian-themes
+   ;; '(("8:00" . doom-flatwhite)
+   '(("8:00" . lambda-light-faded)
+     ("18:30" . kanagawa)))
   (circadian-setup))
 #+END_SRC
 
