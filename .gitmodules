@@ -23,3 +23,6 @@
 [submodule "doom/org-auctex"]
 	path = doom/org-auctex
 	url = https://github.com/karthink/org-auctex.git
+[submodule "doom/emacs-application-framework"]
+	path = doom/emacs-application-framework
+	url = https://github.com/emacs-eaf/emacs-application-framework.git
