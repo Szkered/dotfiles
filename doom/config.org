@@ -57,6 +57,15 @@
 (package! autothemer)
 (package! doom-alabaster-theme :recipe (:host github :repo "agraul/doom-alabaster-theme"))
 (package! ef-themes)
+(package! lambda-themes :recipe (:host github :repo "lambda-emacs/lambda-themes"))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package lambda-themes
+  :custom
+  (lambda-themes-set-italic-comments t)
+  (lambda-themes-set-italic-keywords t)
+  (lambda-themes-set-variable-pitch t))
 #+END_SRC
 
 ** line number
@@ -395,13 +404,9 @@ flake8+autoflake+yapf
           org-roam-ui-open-on-start t))
 #+END_SRC
 ** visual settings
-#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
-(package! org-superstar)
-#+END_SRC
 
 #+begin_src emacs-lisp
 (setq org-ellipsis "…")
-(add-hook! 'org-mode-hook (org-superstar-mode))
 #+end_src
 
 Mixed pitch is great. As is ~+org-pretty-mode~, let's use them.
@@ -446,6 +451,52 @@ Let's make headings a bit bigger
    ;; Org styling, hide markup etc.
    org-hide-emphasis-markers t
    org-pretty-entities t))
+#+END_SRC
+
+use space buffer divider instead of line divider
+#+BEGIN_SRC emacs-lisp
+(defvar modern-divider-enabled nil)
+
+(defun modern-divider-on ()
+  (modify-all-frames-parameters
+   '((right-divider-width . 40)
+     (internal-border-width . 40)))
+  (dolist (face '(window-divider
+                  window-divider-first-pixel
+                  window-divider-last-pixel))
+    (face-spec-reset-face face)
+    (set-face-foreground face (face-attribute 'default :background)))
+  (set-face-background 'fringe (face-attribute 'default :background)))
+
+(defun modern-divider-off ()
+  (modify-all-frames-parameters
+   '((right-divider-width . 1)
+     (internal-border-width . 1)))
+  (dolist (face '(window-divider
+                  window-divider-first-pixel
+                  window-divider-last-pixel))
+    (face-spec-reset-face face)
+    (set-face-foreground face (face-attribute 'default :foreground)))
+  (set-face-background 'fringe (face-attribute 'default :foreground))
+  (doom/reload-theme))
+
+(defun toggle-modern-divider ()
+  "toggle modern divider, which uses space/margin to divide buffers instead of line"
+  (interactive)
+  (setq modern-divider-enabled (not modern-divider-enabled))
+  (if modern-divider-enabled (modern-divider-on) (modern-divider-off)))
+#+END_SRC
+
+enable src block guide in org-modern when using org-indent
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
+(package! org-modern-indent
+  :recipe (:host github :repo "jdtsmith/org-modern-indent"))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package org-modern-indent
+  :config ; add late to hook
+  (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
 #+END_SRC
 
 ** refile
@@ -1161,7 +1212,7 @@ hooks for nice visual
 (add-hook! org-auctex-mode
   (variable-pitch-mode t)
   (visual-fill-column-mode t)
-  (setq visual-fill-column-width 130)
+  (setq visual-fill-column-width 132)
   (org-auctex-preview-buffer))
 #+END_SRC
 

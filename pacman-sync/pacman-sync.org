@@ -61,6 +61,12 @@ paru --skipreview -S --needed - <"$TMP_DIR/foreign_toinstall.pkg"
 #+end_src
 
 * push: overwrite pkg lists with local
+first set up the directories
+#+begin_src bash :tangle "pkg_push.sh"
+#!/usr/bin/env bash
+PKG_DIR=$HOME/dotfiles/pacman-sync
+TMP_DIR=/tmp
+#+end_src
 
 #+begin_src bash :tangle "pkg_push.sh"
 pacman -Qen | awk '{print $1}' | sort | comm -23 - "$PKG_DIR/exclude.pkg" >"$PKG_DIR/native.pkg"

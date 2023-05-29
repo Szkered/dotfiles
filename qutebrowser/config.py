@@ -1233,7 +1233,7 @@ c.editor.remove_file = True
 ## Filename of the file to be written to. If not contained in any
 ## argument, the   standard output of the command is read instead.
 ## Type: ShellCommand
-# c.fileselect.folder.command = ['xterm', '-e', 'ranger', '--choosedir={}']
+c.fileselect.folder.command = ['alacritty', '-e', 'ranger', '--choosedir={}']
 
 ## Handler for selecting file(s) in forms. If `external`, then the
 ## commands specified by `fileselect.single_file.command`,
@@ -1253,7 +1253,7 @@ c.editor.remove_file = True
 ## contained in any argument, the   standard output of the command is
 ## read instead.
 ## Type: ShellCommand
-# c.fileselect.multiple_files.command = ['xterm', '-e', 'ranger', '--choosefiles={}']
+c.fileselect.multiple_files.command = ['alacritty', '-e', 'ranger', '--choosefiles={}']
 
 ## Command (and arguments) to use for selecting a single file in forms.
 ## The command should write the selected file path to the specified file
@@ -1261,7 +1261,7 @@ c.editor.remove_file = True
 ## the file to be written to. If not contained in any argument, the
 ## standard output of the command is read instead.
 ## Type: ShellCommand
-# c.fileselect.single_file.command = ['xterm', '-e', 'ranger', '--choosefile={}']
+c.fileselect.single_file.command = ['alacritty', '-e', 'ranger', '--choosefile={}']
 
 ## Font used in the completion categories.
 ## Type: Font

@@ -20,7 +20,6 @@ brightnessctl
 cabal-install
 cmake
 cronie
-cudnn
 darktable
 dhcpcd
 direnv
@@ -81,10 +80,6 @@ noto-fonts
 npm
 ntfs-3g
 nvidia
-nvidia-settings
-nvidia-utils
-nvtop
-opencl-nvidia
 openconnect
 openssh
 os-prober
@@ -150,6 +145,7 @@ ttf-hack-nerd
 ttf-iosevka-nerd
 ttf-iosevkaterm-nerd
 ttf-mononoki-nerd
+ttf-roboto-mono-nerd
 ttf-sarasa-gothic
 ttf-ubuntu-font-family
 ttf-ubuntu-mono-nerd
