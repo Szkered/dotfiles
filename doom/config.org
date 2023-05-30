@@ -20,12 +20,6 @@
 (setq auto-revert-interval 0.5)
 #+END_SRC
 
-** browser
-#+BEGIN_SRC emacs-lisp
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "qutebrowser")
-#+END_SRC
-
 ** disable writegood
 #+BEGIN_SRC emacs-lisp
 (remove-hook 'org-mode-hook #'writegood-mode)
@@ -34,6 +28,12 @@
 ** don't use variable pitch font in treemacs
 #+BEGIN_SRC emacs-lisp
 (setq doom-themes-treemacs-enable-variable-pitch nil)
+#+END_SRC
+
+** before reloading the config, save all buffer
+#+BEGIN_SRC emacs-lisp
+(add-hook! 'doom-before-reload-hook
+  (save-some-buffers t))
 #+END_SRC
 
 * Global Visual Settings
@@ -556,7 +556,8 @@ enable src block guide in org-modern when using org-indent
       (quote (:link t :maxlevel 3 :fileskip0 t :narrow 80 :formula %)))
 (setq org-agenda-log-mode-items '(closed state clock))
 (setq org-clock-idle-time 5)
-(setq org-agenda-block-separator ?─)
+;; (setq org-agenda-block-separator ?─)
+(setq org-agenda-block-separator " ")
 (setq org-agenda-breadcrumbs-separator " 🡒 ")
 ;; (setq my-org-agenda-prefix-format " %-2i %(concat \"[\" (car (last(split-string (or (org-agenda-get-category) \"\") \"-\"))) \"]\") %b %t%s")
 (setq my-org-agenda-prefix-format " %-2i %b %t%s")
@@ -1428,9 +1429,7 @@ make popup nicer
 (require 'eaf)
 
 (use-package eaf
-  :load-path "~/.emacs.d/site-lisp/emacs-application-framework"
   :custom
-  ; See https://github.com/emacs-eaf/emacs-application-framework/wiki/Customization
   (eaf-browser-continue-where-left-off t)
   (eaf-browser-enable-adblocker t)
   (browse-url-browser-function 'eaf-open-browser)
@@ -1440,4 +1439,26 @@ make popup nicer
   (setq eaf-webengine-default-zoom 1.5)
   (eaf-bind-key nil "SPC" eaf-browser-keybinding)
   (eaf-bind-key nil "M-q" eaf-browser-keybinding)) ;; unbind, see more in the Wiki
+#+END_SRC
+
+** use ~doom-modeline~
+#+BEGIN_SRC emacs-lisp
+(add-hook! 'eaf-mode-hook
+  (doom-modeline-mode t))
+#+END_SRC
+
+** helper function: open ~ibuffer~ with all EAF buffers
+#+BEGIN_SRC emacs-lisp
+(defun eaf-ibuffer ()
+  "Open `ibuffer` with only EAF buffers."
+  (interactive)
+  (ibuffer)
+  (ibuffer-filter-by-mode 'eaf-mode))
+#+END_SRC
+
+** keybinds
+#+BEGIN_SRC emacs-lisp
+(map! (:leader
+       :n "O" 'eaf-open-browser-with-history
+       :n "B" 'eaf-ibuffer))
 #+END_SRC

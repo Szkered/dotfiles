@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-systemctl --user stop emacs &&
-    doom sync &&
-    rm ~/.config/emacs/.local/cache/save* &&
-    systemctl --user start emacs &&
-    emacsclient -c
+systemctl --user restart emacs &&
+    emacsclient -c --eval '(find-file "~/dotfiles/doom/config.org")' &&
+    emacsclient -c --eval '(find-file "~/dotfiles/doom/config.org")'
