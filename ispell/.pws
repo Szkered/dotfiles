@@ -1,4 +1,4 @@
-personal_ws-1.1 en 191
+personal_ws-1.1 en 202
 Riesz
 Stiefel
 ableton
@@ -16,6 +16,7 @@ aperiodic
 applicative
 approximator
 arxiv
+auctex
 audiate
 aus
 auth
@@ -48,14 +49,17 @@ coord
 coplanar
 cpufreq
 customizable
+debye
 degeneracies
 dev
+diamagnet
 dimensionality
 dired
 discretisation
 discretization
 dmenu
 dotfiles
+drude
 dunst
 eigenfunction
 eigenfunctions
@@ -111,6 +115,7 @@ lipschitz
 lyapunov
 magit
 marginnotes
+meissner
 millgram
 minibatch
 minmax
@@ -124,7 +129,9 @@ multiscale
 netket
 noether
 nondimensionalize
+nondimensionalized
 nonlinearity
+normalizable
 noter
 obara
 org
@@ -133,6 +140,8 @@ pacman
 pdfs
 periodization
 phrygian
+planewave
+planewaves
 pontryagin
 prefactor
 projective
@@ -156,8 +165,10 @@ sg
 sgd
 shi
 sobolev
+sommerfield
 spacemacs
 spinors
+src
 strymon
 supremum
 symmetries
