@@ -26,3 +26,6 @@
 [submodule "doom/emacs-application-framework"]
 	path = doom/emacs-application-framework
 	url = https://github.com/emacs-eaf/emacs-application-framework.git
+[submodule "doom/themes/doom-nano-themes"]
+	path = doom/themes/doom-nano-themes
+	url = https://github.com/ronisbr/doom-nano-themes.git
