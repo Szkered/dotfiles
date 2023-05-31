@@ -60,6 +60,7 @@
 (package! doom-alabaster-theme :recipe (:host github :repo "agraul/doom-alabaster-theme"))
 (package! ef-themes)
 (package! lambda-themes :recipe (:host github :repo "lambda-emacs/lambda-themes"))
+(package! mindre-theme)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -87,6 +88,16 @@ For ~doom-nano~ it requires ~def-doom-theme~
   :config
   (doom-nano-modeline-mode 1)
   (global-hide-mode-line-mode 1))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
+(package! stimmung-themes)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package stimmung-themes
+  :demand t
+  :ensure t)
 #+END_SRC
 
 ** line number
