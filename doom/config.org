@@ -69,7 +69,7 @@
   :custom
   (lambda-themes-set-italic-comments t)
   (lambda-themes-set-italic-keywords t)
-  (lambda-themes-set-variable-pitch t))
+  (lambda-themes-set-variable-pitch nil))
 #+END_SRC
 
 For ~doom-nano~ it requires ~def-doom-theme~
@@ -623,14 +623,11 @@ add a keybind
 )
 #+END_SRC
 
-*** speed up agenda
+*** speed up org-mode
+~org-roam~ encourages users to have a lot of files, since each file represent a zettel which encapsulate an atomic idea. This will slow down somethings.
 #+BEGIN_SRC emacs-lisp
+(setq org-inhibit-startup t)
 (setq org-agenda-inhibit-startup t)
-(defadvice! fix-exclude-agenda-buffers-from-recentf-advice (orig-fn file)
-  :override #'+org--exclude-agenda-buffers-from-recentf-a
-  (let ((recentf-exclude (list (lambda (_file) t)))
-        find-file-hook)
-    (funcall orig-fn file)))
 #+END_SRC
 
 *** daily/weekly agenda format
