@@ -91,14 +91,16 @@ For ~doom-nano~ it requires ~def-doom-theme~
   (global-hide-mode-line-mode 1))
 #+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+(add-hook! '+doom-dashboard-functions (hide-mode-line-mode 1))
+#+END_SRC
+
 #+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! stimmung-themes)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(use-package stimmung-themes
-  :demand t
-  :ensure t)
+(use-package stimmung-themes :demand t)
 #+END_SRC
 
 ** line number
@@ -1491,10 +1493,6 @@ make popup nicer
 #+END_SRC
 
 ** use ~doom-modeline~
-#+BEGIN_SRC emacs-lisp
-(add-hook! 'eaf-mode-hook
-  (doom-modeline-mode t))
-#+END_SRC
 
 ** helper function: open ~ibuffer~ with all EAF buffers
 #+BEGIN_SRC emacs-lisp

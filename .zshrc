@@ -19,10 +19,7 @@ export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 
-if
-    ! command -v brew &
-    >/dev/null
-then # not mac
+if [[ $(uname) == "Linux" ]]; then
     source /usr/share/nvm/init-nvm.sh
 else # is mac
     export PATH="$PATH:/Applications/Emacs.app/Contents/MacOS/bin"
