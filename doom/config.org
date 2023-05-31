@@ -18,6 +18,7 @@
 ** shorten wait time
 #+BEGIN_SRC emacs-lisp
 (setq auto-revert-interval 0.5)
+(setq avy-timeout-seconds 0.25)
 #+END_SRC
 
 ** disable writegood
@@ -1267,6 +1268,13 @@ hooks for nice visual
   (org-auctex-preview-buffer))
 #+END_SRC
 
+keybinds
+#+BEGIN_SRC emacs-lisp
+(map! :leader
+  "A" #'org-auctex-mode
+  "P" #'org-auctex-preview-dwim)
+#+END_SRC
+
 ** keybinds
 *** elfeed keybinds (SPC n)
 #+BEGIN_SRC emacs-lisp
@@ -1279,8 +1287,6 @@ hooks for nice visual
 (map! :leader
       :desc "arXiv paper to library" "n x" #'arxiv-get-pdf-add-bibtex-entry
       :desc "Elfeed" "n e" #'elfeed)
-
-(map! :leader "A" #'org-auctex-mode)
 #+END_SRC
 
 

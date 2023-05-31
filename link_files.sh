@@ -14,3 +14,5 @@ ln -s $HOME/dotfiles/xmonad $HOME/.config
 ln -s $HOME/dotfiles/dunst $HOME/.config
 ln -s $HOME/dotfiles/qutebrowser/config.py $HOME/.config/qutebrowser/config.py
 ln -s $HOME/dotfiles/mailctl $HOME/.config
+ln -s $HOME/dotfiles/xdg-mime $HOME/.local/share/applications
+ln -s $HOME/dotfiles/mimeapps.list $HOME/.config

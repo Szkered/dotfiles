@@ -1,0 +1,11 @@
+
+[Default Applications]
+application/pdf=emacsclient-pdf.desktop
+text/plain=emacsclient.desktop
+x-scheme-handler/https=emacsclient-eaf.desktop
+x-scheme-handler/http=emacsclient-eaf.desktop
+text/html=emacsclient-eaf.desktop
+text/xml=emacsclient-eaf.desktop
+application/xhtml+xml=emacsclient-eaf.desktop
+x-scheme-handler/about=emacsclient-eaf.desktop
+x-scheme-handler/unknown=emacsclient-eaf.desktop
