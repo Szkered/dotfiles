@@ -124,6 +124,15 @@ No line number.
         doom-big-font (font-spec :family "Iosevka Term SS04" :size 26 :dpi 116)))
 #+END_SRC
 
+mac
+#+BEGIN_SRC emacs-lisp
+(defun set-mac-fonts ()
+  (setq doom-font (font-spec :family "Iosevka Term SS04" :size 18 :dpi 220)
+        doom-variable-pitch-font (font-spec :family "CMU Serif" :size 20 :dpi 220)
+        doom-unicode-font (font-spec :family "Iosevka Nerd Font" :dpi 220)
+        doom-big-font (font-spec :family "Iosevka Term SS04" :size 26 :dpi 220)))
+#+END_SRC
+
 ** monitor fonts
 #+BEGIN_SRC emacs-lisp
 (defun set-monitor-fonts ()
@@ -139,9 +148,11 @@ We use the following shell command to get current dpi as ~x-display-pixel-width~
 (defun get-current-dpi ()
   (string-to-number (shell-command-to-string "xrdb -query | grep dpi | awk '{print $2}'")))
 
-(if (or (= (get-current-dpi) 116) (eq system-type 'darwin))
-  (set-laptop-fonts)
-  (set-monitor-fonts))
+(if (eq system-type 'darwin)
+    (set-mac-fonts)
+    (if (= (get-current-dpi) 116)
+        (set-laptop-fonts)
+        (set-monitor-fonts)))
 #+END_SRC
 
 * File manager: Dired / Ranger
