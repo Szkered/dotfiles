@@ -424,7 +424,8 @@ flake8+autoflake+yapf
 (package! org-download)
 #+END_SRC
 
-** screenshot
+** Create a simple screenshot from an org-buffer
+Store the screenshot in the same folder as the current org buffer.
 #+BEGIN_SRC emacs-lisp
 (defun my-org-screenshot ()
   "Take a screenshot into a time stamped unique-named file in the
@@ -444,6 +445,80 @@ same directory as the org-buffer and insert a link to this file."
 keybind
 #+BEGIN_SRC emacs-lisp
 (map! :leader "S" #'my-org-screenshot)
+#+END_SRC
+
+** Create a (margin note style) image excerpt from a PDF
+#+BEGIN_SRC emacs-lisp
+(defun get-img-excerpt-file-name ()
+  "Create the image excerpt filename in the same folder as the PDF file."
+  (interactive)
+  (concat
+    (file-name-directory (buffer-file-name))
+    (make-temp-name
+      (concat (file-name-nondirectory (buffer-file-name))
+              "_"
+              (format-time-string "%Y%m%d_%H%M%S_")))
+    ".png"))
+                  #+END_SRC
+
+Hacking the ~org-store-link~: get the stored link as a variable instead of
+inserting it.
+#+BEGIN_SRC emacs-lisp
+(defun get-org-last-stored-link ()
+  (let ((content ""))
+    (with-output-to-string
+      (with-current-buffer standard-output
+        (org-insert-last-stored-link nil)
+        (setq content (buffer-string))))
+    content))
+#+END_SRC
+
+Use our own variable to store the link together with the image.
+#+BEGIN_SRC emacs-lisp
+(defvar current-org-excerpt nil)
+#+END_SRC
+
+This is a bit hacky but it works. First use the screenshot to create image excerpt,
+then the program will prompt to select a place to create a text-annotation.
+#+BEGIN_SRC emacs-lisp
+(defun create-org-img-excerpt-org-link ()
+  "Calls pdf-annot-add-text-annotation to create a marker then use
+org-store-link to create an link to the excerpt location. Then store
+the annot link and the image link in current-org-excerpt."
+  (interactive)
+  (call-interactively #'pdf-annot-add-text-annotation)  ;; TODO: make the icon look nicer
+  (call-interactively #'org-store-link)
+  (setq current-org-excerpt (get-org-last-stored-link)))
+
+(defun create-org-img-excerpt-img-link ()
+  "Take a screenshot into a time stamped unique-named file in the
+same directory as the PDF buffer"
+  (interactive)
+  (let ((filename (get-img-excerpt-file-name)))
+       (condition-case err
+           (progn (call-process "maim" nil nil nil "-s" filename)
+                  (setq current-org-excerpt (concat current-org-excerpt " [[" filename "]]")))
+         (err (message "error: %s" err)))))
+
+(defun create-org-img-excerpt ()
+  "Create the org-link then the img-link"
+  (interactive)
+  (create-org-img-excerpt-org-link)
+  (create-org-img-excerpt-img-link))
+
+(defun insert-org-img-excerpt ()
+  "Insert current-org-excerpt and turn on image preview."
+  (interactive)
+  (insert current-org-excerpt)
+  (setq current-org-excerpt nil)
+  (org-display-inline-images))
+#+END_SRC
+
+keybind
+#+BEGIN_SRC emacs-lisp
+(map! :leader
+  "zs" #'create-org-img-excerpt
+  "zi" #'insert-org-img-excerpt)
 #+END_SRC
 
 ** org-analyzer
