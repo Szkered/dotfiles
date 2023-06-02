@@ -183,6 +183,8 @@ myManageHook =
   composeAll
     [ className =? "Gimp" --> doFloat,
       className =? "Pavucontrol" --> doFloat,
+      className =? "Blueman-manager" --> doFloat,
+      className =? "fcitx5-config-qt" --> doFloat,
       isDialog --> doFloat
     ]
 

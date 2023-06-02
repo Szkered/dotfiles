@@ -1,4 +1,4 @@
-personal_ws-1.1 en 202
+personal_ws-1.1 en 210
 Riesz
 Stiefel
 ableton
@@ -23,6 +23,7 @@ auth
 autoflake
 automorphisms
 autoregressive
+azimuthal
 backend
 basis
 bazel
@@ -40,6 +41,7 @@ cli
 codebase
 collinear
 collinearity
+commutivity
 composable
 compositionality
 computable
@@ -60,6 +62,7 @@ discretization
 dmenu
 dotfiles
 drude
+dulong
 dunst
 eigenfunction
 eigenfunctions
@@ -83,6 +86,7 @@ gcal
 gmail
 googleusercontent
 gtd
+hacky
 hartree
 hidpi
 homography
@@ -139,6 +143,8 @@ orthonormal
 pacman
 pdfs
 periodization
+petit
+phonons
 phrygian
 planewave
 planewaves
@@ -147,6 +153,7 @@ prefactor
 projective
 projectivity
 py
+quadratically
 quadric
 quadrics
 quantized
@@ -165,6 +172,7 @@ sg
 sgd
 shi
 sobolev
+sommerfeld
 sommerfield
 spacemacs
 spinors

@@ -46,13 +46,17 @@
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(use-package! circadian
-  :config
-  (setq circadian-themes
-   ;; '(("8:00" . doom-flatwhite)
-   '(("8:00" . lambda-light-faded)
-     ("18:30" . kanagawa-dragon)))
-  (circadian-setup))
+;; (use-package! circadian
+;;   :config
+;;   (setq circadian-themes
+;;    ;; '(("8:00" . doom-flatwhite)
+;;    '(("8:00" . lambda-light-faded)
+;;      ("18:30" . kanagawa-dragon)))
+;;   (circadian-setup))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(setq doom-theme 'lambda-light-faded)
 #+END_SRC
 
 *** more themes
@@ -420,6 +424,28 @@ flake8+autoflake+yapf
 (package! org-download)
 #+END_SRC
 
+** screenshot
+#+BEGIN_SRC emacs-lisp
+(defun my-org-screenshot ()
+  "Take a screenshot into a time stamped unique-named file in the
+same directory as the org-buffer and insert a link to this file."
+  (interactive)
+  (setq filename
+        (concat
+         (make-temp-name
+          (concat (file-name-nondirectory (buffer-file-name))
+                  "_"
+                  (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+  (call-process "maim" nil nil nil "-s" filename)
+  (insert (concat "[[./" filename "]]"))
+  (org-display-inline-images))
+#+END_SRC
+
+keybind
+#+BEGIN_SRC emacs-lisp
+(map! :leader "S" #'my-org-screenshot)
+#+END_SRC
+
 ** org-analyzer
 #+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! org-analyzer)
@@ -529,8 +555,8 @@ enable src block guide in org-modern when using org-indent
 
 (defun modern-divider-on ()
   (modify-all-frames-parameters
-   '((right-divider-width . 24)
-     (internal-border-width . 24)))
+   '((right-divider-width . 40)
+     (internal-border-width . 40)))
   (dolist (face '(window-divider
                   window-divider-first-pixel
                   window-divider-last-pixel))
@@ -1234,6 +1260,7 @@ With a prefix ARG, remove start location."
                     "O1" "O(1)"
                     "Olog" "O(\\log n)"
                     "Olon" "O(n \\log n)"
+                    "hs" "\\hslash"
                     ;; bind to functions!
                     "Sum" (lambda () (interactive)
                             (yas-expand-snippet "\\sum_{$1}^{$2} $0"))
@@ -1269,12 +1296,15 @@ reload preview when saved
       (org-auctex-preview-dwim)))
 #+END_SRC
 
-hooks for nice visual
+Hooks for nice visual
+Also, Emacs does not handle long text well, so we need to turn on ~auto-fill-mode~
 #+BEGIN_SRC emacs-lisp
 (add-hook! org-auctex-mode
   (variable-pitch-mode t)
-  (visual-fill-column-mode t)
-  (setq visual-fill-column-width 132)
+  ;; (visual-fill-column-mode t)
+  ;; (setq visual-fill-column-width 132)
+  (setq fill-column 132)
+  (auto-fill-mode t)
   (org-auctex-preview-buffer))
 #+END_SRC
 
