@@ -423,6 +423,11 @@ flake8+autoflake+yapf
 #+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
 (package! org-download)
 #+END_SRC
+** latex export setting
+make inline images smaller when exported
+#+BEGIN_SRC emacs-lisp
+(setq org-latex-image-default-width ".5\\linewidth")
+#+END_SRC
 
 ** Create a simple screenshot from an org-buffer
 Store the screenshot in the same folder as the current org buffer.
@@ -481,12 +486,18 @@ Use our own variable to store the link together with the image.
 This is a bit hacky but it works. First use the screenshot to create image excerpt,
 then the program will prompt to select a place to create a text-annotation.
 #+BEGIN_SRC emacs-lisp
+(customize-set-variable 'pdf-annot-default-annotation-properties
+                        `((text (icon . "Circle")
+                               (color . "white smoke"))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
 (defun create-org-img-excerpt-org-link ()
   "Calls pdf-annot-add-text-annotation to create a marker then use
 org-store-link to create an link to the excerpt location. Then store
 the annot link and the image link in current-org-excerpt."
   (interactive)
-  (call-interactively #'pdf-annot-add-text-annotation)  ;; TODO: make the icon look nicer
+  (call-interactively #'pdf-annot-add-text-annotation)
   (call-interactively #'org-store-link)
   (setq current-org-excerpt (get-org-last-stored-link)))
 

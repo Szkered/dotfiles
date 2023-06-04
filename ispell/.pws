@@ -1,4 +1,4 @@
-personal_ws-1.1 en 213
+personal_ws-1.1 en 221
 Riesz
 Stiefel
 ableton
@@ -94,6 +94,7 @@ homography
 hu
 iff
 integrable
+interatomic
 interparticle
 invariances
 invariants
@@ -114,6 +115,7 @@ keywords
 laas
 langevin
 langlands
+lattices
 let's
 lindenstrauss
 lipschitz
@@ -128,6 +130,7 @@ mins
 mirrorlist
 monadic
 monads
+monoatomic
 msmtp
 multipole
 multiscale
@@ -144,6 +147,8 @@ octant
 org
 orthonormal
 pacman
+parallelepiped
+paramagnetism
 pdfs
 periodization
 petit
@@ -160,6 +165,7 @@ quadratically
 quadric
 quadrics
 quantized
+quasimomentum
 quaternion
 rademacher
 repl
@@ -167,6 +173,7 @@ repo
 representable
 rescaled
 resummation
+roadmap
 rofi
 saika
 scalable
@@ -201,6 +208,7 @@ wavefunction
 wavefunctions
 wavenumber
 wavevector
+wavevectors
 webpage
 wechat
 worktree
