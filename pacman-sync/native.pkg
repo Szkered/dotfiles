@@ -142,6 +142,8 @@ ttc-iosevka
 ttc-iosevka-ss04
 ttf-fira-code
 ttf-hack-nerd
+ttf-inconsolata
+ttf-inconsolata-nerd
 ttf-iosevka-nerd
 ttf-iosevkaterm-nerd
 ttf-mononoki-nerd
@@ -150,6 +152,7 @@ ttf-sarasa-gothic
 ttf-ubuntu-font-family
 ttf-ubuntu-mono-nerd
 ttf-ubuntu-nerd
+ttf-victor-mono-nerd
 tumbler
 ufw
 unzip

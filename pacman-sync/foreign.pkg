@@ -14,7 +14,6 @@ google-chrome
 lightdm-mini-greeter
 mailctl-bin
 mbsync-git
-min
 mu
 mutter-x11-scaling
 nvm
@@ -30,5 +29,7 @@ stacer-bin
 ttf-apple-emoji
 ttf-cm-unicode
 wechat-uos
+weylus
 xdg-ninja-git
+xournalpp-git
 zoom
