@@ -123,8 +123,8 @@ No line number.
 #+BEGIN_SRC emacs-lisp
 (defun set-laptop-fonts ()
   (setq doom-font (font-spec :family "Iosevka Term SS04" :size 18 :dpi 116)
-        doom-variable-pitch-font (font-spec :family "CMU Serif" :size 24 :dpi 116)
-        doom-unicode-font (font-spec :family "Iosevka Nerd Font" :dpi 116)
+        doom-variable-pitch-font (font-spec :family "CMU Serif" :size 20 :dpi 116)
+        doom-unicode-font (font-spec :family "Iosevka Nerd Font" :size 18 :dpi 116)
         doom-big-font (font-spec :family "Iosevka Term SS04" :size 26 :dpi 116)))
 #+END_SRC
 
@@ -1611,7 +1611,7 @@ make popup nicer
   :config
   (require 'eaf-browser)
   (defalias 'browse-web #'eaf-open-browser)
-  (setq eaf-webengine-default-zoom 1.5)
+  (when (= (get-current-dpi) 163) (setq eaf-webengine-default-zoom 1.5))
   (eaf-bind-key nil "SPC" eaf-browser-keybinding)
   (eaf-bind-key nil "M-q" eaf-browser-keybinding)) ;; unbind, see more in the Wiki
 #+END_SRC
