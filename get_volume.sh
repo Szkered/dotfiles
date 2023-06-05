@@ -7,7 +7,7 @@ else # not muted
 fi
 CAP_VOL=$(awk -F"[][]" '/Front Left:/ { print $2 }' <(amixer get Capture))
 if [[ -n "$CAP_VOL" ]]; then
-    echo -ne "$CAP_VOL  "
+    echo -ne "$CAP_VOL"
     exit
 fi
 MONO_VOL=$(awk -F"[][]" '/Mono:/ { print $2 }' <(amixer get Master))

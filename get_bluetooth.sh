@@ -10,10 +10,10 @@ for DEVICE in $DEVICES; do
         STATUS=$(bluetoothctl info $DEVICE | grep "Connected" | awk '{print $2}')
         if [ $STATUS = "yes" ]; then
             NAME=$(bluetoothctl info $DEVICE | grep "Name" | awk '{print $2}')
-            ICON=""
+            ICON="  "
             COLOR="#bfbdb6"
         fi
     fi
 done
 
-echo "<fc=$COLOR><fn=1>$ICON</fn>  $NAME</fc>"
+echo "<fc=$COLOR><fn=1>$ICON</fn>$NAME</fc>"
