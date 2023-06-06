@@ -97,14 +97,15 @@ myAdditionalKeys =
       spawn
         "emacsclient -c --eval '(zotra-add-entry-and-pdf-from-url '\" $(printf '\"%s\"' \"$(xclip -o)\")\"' )'"
     ),
-    ("M-c", spawn "prime-run qutebrowser"),
     -- browser
-    ("M-C-x", unGrab *> spawn "maim -s ~/Pictures/Screenshots/$(date +%s).png"),
+    ("M-c", spawn "prime-run qutebrowser"),
+    ("M-C-c", spawn "emacsclient -c --eval '(eaf-open-browser \"google.com\")'"),
     -- screenshot
-    ("M-o", spawn "~/dotfiles/monitor_screen.sh"),
+    ("M-C-x", unGrab *> spawn "maim -s ~/Pictures/Screenshots/$(date +%s).png"),
     -- external display
-    ("M-S-o", spawn "~/dotfiles/laptop_screen.sh"),
+    ("M-o", spawn "~/dotfiles/monitor_screen.sh"),
     -- interal display
+    ("M-S-o", spawn "~/dotfiles/laptop_screen.sh"),
     ("M-C-r", spawn "systemctl reboot"),
     ("M-C-s", spawn "systemctl poweroff"),
     ("<F10>", spawn "playerctl play-pause"),
