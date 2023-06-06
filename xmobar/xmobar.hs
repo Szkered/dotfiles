@@ -46,8 +46,7 @@ config =
           intercalate sepDot ["<action=`alacritty -e glances`>cpu: %coretemp% ", " %memory% ", " %multicpu%</action>"],
           "<action=`pavucontrol`>%volume%</action>",
           "<action=`blueman-manager`>%bluetooth%</action>",
-          "<action=`fcitx5-configtool`>%inputmethod%</action>",
-          "<action=`xfce4-power-manager-settings`>%battery%</action>"
+          "<action=`fcitx5-configtool`>%inputmethod%</action>"
         ]
    in defaultConfig
         { -- layout
@@ -158,44 +157,6 @@ config =
                   20,
               -- Disk space free
               Run $ DiskU [("/", "<fn=1>\xf0c7</fn>  hdd: <free> free")] [] 60,
-              -- Battery
-              Run $
-                Battery
-                  ( [ "--template",
-                      "<acstatus> <left>",
-                      "--Low",
-                      "10", -- units: %
-                      "--High",
-                      "80" -- units: %
-                    ]
-                      ++ colorCodingInv
-                      ++ [ "--", -- battery specific options
-                      -- to include a percentage symbol in left
-                           "-P",
-                           -- low battry threshold
-                           "-A",
-                           "5",
-                           "-a",
-                           "notify-send -u critical 'Battery running out!!'",
-                           -- discharging status
-                           "-o",
-                           "(<timeleft>)",
-                           -- AC "on" status
-                           "-O",
-                           "<fc=" ++ green ++ "><fn=1>\xf1e6</fn></fc>",
-                           -- charged status
-                           "-i",
-                           "<fc=" ++ commonFg ++ "><fn=1>\xf240</fn></fc>",
-                           -- percentages
-                           "--highs",
-                           "<fn=1>\xf241</fn> ",
-                           "--mediums",
-                           "<fn=1>\xf242</fn> ",
-                           "--lows",
-                           "<fn=1>\xf243</fn> "
-                         ]
-                  )
-                  50,
               -- Time and date
               Run $ Date "%a %m/%d %H:%M " "date" 10,
               -- apple icon
