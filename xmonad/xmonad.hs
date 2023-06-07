@@ -1,4 +1,5 @@
 import XMonad
+import XMonad.Actions.UpdatePointer
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
@@ -204,6 +205,7 @@ myConfig =
   def
     { manageHook = myManageHook <+> manageDocks <+> manageHook def,
       -- layoutHook = myLayout,
+      logHook = updatePointer (0.95, 0.95) (0, 0),
       layoutHook = myLayoutHook,
       workspaces = myWorkspaces,
       terminal = "alacritty",
