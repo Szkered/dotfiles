@@ -1,6 +1,6 @@
 
 [Default Applications]
-application/pdf=emacsclient-pdf.desktop
+application/pdf=org.gnome.Evince.desktop
 text/plain=emacsclient.desktop
 x-scheme-handler/https=emacsclient-eaf.desktop
 x-scheme-handler/http=emacsclient-eaf.desktop
