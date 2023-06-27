@@ -11,6 +11,7 @@ dict-wn
 dropbox
 emacs-gtk3-native-comp-git-stable
 google-chrome
+jpdftweak
 lightdm-mini-greeter
 mailctl-bin
 mbsync-git
@@ -20,6 +21,7 @@ nvm
 oauth2ms-git
 oauth2token
 paru
+python39
 python-mf2py
 qutebrowser-git
 raw-thumbnailer
@@ -31,5 +33,6 @@ ttf-cm-unicode
 wechat-uos
 weylus
 xdg-ninja-git
+xerox-docucentre-driver
 xournalpp-git
 zoom

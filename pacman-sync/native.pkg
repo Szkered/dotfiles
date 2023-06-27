@@ -32,6 +32,7 @@ dunst
 editorconfig-core-c
 efibootmgr
 fcitx5
+evince
 fcitx5-chinese-addons
 fcitx5-configtool
 fcitx5-gtk
@@ -98,8 +99,11 @@ poppler-glib
 powerline-fonts
 pyright
 python-adblock
+python-dbus-signature-pyparsing
 python-gpgme
 python-pdftotext
+python-pip
+python-pyparsing
 python-pyqt6
 python-pyqt6-sip
 python-pyqt6-webengine
@@ -122,13 +126,16 @@ shellcheck
 shfmt
 stack
 sudo
+texlive-basic
 texlive-bibtexextra
 texlive-core
+texlive-binextra
 texlive-fontsextra
 texlive-formatsextra
 texlive-games
 texlive-humanities
 texlive-latexextra
+texlive-mathscience
 texlive-music
 texlive-pictures
 texlive-pstricks
