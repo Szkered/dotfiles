@@ -99,7 +99,7 @@ myAdditionalKeys =
         "emacsclient -c --eval '(zotra-add-entry-and-pdf-from-url '\" $(printf '\"%s\"' \"$(xclip -o)\")\"' )'"
     ),
     -- browser
-    ("M-c", spawn "qutebrowser"),
+    ("M-c", spawn "google-chrome-stable"),
     ("M-C-c", spawn "emacsclient -c --eval '(eaf-open-browser \"google.com\")'"),
     -- screenshot
     ("M-C-x", unGrab *> spawn "maim -s ~/Pictures/Screenshots/$(date +%s).png"),

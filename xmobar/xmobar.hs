@@ -38,7 +38,7 @@ config =
       sepDotColored = "<fc=" ++ magenta ++ "> • </fc>"
       sepDot = "•"
       templateLeft = intersperse sepDotColored ["%XMonadLog%", "%emacs%", "%playicon%   %curplaying%"]
-      templateMid = ["<action=`qutebrowser https://calendar.google.com/calendar/u/1/r`>%date%</action>"]
+      templateMid = ["<action=`google-chrome-stable https://calendar.google.com/calendar/u/1/r`>%date%</action>"]
       templateRight =
         [ "<action=`stacer`>%dynnetwork%</action>",
           "<action=`./dotfiles/rofi-wifi-menu.sh`>%wifi%</action>",
