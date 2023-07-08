@@ -22,7 +22,7 @@ export XMODIFIERS=@im=fcitx
 if [[ $(uname) == "Linux" ]]; then
     source /usr/share/nvm/init-nvm.sh
 else # is mac
-    export PATH="$PATH:/Applications/Emacs.app/Contents/MacOS/bin"
+    export PATH="/Applications/Emacs.app/Contents/MacOS/bin:$PATH"
 fi
 
 export BROWSER=eaf-browser
