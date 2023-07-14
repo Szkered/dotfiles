@@ -1,4 +1,4 @@
-personal_ws-1.1 en 299
+personal_ws-1.1 en 314
 Riesz
 Stiefel
 ableton
@@ -36,6 +36,7 @@ bernstein’s
 biblio
 bibtex
 bijection
+bijective
 boson
 bosonic
 bosons
@@ -68,6 +69,7 @@ denoising
 determinantal
 dev
 diagonalisation
+diagonalizes
 diamagnet
 differentiability
 dimensionality
@@ -87,6 +89,7 @@ eigenstate
 eigenstates
 ein
 el
+electronegativity
 elfeed
 env
 eos
@@ -104,6 +107,7 @@ fmap
 fmch
 fock
 fréchet
+fukui
 functionals
 functors
 gaussians
@@ -117,8 +121,10 @@ googleusercontent
 graphene
 grothendieck’s
 gtd
+gâteaux
 hacky
 hartree
+hellmann
 hidpi
 hoeffding
 hoeffding’s
@@ -176,6 +182,7 @@ monads
 monoatomic
 monovalent
 msmtp
+multicomponent
 multipole
 multiscale
 nanotubes
@@ -185,7 +192,10 @@ netket
 noether
 nondimensionalize
 nondimensionalized
+nonelectronic
+nonintegral
 nonlinearity
+nonlocal
 normalisation
 normalizable
 noter
@@ -233,6 +243,7 @@ rademacher
 ratfor
 repl
 repo
+representability
 representable
 rescaled
 resummation
@@ -245,6 +256,7 @@ scf
 schrodinger
 seitz
 semidefinite
+semiempirical
 sg
 sgd
 shi
@@ -276,9 +288,11 @@ tritone
 typeclass
 ui
 uncomment
+uncountably
 unproject
 variational
 vibrational
+virial
 vit
 vterm
 wasserstein
@@ -289,6 +303,7 @@ wavevector
 wavevectors
 webpage
 wechat
+weizsacker
 worktree
 writegood
 writeroom
