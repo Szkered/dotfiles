@@ -377,7 +377,20 @@ flake8+autoflake+yapf
     "if" #'python-fix-imports))
 #+end_src
 
-** C/C++
+** C/C++/CUDA
+start LSP for cuda
+#+begin_src emacs-lisp
+(require 'lsp-mode)
+(add-hook 'cuda-mode-hook #'lsp-deferred)
+#+end_src
+
+*** auto-format
+#+BEGIN_SRC emacs-lisp
+(add-hook! 'before-save-hook
+    (when (eq major-mode 'cuda-mode)
+      (+format/buffer)))
+#+END_SRC
+
 ** Debugger Adapter (DAP)
 *** keybinds
 #+BEGIN_SRC emacs-lisp
