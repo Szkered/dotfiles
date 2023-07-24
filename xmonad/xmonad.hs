@@ -195,7 +195,7 @@ myBorderWidth = 3
 myWorkspaces = map show [1 .. 9]
 
 myStartupHook = do
-  spawn "exec ~/dotfiles/lock.sh"
+  -- spawn "exec ~/dotfiles/lock.sh"
   spawnOnce "nitrogen --restore"
   spawnOnce "picom -b"
   spawnOnce "fcitx5"
