@@ -1,4 +1,4 @@
-personal_ws-1.1 en 314
+personal_ws-1.1 en 320
 Riesz
 Stiefel
 ableton
@@ -32,6 +32,7 @@ backend
 basis
 bazel
 beamer
+benchmarking
 bernstein’s
 biblio
 bibtex
@@ -142,6 +143,7 @@ invertible
 i've
 ising
 jacobian
+jacobians
 jax
 jaxpr
 jerzy
@@ -163,6 +165,8 @@ langlands
 lattices
 let's
 lindenstrauss
+linearization
+linearize
 lipschitz
 localised
 lyapunov
@@ -230,8 +234,10 @@ projectivity
 pseudopotential
 pseudopotentials
 pseudospectral
+pushforwards
 putint
 py
+pyscf
 quadratically
 quadric
 quadrics

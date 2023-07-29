@@ -175,8 +175,8 @@ config =
                            -- low battry threshold
                            "-A",
                            "5",
-                           "-a",
-                           "notify-send -u critical 'Battery running out!!'",
+                           -- "-a",
+                           -- "notify-send -u critical 'Battery running out!!'",
                            -- discharging status
                            "-o",
                            "(<timeleft>)",
