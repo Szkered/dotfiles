@@ -56,7 +56,8 @@
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(setq doom-theme 'lambda-light-faded)
+;; (setq doom-theme 'lambda-light-faded)
+(setq doom-theme 'doom-flatwhite)
 #+END_SRC
 
 *** more themes

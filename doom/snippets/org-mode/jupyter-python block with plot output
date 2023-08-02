@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: jupyter-python block with plot
+# key: jp
+# --
+
+#+BEGIN_SRC jupyter-python :session $1 :async yes :exports both :file $2.png
+$0
+#+END_SRC
