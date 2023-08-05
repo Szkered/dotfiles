@@ -1,8 +1,9 @@
-personal_ws-1.1 en 320
+personal_ws-1.1 en 336
 Riesz
 Stiefel
 ableton
 adjoint
+adjoints
 anisotropic
 ansatz
 anticommutation
@@ -27,6 +28,7 @@ auth
 autoflake
 automorphisms
 autoregressive
+autoregressively
 azimuthal
 backend
 basis
@@ -38,6 +40,7 @@ biblio
 bibtex
 bijection
 bijective
+bijectivity
 boson
 bosonic
 bosons
@@ -47,6 +50,7 @@ cayley
 centred
 centroid
 chatgpt
+checkpointing
 chernoff's
 citar
 cli
@@ -96,6 +100,7 @@ env
 eos
 equidensity
 equivariance
+evolutions
 excitations
 extremal
 feedforward
@@ -126,6 +131,7 @@ gateaux
 hacky
 hartree
 hellmann
+hessians
 hidpi
 hoeffding
 hoeffding's
@@ -187,12 +193,14 @@ monoatomic
 monovalent
 msmtp
 multicomponent
+multinomial
 multipole
 multiscale
 nanotubes
 nesbet's
 nesterov
 netket
+newsam
 noether
 nondimensionalize
 nondimensionalized
@@ -216,6 +224,7 @@ overfit
 pacman
 parallelepiped
 paramagnetism
+parameterization
 parameterizing
 pdfs
 periodization
@@ -227,8 +236,10 @@ planewave
 planewaves
 pontryagin
 pre
+preaccumulations
 precomputed
 prefactor
+prevalues
 projective
 projectivity
 pseudopotential
@@ -245,7 +256,10 @@ quantized
 quantizes
 quasimomentum
 quaternion
+qubit
+qubits
 rademacher
+ramsdell
 ratfor
 repl
 repo
@@ -260,6 +274,7 @@ saika
 scalable
 scf
 schrodinger
+schur
 seitz
 semidefinite
 semiempirical
@@ -296,6 +311,7 @@ ui
 uncomment
 uncountably
 unproject
+upperbound
 variational
 vibrational
 virial
