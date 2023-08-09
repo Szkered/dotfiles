@@ -1,0 +1,9 @@
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = haskell-*  # This means the hook is triggered for any haskell package upgrade.
+
+[Action]
+Description = Recompiling xmobar after update...
+When = PostTransaction
+Exec = /usr/bin/sh -c 'ghc -threaded -dynamic --make /home/zekun/dotfiles/xmobar/xmobar.hs'

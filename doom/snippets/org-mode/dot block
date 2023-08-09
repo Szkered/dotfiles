@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: dot block
+# key: dd
+# --
+
+#+BEGIN_SRC dot :file $1.png :cmdline -Kdot -Tpng :noweb yes :var input=$2
+\$input
+#+END_SRC

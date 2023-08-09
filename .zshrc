@@ -9,6 +9,7 @@ export PATH="$PATH:$HOME/go/bin"
 # quick command
 alias remap="~/dotfiles/remap.sh; xset r rate 250 60"
 alias vpn="~/dotfiles/vpn.sh"
+alias vpn_nus="~/dotfiles/vpn_nus.sh"
 alias pkg_pull="~/dotfiles/pacman-sync/pkg_pull.sh"
 alias pkg_push="~/dotfiles/pacman-sync/pkg_push.sh"
 
