@@ -1,0 +1,4 @@
+# key: m
+# name: python docstring inline math
+# --
+:math:\`$0\`
