@@ -5,6 +5,5 @@
 py_library(
     name = "$1",
     srcs = ["$1.py"],
-    visibility = ["//visibility:public"],
     deps = [$2],
 )$0
