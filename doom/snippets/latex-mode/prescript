@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: prescript
+# key: ps
+# --
+\prescript{$1}{$2}{$0}

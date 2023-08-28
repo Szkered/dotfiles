@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: docstring block math
+# key: mm
+# --
+.. math::
+$0
