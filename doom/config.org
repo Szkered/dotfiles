@@ -961,7 +961,19 @@ add a keybind
 
 (map! :n "na" 'org-agenda)
 #+END_SRC
-
+* Edit anywhere on the web
+#+BEGIN_SRC emacs-lisp :tangle (if (fboundp 'my/tangle-conditionally) (my/tangle-conditionally "packages.el") "no")
+(package! atomic-chrome)
+#+END_SRC
+#+BEGIN_SRC emacs-lisp
+(use-package! atomic-chrome
+  :config
+  (atomic-chrome-start-server)
+  (setq atomic-chrome-buffer-open-style 'full)
+  (setq atomic-chrome-url-major-mode-alist
+        '(("github\\.com" . gfm-mode)
+          ("overleaf\\.com" . latex-mode))))
+#+END_SRC
 * Research Workflow
 So what is =research= anyway? It is the =compression= of information by human brain. There are two kinds of =compression=:
 1. compression of inputs: people also call this =insight=.

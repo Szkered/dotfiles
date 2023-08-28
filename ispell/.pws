@@ -1,9 +1,10 @@
-personal_ws-1.1 en 338
+personal_ws-1.1 en 346
 Riesz
 Stiefel
 ableton
 adjoint
 adjoints
+algo
 anisotropic
 ansatz
 anticommutation
@@ -30,6 +31,7 @@ automorphisms
 autoregressive
 autoregressively
 azimuthal
+azuma's
 backend
 basis
 bazel
@@ -44,12 +46,15 @@ bijectivity
 boson
 bosonic
 bosons
+boundedness
 bravais
 broglie
+cantelli
 cayley
 centred
 centroid
 chatgpt
+chebyshev
 chebyshev's
 checkpointing
 chernoff
@@ -86,6 +91,7 @@ discretization
 discretize
 discretizes
 dmenu
+donsker's
 dotfiles
 drude
 dulong
@@ -124,6 +130,7 @@ generalisation
 generalizability
 generalizable
 getint
+glivenko
 gmail
 googleusercontent
 graphene
@@ -180,6 +187,7 @@ localised
 lyapunov
 magit
 marginnotes
+mcdiarmid's
 mcweenyan
 meissner
 millgram
