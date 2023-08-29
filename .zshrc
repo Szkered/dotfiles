@@ -24,6 +24,7 @@ if [[ $(uname) == "Linux" ]]; then
     source /usr/share/nvm/init-nvm.sh
 else # is mac
     export PATH="/Applications/Emacs.app/Contents/MacOS/bin:$PATH"
+    export PATH="/usr/local/sbin:$PATH"
 fi
 
 export BROWSER=eaf-browser
