@@ -317,8 +317,8 @@ flake8+autoflake+yapf
 
 *** LSP over tramp
 #+BEGIN_SRC emacs-lisp
-;; (after! tramp
-;;   (add-to-list 'tramp-remote-path ""))
+(after! tramp
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
