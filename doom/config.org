@@ -1024,7 +1024,7 @@ So what is =research= anyway? It is the =compression= of information by human br
 ** paths
 I will use Dropbox as this provides integration with Overleaf.
 #+BEGIN_SRC emacs-lisp
-(defconst my-bib-libraries (list "~/Dropbox/Apps/Overleaf/lib.bib")) ; bib databases.
+(defconst my-bib-libraries (list "~/Dropbox/notes/roam/research/lib.bib")) ; bib databases.
 (defconst my-main-bib-library (nth 0 my-bib-libraries))              ; The main db is always the first
 (defconst my-main-pdfs-library-paths `("~/Dropbox/bib/papers/inbox/" "~/Dropbox/bib/papers/read/" "~/Dropbox/bib/papers/cited/" "~/Dropbox/bib/textbooks/"))
 (defconst my-main-pdfs-library-path (nth 0 my-main-pdfs-library-paths))
@@ -1153,7 +1153,7 @@ nicer pop-up
 
 #+BEGIN_SRC emacs-lisp
 (setq biblio-download-directory "~/Dropbox/Library/")
-(setq citar-bib "~/Dropbox/Apps/Overleaf/lib.bib")
+(setq citar-bib "~/Dropbox/notes/roam/research/lib.bib")
 
 (defun biblio-current-buffer ()
   "Call an interactive function with the current buffer name."
@@ -1220,7 +1220,7 @@ add entry then put the attachment in the right place
 (use-package! citar
   ;; :hook (doom-after-init-modules . citar-refresh)
   :custom
-  (citar-bibliography '("~/Dropbox/Apps/Overleaf/lib.bib"))
+  (citar-bibliography '("~/Dropbox/notes/roam/research/lib.bib"))
   :hook
   (LaTeX-mode . citar-capf-setup)
   (org-mode . citar-capf-setup)
