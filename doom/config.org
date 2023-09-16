@@ -308,11 +308,13 @@ NOTE: need to disable ~read-only-mode~
 *** auto-format
 flake8+autoflake+yapf
 #+BEGIN_SRC emacs-lisp
-(set-formatter! 'yapf  "yapf " :modes '(python-mode))
-
-(add-hook! 'before-save-hook
-    (when (eq major-mode 'python-mode)
-      (+format/buffer)))
+(after! apheleia
+  (setf (alist-get 'isort apheleia-formatters)
+        '("isort" "--stdout" "-"))
+  (setf (alist-get 'yapf apheleia-formatters)
+        '("yapf"))
+  (setf (alist-get 'python-mode apheleia-mode-alist)
+        '(isort yapf)))
 #+END_SRC
 
 *** LSP over tramp
@@ -927,43 +929,43 @@ add a keybind
 
 *** agenda category icon list
 #+begin_src emacs-lisp
-(setq org-agenda-category-icon-alist
-      `(
-        (".*gtd.*" ,(list (all-the-icons-faicon "pencil")) nil nil :ascent center)
-        (".*research.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
-        (".*sail.*" ,(list (all-the-icons-octicon "briefcase")) nil nil :ascent center)
-        (".*game_ai.*" ,(list (all-the-icons-octicon "briefcase")) nil nil :ascent center)
-        (".*neuri.*" ,(list (all-the-icons-octicon "briefcase")) nil nil :ascent center)
-        (".*career.*" ,(list (all-the-icons-octicon "briefcase")) nil nil :ascent center)
-        (".*math.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
-        (".*ai4sci.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
-        (".*phd_application.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
-        (".*reinforcement_learning.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
-        (".*cvx.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
-        (".*geometry.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
-        (".*quantum.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
-        (".*nus.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
-        (".*MA.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
-        (".*music.*" ,(list (all-the-icons-faicon "music")) nil nil :ascent center)
-        (".*health.*" ,(list (all-the-icons-octicon "pulse")) nil nil :ascent center)
-        (".*habit.*" ,(list (all-the-icons-octicon "pulse")) nil nil :ascent center)
-        (".*workouts.*" ,(list (all-the-icons-octicon "pulse")) nil nil :ascent center)
-        (".*nutrition.*" ,(list (all-the-icons-octicon "pulse")) nil nil :ascent center)
-        (".*mindfulness.*" ,(list (all-the-icons-octicon "pulse")) nil nil :ascent center)
-        ;; ("my_fin" ,(list (all-the-icons-faicon "usd")) nil nil :ascent center)
-        (".*fin.*" ,(list (all-the-icons-faicon "line-chart" :height 0.68)) nil nil :ascent center)
-        (".*ml.*" ,(list (all-the-icons-octicon "hubot")) nil nil :ascent center)
-        (".*productivity.*" ,(list (all-the-icons-faicon "terminal")) nil nil :ascent center)
-        (".*cs.*" ,(list (all-the-icons-faicon "terminal")) nil nil :ascent center)
-        (".*cpp.*" ,(list (all-the-icons-faicon "terminal")) nil nil :ascent center)
-        ;; (".*schedule.*" ,(list (all-the-icons-faicon "commenting")) nil nil :ascent center)
-        (".*schedule.*" ,(list (all-the-icons-octicon "calendar")) nil nil :ascent center)
-        (".*blockchain.*" ,(list (all-the-icons-faicon "lock")) nil nil :ascent center)
-        ("vocab" ,(list (all-the-icons-faicon "book")) nil nil :ascent center)
-        (".*read.*" ,(list (all-the-icons-faicon "book")) nil nil :ascent center)
-        (".*cooking.*" ,(list (all-the-icons-faicon "fire")) nil nil :ascent center)
-        (".*" ,(list (all-the-icons-faicon "check")) nil nil :ascent center)
-        ))
+(after! all-the-icons
+  (setq org-agenda-category-icon-alist
+        `(
+          (".*gtd.*" ,(list (all-the-icons-faicon "pencil")) nil nil :ascent center)
+          (".*research.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
+          (".*sail.*" ,(list (all-the-icons-octicon "briefcase")) nil nil :ascent center)
+          (".*game_ai.*" ,(list (all-the-icons-octicon "briefcase")) nil nil :ascent center)
+          (".*neuri.*" ,(list (all-the-icons-octicon "briefcase")) nil nil :ascent center)
+          (".*career.*" ,(list (all-the-icons-octicon "briefcase")) nil nil :ascent center)
+          (".*math.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
+          (".*ai4sci.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
+          (".*phd_application.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
+          (".*reinforcement_learning.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
+          (".*cvx.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
+          (".*geometry.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
+          (".*quantum.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
+          (".*nus.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
+          (".*MA.*" ,(list (all-the-icons-octicon "mortar-board")) nil nil :ascent center)
+          (".*music.*" ,(list (all-the-icons-faicon "music")) nil nil :ascent center)
+          (".*health.*" ,(list (all-the-icons-octicon "pulse")) nil nil :ascent center)
+          (".*habit.*" ,(list (all-the-icons-octicon "pulse")) nil nil :ascent center)
+          (".*workouts.*" ,(list (all-the-icons-octicon "pulse")) nil nil :ascent center)
+          (".*nutrition.*" ,(list (all-the-icons-octicon "pulse")) nil nil :ascent center)
+          (".*mindfulness.*" ,(list (all-the-icons-octicon "pulse")) nil nil :ascent center)
+          ;; ("my_fin" ,(list (all-the-icons-faicon "usd")) nil nil :ascent center)
+          (".*fin.*" ,(list (all-the-icons-faicon "line-chart" :height 0.68)) nil nil :ascent center)
+          (".*ml.*" ,(list (all-the-icons-octicon "hubot")) nil nil :ascent center)
+          (".*productivity.*" ,(list (all-the-icons-faicon "terminal")) nil nil :ascent center)
+          (".*cs.*" ,(list (all-the-icons-faicon "terminal")) nil nil :ascent center)
+          (".*cpp.*" ,(list (all-the-icons-faicon "terminal")) nil nil :ascent center)
+          ;; (".*schedule.*" ,(list (all-the-icons-faicon "commenting")) nil nil :ascent center)
+          (".*schedule.*" ,(list (all-the-icons-octicon "calendar")) nil nil :ascent center)
+          (".*blockchain.*" ,(list (all-the-icons-faicon "lock")) nil nil :ascent center)
+          ("vocab" ,(list (all-the-icons-faicon "book")) nil nil :ascent center)
+          (".*read.*" ,(list (all-the-icons-faicon "book")) nil nil :ascent center)
+          (".*cooking.*" ,(list (all-the-icons-faicon "fire")) nil nil :ascent center)
+          (".*" ,(list (all-the-icons-faicon "check")) nil nil :ascent center))))
 #+end_src
 
 ** writeroom mode
