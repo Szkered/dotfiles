@@ -317,6 +317,11 @@ flake8+autoflake+yapf
         '(isort yapf)))
 #+END_SRC
 
+over tramp
+#+BEGIN_SRC emacs-lisp
+(setq apheleia-remote-algorithm 'local)
+#+END_SRC
+
 *** LSP over tramp
 #+BEGIN_SRC emacs-lisp
 (after! tramp

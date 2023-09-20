@@ -1,4 +1,4 @@
-personal_ws-1.1 en 347
+personal_ws-1.1 en 354
 Riesz
 Stiefel
 ableton
@@ -75,10 +75,12 @@ configs
 coord
 coplanar
 cpufreq
+cramer
 customizable
 debye
 degeneracies
 denoising
+derandomization
 determinantal
 dev
 diagonalisation
@@ -97,6 +99,7 @@ dotfiles
 drude
 dulong
 dunst
+eigen
 eigenfunction
 eigenfunctions
 eigenstate
@@ -113,6 +116,7 @@ evolutions
 excitations
 extremal
 feedforward
+fenchel
 ferminet
 fermion
 fermionic
@@ -158,6 +162,7 @@ invariants
 invertible
 i've
 ising
+iteratively
 jacobian
 jacobians
 jax
@@ -203,6 +208,7 @@ monads
 monoatomic
 monovalent
 msmtp
+multicommodity
 multicomponent
 multinomial
 multipole
@@ -230,6 +236,7 @@ org
 organising
 orthogonalisation
 orthogonalization
+orthogonalized
 orthonormal
 overfit
 pacman
