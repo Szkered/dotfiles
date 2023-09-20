@@ -159,7 +159,10 @@
        (javascript
         +lsp
         +tree-sitter)            ; all(hope(abandon(ye(who(enter(here))))))
-       ;;julia                   ; a better, faster MATLAB
+       (julia
+        +lsp
+        +tree-sitter
+        +snail)                  ; a better, faster MATLAB
        ;;kotlin                  ; a better, slicker Java(Script)
        (latex
         +lsp
@@ -230,7 +233,7 @@
 
        :private
        spacemacs)
-       
+
 
 ;; conditional tangling, so that package.el can be merged into config.org
 (setq my/tangle-file "packages.el")
