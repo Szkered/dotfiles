@@ -125,7 +125,7 @@ No line number.
 (defun set-laptop-fonts ()
   (setq doom-font (font-spec :family "Iosevka Term SS04" :size 18 :dpi 116)
         doom-variable-pitch-font (font-spec :family "CMU Serif" :size 20 :dpi 116)
-        ;; doom-unicode-font (font-spec :family "Iosevka Nerd Font" :size 18 :dpi 116)
+        doom-unicode-font (font-spec :family "Iosevka Nerd Font" :size 18 :dpi 116)
         doom-big-font (font-spec :family "Iosevka Term SS04" :size 26 :dpi 116)))
 #+END_SRC
 
@@ -134,7 +134,7 @@ mac
 (defun set-mac-fonts ()
   (setq doom-font (font-spec :family "Iosevka Term SS04" :size 18 :dpi 220)
         doom-variable-pitch-font (font-spec :family "CMU Serif" :size 20 :dpi 220)
-        ;; doom-unicode-font (font-spec :family "Iosevka Nerd Font" :dpi 220)
+        doom-unicode-font (font-spec :family "Iosevka Nerd Font" :dpi 220)
         doom-big-font (font-spec :family "Iosevka Term SS04" :size 26 :dpi 220)))
 #+END_SRC
 
@@ -143,7 +143,7 @@ mac
 (defun set-monitor-fonts ()
   (setq doom-font (font-spec :family "Iosevka Term SS04" :size 26 :dpi 163)
         doom-variable-pitch-font (font-spec :family "CMU Serif" :size 30 :dpi 163)
-        ;; doom-unicode-font (font-spec :family "Iosevka Nerd Font" :dpi 163)
+        doom-unicode-font (font-spec :family "Iosevka Nerd Font" :dpi 163)
         doom-big-font (font-spec :family "Iosevka Term SS04" :size 32 :dpi 163)))
 #+END_SRC
 
