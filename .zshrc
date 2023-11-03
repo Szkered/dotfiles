@@ -36,3 +36,9 @@ ZSH_HISTORY_PROJ="${HOME}/.zsh_history_proj"
 ZSH_HISTORY_FILE_ENC_NAME="zsh_history"
 ZSH_HISTORY_FILE_ENC="${ZSH_HISTORY_PROJ}/${ZSH_HISTORY_FILE_ENC_NAME}"
 ZSH_HISTORY_COMMIT_MSG="latest $(date)"
+
+
+export PATH=/opt/cuda/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/opt/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"

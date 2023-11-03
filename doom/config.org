@@ -322,6 +322,19 @@ over tramp
 (setq apheleia-remote-algorithm 'local)
 #+END_SRC
 
+*** LSP exclude file from watcher
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'lsp-mode
+  (add-to-list 'lsp-file-watch-ignored "[/\\\\]node_modules$")
+  (add-to-list 'lsp-file-watch-ignored "[/\\\\].mypy_cache$")
+  (add-to-list 'lsp-file-watch-ignored "[/\\\\].ob-jupyter$")
+  (add-to-list 'lsp-file-watch-ignored "[/\\\\]_region_.prv$")
+  (add-to-list 'lsp-file-watch-ignored "[/\\\\]build$")
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]bazel-.*\\'")
+  (add-to-list 'lsp-file-watch-ignored "[/\\\\]bazel-.*\\'")
+  )
+#+END_SRC
+
 *** LSP over tramp
 #+BEGIN_SRC emacs-lisp
 (after! tramp
@@ -331,6 +344,7 @@ over tramp
 #+BEGIN_SRC emacs-lisp
 (setq enable-remote-dir-locals t)
 (setq enable-local-variables :all)
+(setq projectile-indexing-method 'native)
 
 (defun enable-pyright-remote ()
   "Enable pyright lsp over tramp."
