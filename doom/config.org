@@ -830,8 +830,11 @@ add a keybind
 *** speed up org-mode
 ~org-roam~ encourages users to have a lot of files, since each file represent a zettel which encapsulate an atomic idea. This will slow down somethings.
 #+BEGIN_SRC emacs-lisp
+(setq org-agenda-dim-blocked-tasks nil)
 (setq org-inhibit-startup t)
 (setq org-agenda-inhibit-startup t)
+(setq org-agenda-use-tag-inheritance nil)
+(setq org-agenda-ignore-properties '(effort appt stats category))
 #+END_SRC
 
 *** daily/weekly agenda format
