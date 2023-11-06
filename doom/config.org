@@ -625,6 +625,10 @@ keybind
   :hook (org-mode . org-auto-tangle-mode))
 #+end_src
 
+#+BEGIN_SRC emacs-lisp
+(setq org-auto-tangle-default t)
+#+END_SRC
+
 ** TODO org-special-block-extra
 http://alhassy.com/org-special-block-extras/
 
@@ -1481,7 +1485,7 @@ Hooks for nice visual
 Also, Emacs does not handle long text well, so we need to turn on ~auto-fill-mode~
 #+BEGIN_SRC emacs-lisp
 (add-hook! org-auctex-mode
-  (variable-pitch-mode t)
+  (mixed-pitch-mode t)
   ;; (visual-fill-column-mode t)
   ;; (setq visual-fill-column-width 132)
   (setq fill-column 132)

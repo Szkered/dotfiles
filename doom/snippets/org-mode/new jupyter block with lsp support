@@ -3,6 +3,6 @@
 # key: j
 # --
 
-#+BEGIN_SRC jupyter-python :session $1 :async yes
+#+BEGIN_SRC jupyter-python :session $1 :async yes :tangle no :exports both
 $0
 #+END_SRC
