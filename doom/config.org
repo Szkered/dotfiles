@@ -506,6 +506,27 @@ make inline images smaller when exported
 (setq org-latex-image-default-width ".5\\linewidth")
 #+END_SRC
 
+syntax highlighting
+#+BEGIN_SRC emacs-lisp
+(require 'org)
+(require 'ox-latex)
+(add-to-list 'org-latex-packages-alist '("" "minted"))
+(setq org-latex-listings 'minted)
+(setq org-src-fontify-natively t)
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((R . t)
+   (latex . t)))
+#+END_SRC
+
+triple call to ensure TOC and reference are generated correctly
+#+BEGIN_SRC emacs-lisp
+(setq org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+#+END_SRC
+
 ** Create a simple screenshot from an org-buffer
 Store the screenshot in the same folder as the current org buffer.
 #+BEGIN_SRC emacs-lisp
