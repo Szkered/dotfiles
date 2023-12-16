@@ -1,4 +1,4 @@
-personal_ws-1.1 en 376
+personal_ws-1.1 en 389
 Riesz
 Stiefel
 ableton
@@ -158,6 +158,8 @@ hoeffding's
 hohenberg
 homography
 hu
+hypergraph
+idempotency
 iff
 integrable
 integrand
@@ -202,6 +204,7 @@ localised
 lowerbound
 lyapunov
 magit
+makespan
 marginnotes
 mcdiarmid's
 mcweenyan
@@ -216,6 +219,7 @@ modelling
 monadic
 monads
 monoatomic
+monomial
 monomials
 monovalent
 msmtp
@@ -241,6 +245,8 @@ nonlocal
 normalisation
 normalizable
 noter
+noumena
+noumenal
 nyquist
 obara
 octant
@@ -268,8 +274,10 @@ pinns
 planewave
 planewaves
 pointwise
+polytime
 pontryagin
 pontryagin's
+posteriori
 pre
 preaccumulations
 precomputed
@@ -281,6 +289,7 @@ projectivity
 pseudopotential
 pseudopotentials
 pseudospectral
+pushforward
 pushforwards
 putint
 py
@@ -327,6 +336,7 @@ spacemacs
 spinors
 src
 strymon
+subtrace
 supercell
 supermatrices
 supremum
@@ -345,6 +355,7 @@ traversable
 treemacs
 trifocal
 tritone
+tweedie's
 typeclass
 ui
 uncomment
@@ -357,6 +368,7 @@ vibrational
 virial
 vit
 vterm
+wannier
 wasserstein
 wavefunction
 wavefunctions
@@ -372,6 +384,7 @@ writeroom
 xmonad
 xrandr
 yapf
+yukawa
 zekun
 zettel
 zotra
