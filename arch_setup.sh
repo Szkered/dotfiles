@@ -47,7 +47,7 @@ sudo systemctl enable --now auto-cpufreq.service
 sudo pacman -S --noconfirm --needed ttc-iosevka ttc-iosevka-ss04 ttf-fira-code powerline-fonts
 
 # emacs
-paru --skipreview -S --noconfirm --needed emacs-gtk3-native-comp-git-stable
+# paru --skipreview -S --noconfirm --needed emacs-gtk3-native-comp-git-stable
 
 # emacs server
 systemctl --user enable emacs
