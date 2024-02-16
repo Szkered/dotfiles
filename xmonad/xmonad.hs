@@ -39,11 +39,11 @@ import           XMonad.Layout.Spacing          ( Border(Border)
                                                 )
 import           XMonad.Layout.Spiral
 import           XMonad.Layout.ThreeColumns     ( ThreeCol(ThreeColMid) )
+import           XMonad.Operations              ( unGrab )
 import           XMonad.Util.EZConfig           ( additionalKeysP )
 import qualified XMonad.Util.ExtensibleState   as XS
 import           XMonad.Util.Loggers
 import           XMonad.Util.SpawnOnce          ( spawnOnce )
-import           XMonad.Util.Ungrab             ( unGrab )
 
 -- Color scheme: Ayu Dark
 commonBg, commonFg, white, red, red2, red3, orange, orange2, yellow, yellow2, yellow3, green, green2, blue, blue2, cyan, teal, teal2, purple, purple2, magenta, grey
