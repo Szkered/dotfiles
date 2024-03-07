@@ -1,4 +1,4 @@
-personal_ws-1.1 en 394
+personal_ws-1.1 en 398
 Riesz
 Stiefel
 ableton
@@ -76,6 +76,7 @@ computability
 computable
 config
 configs
+convolutional
 coord
 coplanar
 cpufreq
@@ -121,6 +122,7 @@ equidensity
 equivariance
 evolutions
 excitations
+expressivity
 extremal
 feedforward
 fenchel
@@ -267,6 +269,7 @@ parallelizing
 paramagnetism
 parameterization
 parameterizing
+pdes
 pdfs
 periodization
 permutational
@@ -354,6 +357,7 @@ tfidf
 thouless
 tldr
 todo
+toeplitz
 transferability
 translationally
 traversable
